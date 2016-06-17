@@ -12,14 +12,11 @@ import { Router, Route, IndexRoute, Link, IndexLink, hashHistory } from 'react-r
 
 import Styles from './_App.scss';
 import App from './page/App/App';
-/*var scale = 1 / devicePixelRatio;
-	document.querySelector('meta[name="viewport"]').setAttribute('content','initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
-	document.documentElement.style.fontSize = document.documentElement.clientWidth / 10 + 'px';
-*/
-//document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+import Create from './page/Create/Create';
 
 render((
   <Router history={hashHistory}>
     <Route path="/" component={App}/>
+    <Route path="/create/:type/:title" component={Create}/>
   </Router>
 ), document.getElementById('app'))

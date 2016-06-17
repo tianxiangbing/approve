@@ -7,6 +7,10 @@ $fontFamily:'Microsoft Yahei', 'Hiragino Sans GB', Helvetica;
   @return $px/$baseFontSize * 1rem;
 }
 
+@function pxToRem2($px){
+  @return pxToRem($px*2)
+}
+
 @mixin font-dpr($font-size){
     font-size: $font-size;
 
@@ -80,7 +84,9 @@ html,
 	body{
 	margin:0;padding:0;
 	.body{
+		color:#222222;
 		@extend .fontSize1;
+		font-family: $fontFamily;
 	}
 }
 *{box-sizing:border-box;}
@@ -182,5 +188,7 @@ input,textarea{
 	    box-sizing: border-box;
 	    z-index: $zIndex;
 	    pointer-events: none;
+	    top:0;
+	    left:0;
 	}
 }

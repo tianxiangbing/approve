@@ -34,6 +34,10 @@ var config = {
     resolve: {
         modulesDirectories: modulesDirectories,
         extensions: ['', '.js', '.jsx', 'css']
+        root: [
+            path.resolve(__dirname),
+            path.resolve(__dirname, 'Component')
+        ]
     },
     module: {
         loaders: [{

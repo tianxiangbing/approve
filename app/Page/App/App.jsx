@@ -149,7 +149,19 @@ export default class App extends Component{
 				</div>
 				<div className="menu">
 				<a><i className="iconfont icon-111"/>待我审批</a>
-				<a><i className="iconfont icon-112"/>我发起的</a>
+				<a><i className="iconfont icon-112 ifuck"/>我发起的</a>
+				</div>
+				<a className="followme">知会我的<i className="iconfont icon-xiayibu"/></a>
+				<div className="menu-list">
+					<a href="/#create/0/请假"><i className="iconfont icon-110"/>请假</a>
+					<a href="/#create/1/调休"><i className="iconfont icon-107"/>调休</a>
+					<a href="/#create/2/外出"><i className="iconfont icon-108"/>外出</a>
+					<a href="/#create/3/出差"><i className="iconfont icon-109"/>出差</a>
+					<a href="/#create/4/报销"><i className="iconfont icon-iconfontshenpicaigou02"/>报销</a>
+					<a href="/#create/5/采购"><i className="iconfont icon-iconfontshenpicaigou01"/>采购</a>
+					<a href="/#create/6/通用"><i className="iconfont icon-shenpi03"/>通用</a>
+					<a><i className="iconfont"/>　</a>
+					<a><i className="iconfont"/>　</a>
 				</div>
                 {this.state.dialog?this.renderDialog():undefined}
 			</div>
