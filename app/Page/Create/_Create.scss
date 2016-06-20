@@ -1,0 +1,77 @@
+@import 'base';
+/* 申请 */
+.txt-reason{
+	@include border(#e2e2e2,0, 1px 0,1);
+	textarea{
+		width:100%;
+		height: pxToRem2(120);
+		@extend .fontSize2;
+		padding:pxToRem2(14) pxToRem2(15);
+		margin:pxToRem2(15) 0 0 0;
+		border:none;
+	}
+}
+
+.row{
+	margin:pxToRem2(15) 0;
+	background-color: $whiteColor;
+	padding:pxToRem2(14);
+	@include border(#e2e2e2,0, 1px 0,1);
+	@extend .fontSize2;
+	input{
+		border:none;
+		@extend .fontSize2;
+		float:right;
+		text-align: right;
+		&:disabled {
+			background-color: $whiteColor;
+		}
+	}
+	&.sum-price{
+		background-color:transparent;
+		padding-top:0;
+		padding-bottom:0;
+		&:before{
+			border:none;
+		} 
+	}
+}
+.detail{
+	h3{
+		@extend .fontSize13;
+		padding:pxToRem2(9) pxToRem2(14) pxToRem2(14) pxToRem2(14);
+		a{
+			float:right;
+			color:#FA565A;
+		}
+	}
+	.formbox{
+		@include border(#e2e2e2,0, 1px 0 0 0,1);
+		margin-bottom:pxToRem2(14);
+		.rowinput{
+			margin:0;
+			background-color: $whiteColor;
+			line-height: pxToRem2(44);
+				@extend .fontSize2;
+			padding:0 pxToRem2(14);
+			@include border(#e2e2e2,0, 0 0 1px 0,1);
+			input{
+				text-align: left;
+				width:pxToRem2(250);
+				float:right;
+				border:none;
+				height:pxToRem2(44);
+				line-height: pxToRem2(44);
+				@extend .fontSize2;
+			}
+		}
+	}
+}
+.add-row{
+	text-align:center;
+	color:#FA565A;
+	i{
+		@extend .fontSize1;
+		margin-right: pxToRem2(11);
+	}
+}

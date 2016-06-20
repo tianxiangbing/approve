@@ -14,7 +14,7 @@ import Config from 'config';
 import cookie from 'react-cookie';
 let {Component}= React;
 //import 'whatwg-fetch';
-import Dialog from '../../Component/Dialog';
+import Dialog from 'Component/Dialog';
 
 export default class App extends Component{
 	constructor(props){

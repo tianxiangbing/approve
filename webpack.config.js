@@ -33,10 +33,10 @@ var config = {
     },
     resolve: {
         modulesDirectories: modulesDirectories,
-        extensions: ['', '.js', '.jsx', 'css']
+        extensions: ['', '.js', '.jsx', 'css'],
         root: [
             path.resolve(__dirname),
-            path.resolve(__dirname, 'Component')
+            path.resolve(__dirname, 'app')
         ]
     },
     module: {

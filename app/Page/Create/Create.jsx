@@ -1,7 +1,7 @@
 import React from 'react';
 let {Component} = React;
 import Helmet from "react-helmet";
-import Caigou from '../../Component/Approve/Caigou';
+import Caigou from 'Component/Approve/Caigou';
 
 export default class Create extends Component{
 	constructor(props){
