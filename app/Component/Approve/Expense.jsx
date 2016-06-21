@@ -1,11 +1,9 @@
 import React from 'react';
-let {Component} =  React;
-import CaigouDetail from './CaigouDetail';
+let {Component} = React;
+import ExpenseDetail from './ExpenseDetail';
 
-import Config from 'config';
-
-export default class Caigou extends Component{
-
+export default class Expense extends Component{
+	
 	constructor(props){
 		super(props);
 		this.state = {detail:[{key:+new Date()}],caigouList:[],sumPrice:0,expectPayDate:undefined};
@@ -59,21 +57,14 @@ export default class Caigou extends Component{
 	render(){
 		return (
 			<div>
-				<div className="txt-reason">
-					<textarea ref="applyResean"  maxLength ="60" placeholder="请输入采购事由（必填）"/>
-				</div>
-				<div className="row" onClick={this.setTime.bind(this)}>
-					<span>期望交付日期</span>
-					<input type="text" placeholder="请选择（必填）" value={this.state.expectPayDate} readonly="readonly" disabled="true"/>
-				</div>
 				{
 					this.state.detail.map((item,index)=>{
 						let indx = index+1;
-						return <CaigouDetail ref={"caigouDetail"+index} index={indx} computeMoney={this.computeMoney.bind(this)} item={item} key={item.key} del={this.del.bind(this,index)}/>
+						return <ExpenseDetail ref={"caigouDetail"+index} index={indx} computeMoney={this.computeMoney.bind(this)} item={item} key={item.key} del={this.del.bind(this,index)}/>
 					})
 				}
 				<div className="row add-row" onClick={this.AddRow.bind(this)}>
-					<i className="iconfont icon-113"/>添加采购明细
+					<i className="iconfont icon-113"/>添加报销明细
 				</div>
 				<div className="row sum-price">总价（元）:<span>{this.state.sumPrice}</span></div>
 			</div>

@@ -55,6 +55,7 @@
 				@extend .fontSize2;
 			padding:0 pxToRem2(14);
 			@include border(#e2e2e2,0, 0 0 1px 0,1);
+			position:relative;
 			input{
 				text-align: left;
 				width:pxToRem2(250);
@@ -63,6 +64,9 @@
 				height:pxToRem2(44);
 				line-height: pxToRem2(44);
 				@extend .fontSize2;
+				position: absolute;
+				top:0;
+				right:0;
 			}
 		}
 	}
@@ -73,5 +77,104 @@
 	i{
 		@extend .fontSize1;
 		margin-right: pxToRem2(11);
+	}
+}
+.add-photo{
+	span{
+		color:#B4B4B4;
+		margin-left:pxToRem(10);
+	}
+	i{
+		float: right;
+		font-size: pxToRem2(19);
+		color:#B4B4B4;
+	}
+}
+.btn-submit{
+	background-color:#FA565A;
+	height:pxToRem2(46);
+	border-radius:pxToRem2(46);
+	line-height:pxToRem2(46);
+	@extend .fontSize1;
+	color:#fff;
+	text-align: center;
+	display: block;
+	width:pxToRem2(320);
+	overflow:hidden;
+	margin: 0 auto pxToRem2(16) auto;
+}
+.upload-list{
+	overflow:hidden;
+	.item{
+		width:pxToRem(120);
+		height:pxToRem(120);
+		display:block;
+		float:left;
+		position:relative;
+		margin-top:pxToRem2(14);
+		img{
+			width:100%;
+			height:100%;
+		}
+		margin-right:pxToRem(20);
+		.uploading{
+			@extend .fontSize1;
+			color:#fff;
+			position:absolute;
+			text-align:center;
+			width:100%;
+			height:100%;
+			line-height:pxToRem(120);
+			top:0;
+			background:rgba(0,0,0,.7);
+		}
+		i{
+			position:absolute;
+			right:0;
+			top:0;
+			color:#ff6d70;
+			font-size:pxToRem(46);
+		}
+	}
+}
+.add-people{
+	h4{
+		padding-bottom:pxToRem2(15);
+		span{
+			color:#B4B4B4;
+		}
+	}
+}
+.people-list{
+	overflow:hidden;
+	.item{
+		vertical-align: top;
+		text-align: center;
+		display:inline-block;
+		margin-right: pxToRem2(7);
+		img,i,.img{
+			display: block;
+			height:pxToRem2(46);
+			width:pxToRem2(46);
+			line-height:pxToRem2(46);
+			border-radius: pxToRem2(46);
+			overflow:hidden;
+		}
+		i{
+			border:1px solid #FA565A;
+			@extend .fontSize2;
+			color:#FA565A;
+		}
+		.userName{
+			margin-top:pxToRem2(10);
+			@extend .fontSize1;
+		}
+	}
+	.icon-shenpiliucheng{
+		@extend .fontSize3;
+		height:pxToRem2(46);
+		line-height:pxToRem2(46);
+		margin-right: pxToRem2(7);
+		color:#B4B4B4;
 	}
 }

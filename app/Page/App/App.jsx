@@ -96,8 +96,6 @@ export default class App extends Component{
 		//cookie.save('orgId', obj.orgId, { path: '/' });
 		localStorage.setItem('orgId',obj.orgId);
 		localStorage.setItem('orgName',obj.orgName);
-		this.bindSign();
-		this.updateTime();
 	}
 	expandOrg(){
 		this.setState({expand:!this.state.expand});
