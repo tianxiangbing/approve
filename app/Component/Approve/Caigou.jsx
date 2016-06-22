@@ -11,8 +11,17 @@ export default class Caigou extends Component{
 		this.state = {detail:[{key:+new Date()}],caigouList:[],sumPrice:0,expectPayDate:undefined};
 	}
 	getValues(){
+		let arr=[];
+		this.state.detail.forEach((item,index)=>{
+			let values = this.refs['caigouDetail'+index].getValues();
+			console.log(values)
+			arr.push(values);
+		});
 		return {
-			applyResean:this.refs.applyResean.value
+			applyResean:this.refs.applyResean.value,
+			amount:this.state.sumPrice,
+			expectPayDate:this.state.expectPayDate,
+			detailJArr:arr
 		};
 	}
 	AddRow(){
@@ -39,6 +48,14 @@ export default class Caigou extends Component{
 	}
 	validate(){
 		let returnValue = true;
+		if(this.refs.applyResean.value==""){
+			alert('请输入采购事由');
+			return false;
+		}
+		if(this.state.expectPayDate ==""){
+			alert('请选择期望交付日期');
+			return false;
+		}
 		for (var i = 0 ,l= this.state.detail.length - 1; i <= l; i++) {
 			let item  = this.state.detail[i];
 			let validate = this.refs['caigouDetail'+i].validate();
@@ -69,13 +86,13 @@ export default class Caigou extends Component{
 				{
 					this.state.detail.map((item,index)=>{
 						let indx = index+1;
-						return <CaigouDetail ref={"caigouDetail"+index} index={indx} computeMoney={this.computeMoney.bind(this)} item={item} key={item.key} del={this.del.bind(this,index)}/>
+						return <CaigouDetail detail={this.state.detail} ref={"caigouDetail"+index} index={indx} computeMoney={this.computeMoney.bind(this)} item={item} key={item.key} del={this.del.bind(this,index)}/>
 					})
 				}
 				<div className="row add-row" onClick={this.AddRow.bind(this)}>
 					<i className="iconfont icon-113"/>添加采购明细
 				</div>
-				<div className="row sum-price">总价（元）:<span>{this.state.sumPrice}</span></div>
+				<div className="row sum-price">总价（元）:<span>{this.state.sumPrice.toFixed(2)}</span></div>
 			</div>
 			)
 	}

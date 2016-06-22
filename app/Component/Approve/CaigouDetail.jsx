@@ -39,7 +39,8 @@ export  default  class CaigouDetail extends Component{
 			}
 			this.setState({item:this.state.item})
 		}else if(field == "quantity"){
-			let regStr = /^\d+$/;
+			//let regStr = /^\d+$/;
+			let regStr = /^[0-9]+(\.)?([0-9]{1,2})?$/;
 			if(!regStr.test(value)&&value!=""){
 				this.state.item[field]=this.state.item[field];	
 			}else{
@@ -67,11 +68,16 @@ export  default  class CaigouDetail extends Component{
 		};
 		return returnValue;
 	}
+	getValues(){
+		var returnValues= {};
+		Object.assign(returnValues,this.state.item);
+		return returnValues;
+	}
 	render(){
 		return (
 			<div>
 				<div className="detail" title={this.props.title}>
-					<h3>采购明细({this.props.index}) <a onClick={this.del.bind(this)} className={this.props.index>1?"del":"hide"}>删除</a></h3>
+					<h3>采购明细{this.props.detail.length>1 ?"("+this.props.index+")":undefined} <a onClick={this.del.bind(this)} className={this.props.index>1?"del":"hide"}>删除</a></h3>
 					<div className="formbox">
 						<div className="rowinput">
 							名称<input type="text" ref="item" maxLength ="60" value={this.state.item.item} onChange={this.change.bind(this,"item")} placeholder="请输入（必填）"/>
@@ -83,10 +89,10 @@ export  default  class CaigouDetail extends Component{
 							单位<input type="text" ref="unit" maxLength ="60" value={this.state.item.unit} onChange={this.change.bind(this,"unit")} placeholder="请输入（必填）"/>
 						</div>
 						<div className="rowinput">
-							单价（元）<input type="text" ref="price" maxLength ="10" value={this.state.item.price} onChange={this.change.bind(this,"price")} placeholder="请输入（必填）"/>
+							单价（元）<input type="text" ref="price" maxLength ="12" value={this.state.item.price} onChange={this.change.bind(this,"price")} placeholder="请输入（必填）"/>
 						</div>
 						<div className="rowinput">
-							数量<input type="text" ref="quantity" maxLength ="9" value={this.state.item.quantity} onChange={this.change.bind(this,"quantity")} placeholder="请输入（必填）"/>
+							数量<input type="text" ref="quantity" maxLength ="12" value={this.state.item.quantity} onChange={this.change.bind(this,"quantity")} placeholder="请输入（必填）"/>
 						</div>
 					</div>
 				</div>

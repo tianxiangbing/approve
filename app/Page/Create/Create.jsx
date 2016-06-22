@@ -4,6 +4,8 @@ import Helmet from "react-helmet";
 import Caigou from 'Component/Approve/Caigou';
 import Config from 'config';
 import Expense from 'Component/Approve/Expense';
+import Generic from 'Component/Approve/Generic';
+
 
 export default class Create extends Component{
 	constructor(props){
@@ -133,7 +135,7 @@ export default class Create extends Component{
 	formatImg(item){
 		if(item.error)
 		{
-			return <div className="img" style={{backgroundColor:item.color}}></div>
+			return <div className="img" style={{backgroundColor:item.color}}>{item.name}</div>
 		}else{
 			return undefined;
 		}
@@ -156,8 +158,13 @@ export default class Create extends Component{
 			}
 			case 4:{
 				//报销
-				this.setState({showAddPic:false});
 				return <Expense ref="myForm"/>;
+				break;
+			}
+			case 6:{
+				console.log('通用')
+				//通用
+				return <Generic ref="myForm"/>;
 				break;
 			}
 		}
@@ -166,23 +173,7 @@ export default class Create extends Component{
 		return (
 			<div>
 				<Helmet title={this.params.title}/>
-				{
-					(()=>{
-						let category = this.params.type;
-						switch (parseInt(category)){
-							case 5:{
-								//采购
-								return <Caigou ref="myForm"/>
-								break;
-							}
-							case 4:{
-								//报销
-								return <Expense ref="myForm"/>
-								break;
-							}
-						}
-					})()
-				}
+				{this.renderForm()}
 				{this.state.showAddPic?
 					(
 					<div className="row add-photo">

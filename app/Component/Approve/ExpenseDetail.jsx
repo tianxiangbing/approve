@@ -1,10 +1,19 @@
 import React from 'react';
 let {Component} = React;
+import Config from 'config';
+
 export default class ExpenseDetail extends Component{
 	constructor(props){
 		super(props);
-		this.text = [{field:'item',text:'名称'},{field:'spec',text:'规格'},{field:'unit',text:'单位'},{field:'price',text:'价格'},{field:'quantity',text:'数量'}]
-		this.state={item:{price:'',quantity:'',spec:'',item:'',unit:''}}
+		this.imgList =[];
+		this.typeArr = ['交通费',
+						'住宿费',
+						'通讯费',
+						'采购费',
+						'餐补费',
+						'其他'];
+		this.text = [{field:'money',text:'价格'}];
+		this.state={type:0, imgList:[],showUpload:true,item:{money:'',type:0,remark:'',photoJArr:''}};
 	}
 	del(index){
 		let hasValue= false;
@@ -29,16 +38,8 @@ export default class ExpenseDetail extends Component{
 	}
 	change(field,e){
 		let value= e.target.value;
-		if(field == "price"){
+		if(field == "money"){
 			let regStr = /^[0-9]+(\.)?([0-9]{1,2})?$/;
-			if(!regStr.test(value)&&value!=""){
-				this.state.item[field]=this.state.item[field];	
-			}else{
-				this.state.item[field]= value;
-			}
-			this.setState({item:this.state.item})
-		}else if(field == "quantity"){
-			let regStr = /^\d+$/;
 			if(!regStr.test(value)&&value!=""){
 				this.state.item[field]=this.state.item[field];	
 			}else{
@@ -52,9 +53,7 @@ export default class ExpenseDetail extends Component{
 		this.props.computeMoney(this);
 	}
 	getMoney(){
-		let price = this.state.item.price||0;
-		let quantity = this.state.item.quantity||0;
-		return price*quantity;
+		return Number(this.state.item.money);
 	}
 	validate(){
 		let returnValue = {status:true}
@@ -66,26 +65,108 @@ export default class ExpenseDetail extends Component{
 		};
 		return returnValue;
 	}
+	//选择图片
+	selectPictrues(){
+		if(!this.state.showUpload){
+			return false;
+		}
+		let _this = this;
+		Config.native('selectPictures',{count:this.state.imgList.length,sum:4}).then((res)=>{
+			if(res.code ==200){
+				let data = res.data.map((item)=>{
+					return {data:item,uploaded:false};
+				});
+				data = _this.state.imgList.concat(data);
+				console.log(data)
+				_this.setState({"imgList":data});
+				if(data.length>=4){
+					_this.setState({showUpload:false});
+				}
+				_this.upload();
+			}
+		});
+	}
+	delImg(item,index){
+		this.state.imgList.splice(index,1);
+		this.setState({imgList:this.state.imgList,showUpload:true});
+		this.imgList.splice(index,1);
+	}
+	//上传
+	upload() {
+		let _this = this;
+		this.state.imgList.forEach((item, index) => {
+			if (!item.uploaded &&!item.uploading) {
+				let param = {
+					index: index.toString(),
+					imageData: item.data
+				}
+				item.uploading=true;
+				Config.ajax('upload', {
+					/*headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},*/
+					method: 'POST',
+					body:JSON.stringify(param)
+				}).then((res) => {
+					if (res.code == 200) {
+						let data = res.data;
+						let i = data.index;
+						let arr = _this.state.imgList.map((item,index)=>{
+							if(index == i){
+								item.uploaded=true;
+							}
+							return item;
+						})
+						_this.setState({
+							"imgList":arr
+						});
+						_this.imgList.push(data.url);
+					}
+				});
+			}
+		})
+	}
+	selectType(type){
+		this.setState({type:type});
+	}
+	getValues(){
+		var returnValues= {};
+		Object.assign(returnValues,this.state.item,{photoJArr:this.imgList});
+		return returnValues;
+	}
 	render(){
 		return (
 			<div>
 				<div className="detail" title={this.props.title}>
-					<h3>报销明细({this.props.index}) <a onClick={this.del.bind(this)} className={this.props.index>1?"del":"hide"}>删除</a></h3>
+					<h3>报销明细{this.props.detail.length>1 ?"("+this.props.index+")":undefined} <a onClick={this.del.bind(this)} className={this.props.index>1?"del":"hide"}>删除</a></h3>
 					<div className="formbox">
 						<div className="rowinput">
-							名称<input type="text" ref="item" maxLength ="60" value={this.state.item.item} onChange={this.change.bind(this,"item")} placeholder="请输入（必填）"/>
+							报销类型
+							<div className="type-list">
+							{
+								this.typeArr.map((item,index)=>{
+									return <a onClick={this.selectType.bind(this,index)} className={this.state.type== index ?"focus":undefined}>{item}</a>
+								})
+							}
+							</div>
 						</div>
 						<div className="rowinput">
-							规格<input type="text" ref="spec" maxLength ="60" value={this.state.item.spec} onChange={this.change.bind(this,"spec")} placeholder="请输入（必填）"/>
+							金额（元）<input type="text" ref="price" maxLength ="12" value={this.state.item.money} onChange={this.change.bind(this,"money")} placeholder="请输入（必填）"/>
 						</div>
-						<div className="rowinput">
-							单位<input type="text" ref="unit" maxLength ="60" value={this.state.item.unit} onChange={this.change.bind(this,"unit")} placeholder="请输入（必填）"/>
+						<div className="row add-photo rowinput">
+							<h4 onClick={this.selectPictrues.bind(this)}>照片<span>(最多可添加4张)</span><i className="iconfont icon-qiandaotianjiazhaopian"/></h4>
+							<div className="upload-list">
+							{
+								this.state.imgList.map((item,index)=>{
+									console.log(item.uploaded)
+									return <div key={index} className="item">{!item.uploaded?<span className="uploading">上传中...</span>:<i onClick={this.delImg.bind(this,item,index)} className="del iconfont icon-103"/>}<img src={"data:image/png;base64,"+item.data}/></div>
+								})
+							}
+							</div>
 						</div>
-						<div className="rowinput">
-							单价（元）<input type="text" ref="price" maxLength ="10" value={this.state.item.price} onChange={this.change.bind(this,"price")} placeholder="请输入（必填）"/>
-						</div>
-						<div className="rowinput">
-							数量<input type="text" ref="quantity" maxLength ="9" value={this.state.item.quantity} onChange={this.change.bind(this,"quantity")} placeholder="请输入（必填）"/>
+						<div className="txt-reason rowinput">
+							<textarea ref="applyResean" value={this.state.item.applyResean} onChange={this.change.bind(this,"applyResean")} maxLength ="140" placeholder="备注（非必填）"/>
 						</div>
 					</div>
 				</div>
