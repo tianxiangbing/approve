@@ -1,6 +1,7 @@
 /*通用*/
 import React from 'react';
 let {Component} = React;
+import alert from '../alert.js';
 
 export default class Generic extends Component{
 	constructor(props){
@@ -15,11 +16,11 @@ export default class Generic extends Component{
 	}
 	validate(){
 		if(this.refs.applyDetail.value==""){
-			alert('请输入申请内容');
+			alert('请输入申请内容',this.props.stage);
 			return false;
 		}
 		if(this.refs.applyResean.value==""){
-			alert('请输入申请详情');
+			alert('请输入申请详情',this.props.stage);
 			return false;
 		}
 	}

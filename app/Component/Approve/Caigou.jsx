@@ -4,6 +4,8 @@ import CaigouDetail from './CaigouDetail';
 
 import Config from 'config';
 
+import alert from '../alert.js';
+
 export default class Caigou extends Component{
 
 	constructor(props){
@@ -49,11 +51,11 @@ export default class Caigou extends Component{
 	validate(){
 		let returnValue = true;
 		if(this.refs.applyResean.value==""){
-			alert('请输入采购事由');
+			alert('请输入采购事由',this.props.stage);
 			return false;
 		}
 		if(this.state.expectPayDate ==""){
-			alert('请选择期望交付日期');
+			alert('请选择期望交付日期',this.props.stage);
 			return false;
 		}
 		for (var i = 0 ,l= this.state.detail.length - 1; i <= l; i++) {
@@ -61,7 +63,7 @@ export default class Caigou extends Component{
 			let validate = this.refs['caigouDetail'+i].validate();
 			if(validate.status == false){
 				returnValue=false;
-				alert(validate.text)
+				alert(validate.text,this.props.stage)
 				break;
 			}
 		};

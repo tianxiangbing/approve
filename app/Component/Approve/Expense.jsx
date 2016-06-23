@@ -2,6 +2,8 @@ import React from 'react';
 let {Component} = React;
 import ExpenseDetail from './ExpenseDetail';
 
+import alert from '../alert.js';
+
 export default class Expense extends Component{
 	
 	constructor(props){
@@ -49,7 +51,7 @@ export default class Expense extends Component{
 			let validate = this.refs['caigouDetail'+i].validate();
 			if(validate.status == false){
 				returnValue=false;
-				alert(validate.text)
+				alert(validate.text,this.props.stage)
 				break;
 			}
 		};

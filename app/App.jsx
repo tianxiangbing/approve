@@ -13,10 +13,14 @@ import { Router, Route, IndexRoute, Link, IndexLink, hashHistory } from 'react-r
 import Styles from './_App.scss';
 import App from './page/App/App';
 import Create from './page/Create/Create';
+import Detail from './page/Detail/Detail';
 
 render((
-  <Router history={hashHistory}>
-    <Route path="/" component={App}/>
-    <Route path="/create/:type/:title" component={Create}/>
-  </Router>
+	<Router history={hashHistory}>
+		<Route path="/" component={App}/>
+		<Route path="/create/:type/:title" component={Create}/>
+		<Route path="/create/:type/:title/:id" component={Create}/>
+		<Route path="/detail/:type/:title/:id" component={Detail}/>
+		<Route path="/detail/:type/:title/:id/:pageType" component={Detail}/>
+	</Router>
 ), document.getElementById('app'))

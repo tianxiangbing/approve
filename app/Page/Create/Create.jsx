@@ -5,7 +5,7 @@ import Caigou from 'Component/Approve/Caigou';
 import Config from 'config';
 import Expense from 'Component/Approve/Expense';
 import Generic from 'Component/Approve/Generic';
-
+import Dialog from 'Component/Dialog';
 
 export default class Create extends Component{
 	constructor(props){
@@ -13,7 +13,7 @@ export default class Create extends Component{
 		console.log(props)
 		this.imgList = [];
 		this.params =props.params
-		this.state={imgList:[],showUpload:true,authList:[],informList:[],showAddPic:true}
+		this.state={imgList:[],showUpload:true,authList:[],informList:[],showAddPic:true,dialog:0}
 	}
 	componentWillMount(){
 		if(this.params.type == 4){
@@ -153,21 +153,25 @@ export default class Create extends Component{
 		switch (parseInt(category)){
 			case 5:{
 				//采购
-				return <Caigou ref="myForm"/>;
+				return <Caigou ref="myForm" stage={this}/>;
 				break;
 			}
 			case 4:{
 				//报销
-				return <Expense ref="myForm"/>;
+				return <Expense ref="myForm" stage={this}/>;
 				break;
 			}
 			case 6:{
 				console.log('通用')
 				//通用
-				return <Generic ref="myForm"/>;
+				return <Generic ref="myForm" stage={this}/>;
 				break;
 			}
 		}
+	}
+	renderDialog(){
+		console.log(this.state.dialog)
+		return <Dialog stage={this} {...this.state.dialog}/>
 	}
 	render(){
 		return (
@@ -228,6 +232,7 @@ export default class Create extends Component{
 					</div>
 				</div>
 				<a className="btn-submit" onClick = {this.submit.bind(this)}>提交</a>
+                {this.state.dialog?this.renderDialog():undefined}
 			</div>
 			)
 	}

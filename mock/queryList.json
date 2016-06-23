@@ -1,0 +1,12 @@
+{
+	"status": 200,
+	"total": 0,
+	"result": [{
+		"orgId": "8947",
+		"count": 0
+	}, {
+		"orgId": "57171554250",
+		"count": 3
+	}],
+	"msg": null
+}
