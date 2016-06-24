@@ -6,7 +6,7 @@ var TEST = process.env.NODE_ENV == "test" || process.env.NODE_ENV == "dev";
 console.log(TEST)
 var filename = TEST ? "[name]" : "[chunkhash:8].[name]";
 console.log(filename)
-var extractCSS = new ExtractTextPlugin('' + filename + '.css');
+var extractCSS = new ExtractTextPlugin('stylesheets/' + filename + '.css');
 //var ignoreFiles = new webpack.IgnorePlugin(new RegExp("^(jquery|react|react-dom)$"));
 
 //动态创建html
@@ -28,7 +28,7 @@ var config = {
     output: {
         path: path.resolve(__dirname, "caiyun/build"),
         //publicPath: "/data/assets/build/",
-        publicPath: "",
+        publicPath: "build/",
         filename: filename + ".js"
     },
     resolve: {
@@ -53,7 +53,7 @@ var config = {
         }, {
             test: /\.scss$/,
             exclude: /(node_modules|bower_components)/,
-            loader: extractCSS.extract('style-loader', 'css?!sass?includePaths[]=' + path.resolve(__dirname, 'app/scss'))
+            loader: extractCSS.extract('style-loader', 'css?-url!sass?includePaths[]=' + path.resolve(__dirname, 'app/scss'))
         }, {
             test: /\.css$/,
             loader: extractCSS.extract('style-loader', 'css?includePaths[]=' + path.resolve(__dirname, 'app/scss'))

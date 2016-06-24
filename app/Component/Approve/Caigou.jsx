@@ -70,9 +70,9 @@ export default class Caigou extends Component{
 		return returnValue;
 	}
 	setTime(){
+		var _this = this;
 		Config.native('setTime').then((res)=>{
-			console.log(res.data)
-			this.setState({expectPayDate:res.data})
+			_this.setState({expectPayDate:res.data})
 		})
 	}
 	render(){

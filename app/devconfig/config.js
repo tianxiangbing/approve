@@ -41,7 +41,13 @@ let Config = {
 			method = 'post'
 		}
 		//qwest.setDefaultDataType('json');
-
+		data.ts = +new Date();
+		data.token = "8b4fa0650e1866d5bd68a8dca678ada0" || cookie.load('token');
+		data.uid = "10101001610432" || cookie.load('userId');
+		data.orgId = 57171554250 || cookie.load('orgId');
+		data.uname = "田想兵" || $.cookie('username');
+		data.deptName = "讯盟科技" || localStorage.getItem("deptName");
+		data.orgName = "青城集团" + localStorage.getItem("orgName");
 		for (let key in this.ajaxList) {
 			if (args[0] == this.ajaxList[key]) {
 				console.log('loading...')
@@ -72,48 +78,46 @@ let Config = {
 	},
 	makeUrl: function(key, param) {
 		//alert(document.cookie)
-		CONFIG.domain = CONFIG.domain || "http://10.1.40.6/";
-		var domain = CONFIG.domain + 'signin/api/';
+		//CONFIG.domain = CONFIG.domain || "http://10.1.40.6/";
+		//var domain = CONFIG.domain + 'signin/api/';
+		let domain = "/approve/";
 		var orgId = cookie.load('orgId') || localStorage.getItem('orgId');
 		/*if(typeof param != "string"){
 			param='?debug=true&uid='+cookie.load('userId')+'&orgId='+orgId;
 		}else{
 			param='?debug=true&uid='+cookie.load('userId')+'&orgId='+orgId+"&"+param;
 		}*/
-		if (typeof param != "string") {
+		let h5tRandom = Math.random();
+		/*if (typeof param != "string") {
 			param = '?orgId=' + orgId;
 		} else {
 			param = '?orgId=' + orgId + "&" + param;
-		}
+		}*/
 		switch (key) {
-			case "getDaySign":
+			case "save":
 				{
-					return domain + 'get/historyOfDay.json' + param
-					break;
-				}
-			case "getTime":
-				{
-					return domain + 'get/orgTime.json' + param
-					break;
-				}
-			case "sign":
-				{
-					return domain + 'sign.json' + param
+					return domain + 'apply/save?h5t=' + h5tRandom
 					break;
 				}
 			case 'upload':
 				{
-					return domain + 'upload/images.json' + param
+					return domain + 'approve/uploadImage?h5t=' + h5tRandom
 					break;
 				}
-			case 'historyOfMonth':
+			case 'queryApplyDetail':
 				{
-					return domain + 'get/historyOfMonth.json' + param
+					return domain + 'apply/queryApplyDetail?h5t=' + h5tRandom
+					break;
 				}
-			case 'historyOfDay':
+			case 'lastSelected':
 				{
-					//他人外勤
-					return domain + 'get/other/out/historyOfDay.json' + param
+					return domain + 'extraknower/lastSelected?h5t=' + h5tRandom
+					break;
+				}
+			case 'getFlowByType':
+				{
+					return domain + 'flow/getFlowByType?h5t=' + h5tRandom
+					break;
 				}
 		}
 	},
@@ -124,34 +128,9 @@ let Config = {
 		let orgName = localStorage.getItem('orgName');
 		var t = null;
 		switch (method) {
-			case "getPosition":
-				{
-					window.setSmallMap = function(data) {
-						data = JSON.parse(data);
-						let result = {
-							code: 200,
-							data: [data.lng, data.lat]
-						};
-						if (data.lng == '' || data.lng == '0.0') {
-							result.code = 500;
-						}
-						t && t.call(null, result)
-					};
-					if (!isAndr) {
-						window.locateIOS && locateIOS();
-					} else {
-						window.Native_Bridge_uban.onJsCall('setSmallMap', 'locate');
-					}
-					return {
-						then: function(f) {
-							t = f;
-						}
-					}
-					break;
-				}
 			case 'getorglist':
 				{
-					window.indexBind = function(data) {
+					window.setOrgCookie = function(data) {
 						data = JSON.parse(decodeURI(data));
 						let result = {
 							code: 200,
@@ -162,7 +141,7 @@ let Config = {
 					if (!isAndr) {
 						window.getOrgIOS && window.getOrgIOS();
 					} else {
-						window.Native_Bridge_uban.onJsCall('indexBind', 'getOrginfo');
+						window.Native_Bridge_uban.onJsCall('setOrgCookie', 'getOrginfo');
 					}
 					return {
 						then: function(f) {
@@ -174,7 +153,8 @@ let Config = {
 			case 'selectPictures':
 				{
 					//window.selectPictureIOS&&window.selectPictureIOS(data.count,data.sum);
-					window.selectPicturesFromJs = function(data) {
+					window.AndroidUploadImage = function(data) {
+						alert(1)
 						data = JSON.parse(decodeURI(data));
 						let result = {
 							code: 200,
@@ -185,7 +165,34 @@ let Config = {
 					if (!isAndr) {
 						window.selectPictureIOS && window.selectPictureIOS(data.count, data.sum);
 					} else {
-						window.Native_Bridge_uban.onJsCall('selectPicturesFromJs', 'selectPicture', data.count + "&" + data.sum);
+						window.Native_Bridge_uban.onJsCall('AndroidUploadImage', 'selectPicture', data.count + "&" + data.sum);
+					}
+					return {
+						then: function(f) {
+							t = f;
+						}
+					}
+					break;
+				}
+
+			case "setTime":
+				{
+					window.setTime = function(data) {
+						//data = JSON.parse(data);
+						let result = {
+							code: 200,
+							data: data
+						};
+						try {
+							t && t.call(null, result)
+						} catch (ex) {
+							alert(ex)
+						}
+					}
+					if (!isAndr) {
+						selectTimeIOS();
+					} else {
+						window.Native_Bridge_uban.onJsCall('setTime', 'getTime');
 					}
 					return {
 						then: function(f) {
@@ -197,19 +204,25 @@ let Config = {
 			case 'selectPeopleIOS':
 				{
 					//window.selectPeopleIOS&&window.selectPeopleIOS("500",localStorage.getItem('orgId'),localStorage.getItem('orgName'));
-					window.selectPeopleFromJs = function(data) {
-						data = JSON.parse(data);
-						let result = {
-							code: 200,
-							data: data
+					try {
+						window.AndroidChoosePeople = function(data) {
+							alert(1)
+							data = JSON.parse(data);
+							let result = {
+								code: 200,
+								data: data
+							};
+							t && t.call(null, result)
 						};
-						t && t.call(null, result)
-					};
-					if (!isAndr) {
-						window.selectPeopleIOS && window.selectPeopleIOS("500", orgId, orgName);
-					} else {
-						//alert("500&"+orgId+"&"+orgName)
-						window.Native_Bridge_uban.onJsCall('selectPeopleFromJs', 'selectPeople', "500&" + orgId + "&" + orgName);
+						alert("500&" + orgId + "&" + orgName)
+						if (!isAndr) {
+							window.selectPeopleIOS && window.selectPeopleIOS("500", orgId, orgName);
+						} else {
+							//alert("500&"+orgId+"&"+orgName)
+							window.Native_Bridge_uban.onJsCall('AndroidChoosePeople', 'selectPeople', "500&" + orgId + "&" + orgName);
+						}
+					} catch (ex) {
+						alert(ex)
 					}
 					return {
 						then: function(f) {

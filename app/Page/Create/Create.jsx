@@ -5,7 +5,9 @@ import Caigou from 'Component/Approve/Caigou';
 import Config from 'config';
 import Expense from 'Component/Approve/Expense';
 import Generic from 'Component/Approve/Generic';
+import cookie from 'react-cookie';
 import Dialog from 'Component/Dialog';
+import alert from 'Component/alert.js';
 
 export default class Create extends Component{
 	constructor(props){
@@ -13,12 +15,32 @@ export default class Create extends Component{
 		console.log(props)
 		this.imgList = [];
 		this.params =props.params
-		this.state={imgList:[],showUpload:true,authList:[],informList:[],showAddPic:true,dialog:0}
+		this.state={imgList:[],showUpload:true,authList:[],informList:[],showAddPic:true,dialog:0,isSet:0}
 	}
 	componentWillMount(){
 		if(this.params.type == 4){
 			this.setState({showAddPic:false});
 		}
+		Config.ajax('lastSelected',{
+			method:'post',
+			body:JSON.stringify({applyType:this.props.params.type})
+		}).then((res)=>{
+			let data =res//{"status":200,"total":0,"result":{"isSet":0,"flowInfos":[{"uid":292177,"uname":"青城名字要很长很长才好青城名字要很长很长","mobile":null,"avatar":"http://n1.store.uban360.com:7188/sfs/avatar?uid=292177"}]},"msg":null}
+			let arr = (data.result.flowInfos||[]).map((item)=>{
+				return {name:item.uname,uid:item.uid}
+			})
+			this.setState({informList:arr})
+		});
+		Config.ajax('getFlowByType',{
+			method:'post',
+			body:JSON.stringify({applyType:this.props.params.type})
+		}).then((res)=>{
+			let data =res//{"status":200,"total":0,"result":{"isSet":1,"flowInfos":[{"uid":292177,"uname":"青城名字要很长很长才好青城名字要很长很长","mobile":null,"avatar":"http://n1.store.uban360.com:7188/sfs/avatar?uid=292177"}]},"msg":null}
+			let arr = (data.result.flowInfos||[]).map((item)=>{
+				return {name:item.uname,uid:item.uid}
+			})
+			this.setState({authList:arr,isSet:data.result.isSet})
+		});
 	}
 	componentDidMount(){
 		console.log(this.refs)
@@ -27,6 +49,29 @@ export default class Create extends Component{
 		if(this.refs.myForm.validate()){
 			let values= this.refs.myForm.getValues();
 			console.log(values);
+			let params = {};
+			
+			params.applyType= this.props.params.type;
+			params.customStruct=JSON.stringify(values);
+			params.beginDate = new Date();
+			params.endDate = new Date();
+			params.flowStr = JSON.stringify(this.state.authList);
+			params.photoStr = JSON.stringify(this.imgList);
+
+			//事由
+			params.applyResean=values.applyResean;
+
+			Config.ajax('save',{
+				body:JSON.stringify(params),
+				method:'post'
+			}).then((res)=>{
+				if(res.status==200){
+					alert(this.props.params.title+'申请提交成功',this);
+					setTimeout(()=>{
+						location.href="#/"
+					},2000)
+				}
+			});
 		}
 	}
 	//选择图片
@@ -61,8 +106,8 @@ export default class Create extends Component{
 		this.state.imgList.forEach((item, index) => {
 			if (!item.uploaded &&!item.uploading) {
 				let param = {
-					index: index.toString(),
-					imageData: item.data
+					flag: index.toString(),
+					Base64Stream: item.data
 				}
 				item.uploading=true;
 				Config.ajax('upload', {
@@ -75,7 +120,7 @@ export default class Create extends Component{
 				}).then((res) => {
 					if (res.code == 200) {
 						let data = res.data;
-						let i = data.index;
+						let i = data.flag;
 						let arr = _this.state.imgList.map((item,index)=>{
 							if(index == i){
 								item.uploaded=true;
@@ -85,7 +130,7 @@ export default class Create extends Component{
 						_this.setState({
 							"imgList":arr
 						});
-						_this.imgList.push(data.url);
+						_this.imgList.push(data.photo_url);
 					}
 				});
 			}
@@ -141,8 +186,10 @@ export default class Create extends Component{
 		}
 	}
 	delPeople(index){
-		this.state.authList.splice(index,1);
-		this.setState({authList: this.state.authList});
+		if(!this.state.isSet){
+			this.state.authList.splice(index,1);
+			this.setState({authList: this.state.authList});
+		}
 	}
 	delPeople2(index){
 		this.state.informList.splice(index,1);
@@ -195,7 +242,7 @@ export default class Create extends Component{
 				}
 				
 				<div className="row add-people">
-					<h4>审批人<span>(管理员已设置审批人)</span></h4>
+					<h4>审批人<span>{this.state.isSet?"(管理员已设置审批人)":undefined}</span></h4>
 					<div className="people-list">
 						{
 							this.state.authList.map((item,index)=>{
@@ -206,12 +253,12 @@ export default class Create extends Component{
 											{!item.error?<img onError={this.errorImg.bind(this,item)} src={"http://n1.store.uban360.com:7188/sfs/avatar?uid="+item.uid}/>:undefined}
 											<div className="userName">{item.name}</div>
 										</div>
-										<i className="iconfont icon-shenpiliucheng"/>
+										{this.state.isSet&&index==this.state.authList.length-1?undefined:<i className="iconfont icon-shenpiliucheng"/>}
 									</span>
 									)
 							})
 						}
-						<div className="item" onClick={this.addUser.bind(this)}><i className="iconfont icon-113"/></div>
+						{!this.state.isSet?<div className="item" onClick={this.addUser.bind(this)}><i className="iconfont icon-113"/></div>:undefined}
 					</div>
 				</div>
 				<div className="row add-people">

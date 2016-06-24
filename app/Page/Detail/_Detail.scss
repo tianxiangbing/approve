@@ -180,9 +180,14 @@
 	background-color: #fff;
 	color:#999999;
 	@extend .fontSize2;
-	.two{
-		a{
-			width:50%;
+}
+.two{
+	a.bottomBtn{
+		width:50% !important;
+		display: inline-block;
+		color:#222;
+		&.jj{
+			color:#FA565A;
 		}
 	}
 }

@@ -1,10 +1,11 @@
 import React from 'react';
+let {Component} =React;
 import Helmet from "react-helmet";
 import Caigou from 'Component/Detail/Caigou';
-
+import Expense from 'Component/Detail/Expense';
+import Generic from 'Component/Detail/Generic';
 import cookie from 'react-cookie';
-
-let {Component} =React;
+import Config from 'config';
 
 export default class Detail extends Component{
 	constructor(props){
@@ -15,11 +16,11 @@ export default class Detail extends Component{
 			id: 0,
 			isEnd: false, // 流程是否结束
 		};
-		this.state = {detail:{},userInfo:{}};
+		this.state = {detail:{approveDetailVo:[]},customStruct:{detailJArr:[]},userInfo:{}};
 	}
 	componentWillMount(){
 		console.log('will')
-		cookie.save('userId',80976)
+		/*cookie.save('userId',80976)
 		this.setState({
 			userInfo:{
 				"uid":"80976",
@@ -41,7 +42,7 @@ export default class Detail extends Component{
 				"leaveType": 0,
 				"outType": 0,
 				"applyResean": "/script",
-				"approveStatus": 3,
+				"approveStatus": 1,
 				"photos": [
 					{
 						photo_url:"https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
@@ -73,10 +74,10 @@ export default class Detail extends Component{
 					"userMobile": "18268832118"
 				}, {
 					"id": "548",
-					"uid": "69584816",
+					"uid": "80976",
 					"uname": "田想兵",
 					"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=10101001610432",
-					"approveStatus": "0",
+					"approveStatus": "1",
 					"approveDate": "2016-06-01 09:41:40",
 					"approveOrder": "1",
 					"approveDesc": null,
@@ -84,8 +85,20 @@ export default class Detail extends Component{
 				}],
 				"customJObj": null
 			}
+		});*/
+		let param = {};
+		param.applyId = this.props.params.id;
+		Config.ajax('queryApplyDetail',{
+			method: 'POST',
+			body:JSON.stringify(param)
+		}).then((res)=>{
+			this.setState({userInfo:{
+				"uid":res.result.uid,
+				"uname": res.result.uname,
+				"avatar": res.result.avatar
+			},detail:res.result});
+			console.log(this.state)
 		});
-
 		//获取知会人
 		this.setState({
 			extraknower:[{"uid":"10101001610432","name":"田想兵","avatar":"http://n1.store.uban360.com:7188/sfs/avatar?uid=10101001610432"}]
@@ -230,7 +243,7 @@ export default class Detail extends Component{
 			if (status.isMeToDeal) {
 				return (
 					<div className="two">
-					    <a className="bottomBtn" onClick={this.submit.bind(this,3)}>拒绝</a>
+					    <a className="bottomBtn jj" onClick={this.submit.bind(this,3)}>拒绝</a>
 					    <a className="bottomBtn" onClick={this.submit.bind(this,2)}>同意</a>
 					</div>
 					)
@@ -244,7 +257,7 @@ export default class Detail extends Component{
 	render(){
 		return (
 			<div className="detail-info">
-				<Helmet title={this.props.params.title}/>
+				<Helmet title={this.props.params.title+"详情"}/>
 				<div className="box userInfo">
 					<h3>
 						<span className="userAvatar">

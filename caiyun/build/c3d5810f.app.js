@@ -25,22 +25,28 @@ webpackJsonp([0],{
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _App3 = __webpack_require__(235);
+	var _App3 = __webpack_require__(231);
 
 	var _App4 = _interopRequireDefault(_App3);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _Create = __webpack_require__(256);
 
-	/*var scale = 1 / devicePixelRatio;
-		document.querySelector('meta[name="viewport"]').setAttribute('content','initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
-		document.documentElement.style.fontSize = document.documentElement.clientWidth / 10 + 'px';
-	*/
-	//document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+	var _Create2 = _interopRequireDefault(_Create);
+
+	var _Detail = __webpack_require__(263);
+
+	var _Detail2 = _interopRequireDefault(_Detail);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRouter.Router,
 	  { history: _reactRouter.hashHistory },
-	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App4.default })
+	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App4.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/create/:type/:title', component: _Create2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/create/:type/:title/:id', component: _Create2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/detail/:type/:title/:id', component: _Detail2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/detail/:type/:title/:id/:pageType', component: _Detail2.default })
 	), document.getElementById('app')); /*
 	                                     * Created with Sublime Text 3.
 	                                     * license: http://www.lovewebgames.com
@@ -60,7 +66,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 235:
+/***/ 231:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79,19 +85,19 @@ webpackJsonp([0],{
 
 	var _reactRouter = __webpack_require__(165);
 
-	var _reactHelmet = __webpack_require__(236);
+	var _reactHelmet = __webpack_require__(232);
 
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-	var _config = __webpack_require__(246);
+	var _config = __webpack_require__(242);
 
 	var _config2 = _interopRequireDefault(_config);
 
-	var _reactCookie = __webpack_require__(256);
+	var _reactCookie = __webpack_require__(252);
 
 	var _reactCookie2 = _interopRequireDefault(_reactCookie);
 
-	var _Dialog = __webpack_require__(259);
+	var _Dialog = __webpack_require__(255);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
@@ -198,6 +204,7 @@ webpackJsonp([0],{
 						}
 					//this.setState({currCorp:currCorp});
 					_this3.select(currCorp);
+					localStorage.setItem('orgName', currCorp.orgName);
 				});
 			}
 		}, {
@@ -217,8 +224,6 @@ webpackJsonp([0],{
 				//cookie.save('orgId', obj.orgId, { path: '/' });
 				localStorage.setItem('orgId', obj.orgId);
 				localStorage.setItem('orgName', obj.orgName);
-				this.bindSign();
-				this.updateTime();
 			}
 		}, {
 			key: 'expandOrg',
@@ -304,8 +309,72 @@ webpackJsonp([0],{
 						_react2.default.createElement(
 							'a',
 							null,
-							_react2.default.createElement('i', { className: 'iconfont icon-112' }),
+							_react2.default.createElement('i', { className: 'iconfont icon-112 ifuck' }),
 							'我发起的'
+						)
+					),
+					_react2.default.createElement(
+						'a',
+						{ className: 'followme', href: 'http://10.0.10.46:8080/approve/app/notify.html' },
+						'知会我的',
+						_react2.default.createElement('i', { className: 'iconfont icon-xiayibu' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'menu-list' },
+						_react2.default.createElement(
+							'a',
+							{ href: 'http://10.0.10.46:8080/approve/app/form_qj.html' },
+							_react2.default.createElement('i', { className: 'iconfont icon-110' }),
+							'请假'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: 'http://10.0.10.46:8080/approve/app/form_tx.html' },
+							_react2.default.createElement('i', { className: 'iconfont icon-107' }),
+							'调休'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: 'http://10.0.10.46:8080/approve/app/form_wq.html' },
+							_react2.default.createElement('i', { className: 'iconfont icon-108' }),
+							'外出'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: 'http://10.0.10.46:8080/approve/app/form_cc.html' },
+							_react2.default.createElement('i', { className: 'iconfont icon-109' }),
+							'出差'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: '#create/4/报销' },
+							_react2.default.createElement('i', { className: 'iconfont icon-iconfontshenpicaigou02' }),
+							'报销'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: '#create/5/采购' },
+							_react2.default.createElement('i', { className: 'iconfont icon-iconfontshenpicaigou01' }),
+							'采购'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: '#create/6/通用' },
+							_react2.default.createElement('i', { className: 'iconfont icon-shenpi03' }),
+							'通用'
+						),
+						_react2.default.createElement(
+							'a',
+							null,
+							_react2.default.createElement('i', { className: 'iconfont' }),
+							'　'
+						),
+						_react2.default.createElement(
+							'a',
+							null,
+							_react2.default.createElement('i', { className: 'iconfont' }),
+							'　'
 						)
 					),
 					this.state.dialog ? this.renderDialog() : undefined
@@ -320,7 +389,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 236:
+/***/ 232:
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -345,21 +414,21 @@ webpackJsonp([0],{
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactSideEffect = __webpack_require__(237);
+	var _reactSideEffect = __webpack_require__(233);
 
 	var _reactSideEffect2 = _interopRequireDefault(_reactSideEffect);
 
-	var _deepEqual = __webpack_require__(240);
+	var _deepEqual = __webpack_require__(236);
 
 	var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-	var _objectAssign = __webpack_require__(243);
+	var _objectAssign = __webpack_require__(239);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
-	var _HelmetConstantsJs = __webpack_require__(244);
+	var _HelmetConstantsJs = __webpack_require__(240);
 
-	var _PlainComponent = __webpack_require__(245);
+	var _PlainComponent = __webpack_require__(241);
 
 	var _PlainComponent2 = _interopRequireDefault(_PlainComponent);
 
@@ -873,7 +942,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 237:
+/***/ 233:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -890,11 +959,11 @@ webpackJsonp([0],{
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _fbjsLibExecutionEnvironment = __webpack_require__(238);
+	var _fbjsLibExecutionEnvironment = __webpack_require__(234);
 
 	var _fbjsLibExecutionEnvironment2 = _interopRequireDefault(_fbjsLibExecutionEnvironment);
 
-	var _fbjsLibShallowEqual = __webpack_require__(239);
+	var _fbjsLibShallowEqual = __webpack_require__(235);
 
 	var _fbjsLibShallowEqual2 = _interopRequireDefault(_fbjsLibShallowEqual);
 
@@ -1003,7 +1072,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 238:
+/***/ 234:
 /***/ function(module, exports) {
 
 	/**
@@ -1045,7 +1114,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 239:
+/***/ 235:
 /***/ function(module, exports) {
 
 	/**
@@ -1101,12 +1170,12 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 240:
+/***/ 236:
 /***/ function(module, exports, __webpack_require__) {
 
 	var pSlice = Array.prototype.slice;
-	var objectKeys = __webpack_require__(241);
-	var isArguments = __webpack_require__(242);
+	var objectKeys = __webpack_require__(237);
+	var isArguments = __webpack_require__(238);
 
 	var deepEqual = module.exports = function (actual, expected, opts) {
 	  if (!opts) opts = {};
@@ -1202,7 +1271,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 241:
+/***/ 237:
 /***/ function(module, exports) {
 
 	exports = module.exports = typeof Object.keys === 'function'
@@ -1218,7 +1287,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 242:
+/***/ 238:
 /***/ function(module, exports) {
 
 	var supportsArgumentsClass = (function(){
@@ -1245,7 +1314,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 243:
+/***/ 239:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1335,7 +1404,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 244:
+/***/ 240:
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -1373,7 +1442,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 245:
+/***/ 241:
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports, "__esModule", {
@@ -1418,7 +1487,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 246:
+/***/ 242:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1430,17 +1499,17 @@ webpackJsonp([0],{
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; //import 'whatwg-fetch';
 
 
-	var _qwest = __webpack_require__(247);
+	var _qwest = __webpack_require__(243);
 
 	var _qwest2 = _interopRequireDefault(_qwest);
 
-	__webpack_require__(253);
+	__webpack_require__(249);
 
-	var _reactCookie = __webpack_require__(256);
+	var _reactCookie = __webpack_require__(252);
 
 	var _reactCookie2 = _interopRequireDefault(_reactCookie);
 
-	__webpack_require__(258);
+	__webpack_require__(254);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1482,7 +1551,13 @@ webpackJsonp([0],{
 				method = 'post';
 			}
 			//qwest.setDefaultDataType('json');
-
+			data.ts = +new Date();
+			data.token = "8b4fa0650e1866d5bd68a8dca678ada0" || _reactCookie2.default.load('token');
+			data.uid = "10101001610432" || _reactCookie2.default.load('userId');
+			data.orgId = 57171554250 || _reactCookie2.default.load('orgId');
+			data.uname = "田想兵" || $.cookie('username');
+			data.deptName = "讯盟科技" || localStorage.getItem("deptName");
+			data.orgName = "青城集团" + localStorage.getItem("orgName");
 			for (var key in this.ajaxList) {
 				if (args[0] == this.ajaxList[key]) {
 					console.log('loading...');
@@ -1513,48 +1588,36 @@ webpackJsonp([0],{
 		},
 		makeUrl: function makeUrl(key, param) {
 			//alert(document.cookie)
-			CONFIG.domain = CONFIG.domain || "http://10.1.40.6/";
-			var domain = CONFIG.domain + 'signin/api/';
+			//CONFIG.domain = CONFIG.domain || "http://10.1.40.6/";
+			//var domain = CONFIG.domain + 'signin/api/';
+			var domain = "/approve/";
 			var orgId = _reactCookie2.default.load('orgId') || localStorage.getItem('orgId');
 			/*if(typeof param != "string"){
 	  	param='?debug=true&uid='+cookie.load('userId')+'&orgId='+orgId;
 	  }else{
 	  	param='?debug=true&uid='+cookie.load('userId')+'&orgId='+orgId+"&"+param;
 	  }*/
-			if (typeof param != "string") {
-				param = '?orgId=' + orgId;
-			} else {
-				param = '?orgId=' + orgId + "&" + param;
-			}
+			var h5tRandom = Math.random();
+			/*if (typeof param != "string") {
+	  	param = '?orgId=' + orgId;
+	  } else {
+	  	param = '?orgId=' + orgId + "&" + param;
+	  }*/
 			switch (key) {
-				case "getDaySign":
+				case "save":
 					{
-						return domain + 'get/historyOfDay.json' + param;
-						break;
-					}
-				case "getTime":
-					{
-						return domain + 'get/orgTime.json' + param;
-						break;
-					}
-				case "sign":
-					{
-						return domain + 'sign.json' + param;
+						return domain + 'apply/save?h5t=' + h5tRandom;
 						break;
 					}
 				case 'upload':
 					{
-						return domain + 'upload/images.json' + param;
+						return domain + 'approve/uploadImage?h5t=' + h5tRandom;
 						break;
 					}
-				case 'historyOfMonth':
+				case 'queryApplyDetail':
 					{
-						return domain + 'get/historyOfMonth.json' + param;
-					}
-				case 'historyOfDay':
-					{
-						//他人外勤
-						return domain + 'get/other/out/historyOfDay.json' + param;
+						return domain + 'apply/queryApplyDetail?h5t=' + h5tRandom;
+						break;
 					}
 			}
 		},
@@ -1565,34 +1628,9 @@ webpackJsonp([0],{
 			var orgName = localStorage.getItem('orgName');
 			var t = null;
 			switch (method) {
-				case "getPosition":
-					{
-						window.setSmallMap = function (data) {
-							data = JSON.parse(data);
-							var result = {
-								code: 200,
-								data: [data.lng, data.lat]
-							};
-							if (data.lng == '' || data.lng == '0.0') {
-								result.code = 500;
-							}
-							t && t.call(null, result);
-						};
-						if (!isAndr) {
-							window.locateIOS && locateIOS();
-						} else {
-							window.Native_Bridge_uban.onJsCall('setSmallMap', 'locate');
-						}
-						return {
-							then: function then(f) {
-								t = f;
-							}
-						};
-						break;
-					}
 				case 'getorglist':
 					{
-						window.indexBind = function (data) {
+						window.setOrgCookie = function (data) {
 							data = JSON.parse(decodeURI(data));
 							var result = {
 								code: 200,
@@ -1603,7 +1641,7 @@ webpackJsonp([0],{
 						if (!isAndr) {
 							window.getOrgIOS && window.getOrgIOS();
 						} else {
-							window.Native_Bridge_uban.onJsCall('indexBind', 'getOrginfo');
+							window.Native_Bridge_uban.onJsCall('setOrgCookie', 'getOrginfo');
 						}
 						return {
 							then: function then(f) {
@@ -1615,7 +1653,8 @@ webpackJsonp([0],{
 				case 'selectPictures':
 					{
 						//window.selectPictureIOS&&window.selectPictureIOS(data.count,data.sum);
-						window.selectPicturesFromJs = function (data) {
+						window.AndroidUploadImage = function (data) {
+							alert(1);
 							data = JSON.parse(decodeURI(data));
 							var result = {
 								code: 200,
@@ -1626,7 +1665,34 @@ webpackJsonp([0],{
 						if (!isAndr) {
 							window.selectPictureIOS && window.selectPictureIOS(data.count, data.sum);
 						} else {
-							window.Native_Bridge_uban.onJsCall('selectPicturesFromJs', 'selectPicture', data.count + "&" + data.sum);
+							window.Native_Bridge_uban.onJsCall('AndroidUploadImage', 'selectPicture', data.count + "&" + data.sum);
+						}
+						return {
+							then: function then(f) {
+								t = f;
+							}
+						};
+						break;
+					}
+
+				case "setTime":
+					{
+						window.setTime = function (data) {
+							//data = JSON.parse(data);
+							var result = {
+								code: 200,
+								data: data
+							};
+							try {
+								t && t.call(null, result);
+							} catch (ex) {
+								alert(ex);
+							}
+						};
+						if (!isAndr) {
+							selectTimeIOS();
+						} else {
+							window.Native_Bridge_uban.onJsCall('setTime', 'getTime');
 						}
 						return {
 							then: function then(f) {
@@ -1638,19 +1704,25 @@ webpackJsonp([0],{
 				case 'selectPeopleIOS':
 					{
 						//window.selectPeopleIOS&&window.selectPeopleIOS("500",localStorage.getItem('orgId'),localStorage.getItem('orgName'));
-						window.selectPeopleFromJs = function (data) {
-							data = JSON.parse(data);
-							var result = {
-								code: 200,
-								data: data
+						try {
+							window.AndroidChoosePeople = function (data) {
+								alert(1);
+								data = JSON.parse(data);
+								var result = {
+									code: 200,
+									data: data
+								};
+								t && t.call(null, result);
 							};
-							t && t.call(null, result);
-						};
-						if (!isAndr) {
-							window.selectPeopleIOS && window.selectPeopleIOS("500", orgId, orgName);
-						} else {
-							//alert("500&"+orgId+"&"+orgName)
-							window.Native_Bridge_uban.onJsCall('selectPeopleFromJs', 'selectPeople', "500&" + orgId + "&" + orgName);
+							alert("500&" + orgId + "&" + orgName);
+							if (!isAndr) {
+								window.selectPeopleIOS && window.selectPeopleIOS("500", orgId, orgName);
+							} else {
+								//alert("500&"+orgId+"&"+orgName)
+								window.Native_Bridge_uban.onJsCall('AndroidChoosePeople', 'selectPeople', "500&" + orgId + "&" + orgName);
+							}
+						} catch (ex) {
+							alert(ex);
 						}
 						return {
 							then: function then(f) {
@@ -1702,7 +1774,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 247:
+/***/ 243:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*! qwest 4.4.4 (https://github.com/pyrsmk/qwest) */
@@ -1710,8 +1782,8 @@ webpackJsonp([0],{
 	module.exports = function() {
 
 		var global = typeof window != 'undefined' ? window : self,
-			pinkyswear = __webpack_require__(248),
-			jparam = __webpack_require__(252),
+			pinkyswear = __webpack_require__(244),
+			jparam = __webpack_require__(248),
 			defaultOptions = {},
 			// Default response type for XDR in auto mode
 			defaultXdrResponseType = 'json',
@@ -2207,7 +2279,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 248:
+/***/ 244:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module, setImmediate, process) {/*
@@ -2328,11 +2400,11 @@ webpackJsonp([0],{
 	})( false ? [window, 'pinkySwear'] : [module, 'exports']);
 
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(249)(module), __webpack_require__(250).setImmediate, __webpack_require__(251)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(245)(module), __webpack_require__(246).setImmediate, __webpack_require__(247)))
 
 /***/ },
 
-/***/ 249:
+/***/ 245:
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -2349,10 +2421,10 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 250:
+/***/ 246:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(251).nextTick;
+	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(247).nextTick;
 	var apply = Function.prototype.apply;
 	var slice = Array.prototype.slice;
 	var immediateIds = {};
@@ -2428,11 +2500,11 @@ webpackJsonp([0],{
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(250).setImmediate, __webpack_require__(250).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(246).setImmediate, __webpack_require__(246).clearImmediate))
 
 /***/ },
 
-/***/ 251:
+/***/ 247:
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -2558,7 +2630,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 252:
+/***/ 248:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -2616,16 +2688,16 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 253:
+/***/ 249:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(254);
+	__webpack_require__(250);
 
 /***/ },
 
-/***/ 254:
+/***/ 250:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
@@ -2633,10 +2705,10 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 256:
+/***/ 252:
 /***/ function(module, exports, __webpack_require__) {
 
-	var cookie = __webpack_require__(257);
+	var cookie = __webpack_require__(253);
 
 	if (typeof Object.assign != 'function') {
 	  Object.assign = function(target) {
@@ -2784,7 +2856,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 257:
+/***/ 253:
 /***/ function(module, exports) {
 
 	/*!
@@ -2947,7 +3019,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 258:
+/***/ 254:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3166,7 +3238,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 259:
+/***/ 255:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3255,6 +3327,2366 @@ webpackJsonp([0],{
 	}(Component);
 
 	exports.default = Dialog;
+
+/***/ },
+
+/***/ 256:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactHelmet = __webpack_require__(232);
+
+	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
+
+	var _Caigou = __webpack_require__(257);
+
+	var _Caigou2 = _interopRequireDefault(_Caigou);
+
+	var _config = __webpack_require__(242);
+
+	var _config2 = _interopRequireDefault(_config);
+
+	var _Expense = __webpack_require__(260);
+
+	var _Expense2 = _interopRequireDefault(_Expense);
+
+	var _Generic = __webpack_require__(262);
+
+	var _Generic2 = _interopRequireDefault(_Generic);
+
+	var _reactCookie = __webpack_require__(252);
+
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+
+	var _Dialog = __webpack_require__(255);
+
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+
+	var _alert = __webpack_require__(259);
+
+	var _alert2 = _interopRequireDefault(_alert);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Component = _react2.default.Component;
+
+	var Create = function (_Component) {
+		_inherits(Create, _Component);
+
+		function Create(props) {
+			_classCallCheck(this, Create);
+
+			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Create).call(this, props));
+
+			console.log(props);
+			_this2.imgList = [];
+			_this2.params = props.params;
+			_this2.state = { imgList: [], showUpload: true, authList: [], informList: [], showAddPic: true, dialog: 0 };
+			return _this2;
+		}
+
+		_createClass(Create, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				if (this.params.type == 4) {
+					this.setState({ showAddPic: false });
+				}
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				console.log(this.refs);
+			}
+		}, {
+			key: 'submit',
+			value: function submit() {
+				var _this3 = this;
+
+				if (this.refs.myForm.validate()) {
+					var values = this.refs.myForm.getValues();
+					console.log(values);
+					var params = {};
+
+					params.applyType = this.props.params.type;
+					params.customStruct = JSON.stringify(values);
+					params.beginDate = new Date();
+					params.endDate = new Date();
+					params.flowStr = JSON.stringify(this.state.authList);
+					params.photoStr = JSON.stringify(this.imgList);
+
+					//事由
+					params.applyResean = values.applyResean;
+
+					_config2.default.ajax('save', {
+						body: JSON.stringify(params),
+						method: 'post'
+					}).then(function (res) {
+						if (res.status == 200) {
+							(0, _alert2.default)(_this3.props.params.title + '申请提交成功', _this3);
+							setTimeout(function () {
+								location.href = "#/";
+							}, 2000);
+						}
+					});
+				}
+			}
+			//选择图片
+
+		}, {
+			key: 'selectPictrues',
+			value: function selectPictrues() {
+				if (!this.state.showUpload) {
+					return false;
+				}
+				var _this = this;
+				_config2.default.native('selectPictures', { count: this.state.imgList.length, sum: 4 }).then(function (res) {
+					if (res.code == 200) {
+						var data = res.data.map(function (item) {
+							return { data: item, uploaded: false };
+						});
+						data = _this.state.imgList.concat(data);
+						console.log(data);
+						_this.setState({ "imgList": data });
+						if (data.length >= 4) {
+							_this.setState({ showUpload: false });
+						}
+						_this.upload();
+					}
+				});
+			}
+		}, {
+			key: 'del',
+			value: function del(item, index) {
+				this.state.imgList.splice(index, 1);
+				this.setState({ imgList: this.state.imgList, showUpload: true });
+				this.imgList.splice(index, 1);
+			}
+			//上传
+
+		}, {
+			key: 'upload',
+			value: function upload() {
+				var _this = this;
+				this.state.imgList.forEach(function (item, index) {
+					if (!item.uploaded && !item.uploading) {
+						var param = {
+							flag: index.toString(),
+							Base64Stream: item.data
+						};
+						item.uploading = true;
+						_config2.default.ajax('upload', {
+							/*headers: {
+	      	'Accept': 'application/json',
+	      	'Content-Type': 'application/json'
+	      },*/
+							method: 'POST',
+							body: JSON.stringify(param)
+						}).then(function (res) {
+							if (res.code == 200) {
+								(function () {
+									var data = res.data;
+									var i = data.flag;
+									var arr = _this.state.imgList.map(function (item, index) {
+										if (index == i) {
+											item.uploaded = true;
+										}
+										return item;
+									});
+									_this.setState({
+										"imgList": arr
+									});
+									_this.imgList.push(data.photo_url);
+								})();
+							}
+						});
+					}
+				});
+			}
+			//选择人员
+
+		}, {
+			key: 'addUser',
+			value: function addUser() {
+				var _this4 = this;
+
+				if (this.checkIsUpload()) {
+					this.setState({ dialog: { mask: true, show: true, msg: "图片正在上传，请稍后", type: "alert" } });
+					return;
+				}
+				_config2.default.native('selectPeopleIOS').then(function (res) {
+					var data = res.data;
+					var authList = _this4.state.authList.concat(data);
+					_this4.setState({ authList: authList });
+				});
+			}
+			//选择人员（知会人）
+
+		}, {
+			key: 'addUser2',
+			value: function addUser2() {
+				var _this5 = this;
+
+				if (this.checkIsUpload()) {
+					this.setState({ dialog: { mask: true, show: true, msg: "图片正在上传，请稍后", type: "alert" } });
+					return;
+				}
+				_config2.default.native('selectPeopleIOS').then(function (res) {
+					var data = res.data;
+					var informList = _this5.state.informList.concat(data);
+					_this5.setState({ informList: informList });
+				});
+			}
+		}, {
+			key: 'checkIsUpload',
+			value: function checkIsUpload() {
+				var isuploading = false;
+				this.state.imgList.forEach(function (item) {
+					if (!item.uploaded) {
+						isuploading = true;
+					}
+				});
+				return isuploading;
+			}
+		}, {
+			key: 'errorImg',
+			value: function errorImg(item, e) {
+				console.log(e);
+				var avatarColors = ['#f17474', '#7ac47a', '#efbc6b', '#75a4d7', '#45b2e3'];
+				var color = avatarColors[item.uid % 5];
+				item.error = true;
+				item.color = color;
+				this.setState({ authList: this.state.authList });
+			}
+		}, {
+			key: 'formatImg',
+			value: function formatImg(item) {
+				if (item.error) {
+					return _react2.default.createElement(
+						'div',
+						{ className: 'img', style: { backgroundColor: item.color } },
+						item.name
+					);
+				} else {
+					return undefined;
+				}
+			}
+		}, {
+			key: 'delPeople',
+			value: function delPeople(index) {
+				this.state.authList.splice(index, 1);
+				this.setState({ authList: this.state.authList });
+			}
+		}, {
+			key: 'delPeople2',
+			value: function delPeople2(index) {
+				this.state.informList.splice(index, 1);
+				this.setState({ informList: this.state.informList });
+			}
+		}, {
+			key: 'renderForm',
+			value: function renderForm() {
+				var category = this.params.type;
+				switch (parseInt(category)) {
+					case 5:
+						{
+							//采购
+							return _react2.default.createElement(_Caigou2.default, { ref: 'myForm', stage: this });
+							break;
+						}
+					case 4:
+						{
+							//报销
+							return _react2.default.createElement(_Expense2.default, { ref: 'myForm', stage: this });
+							break;
+						}
+					case 6:
+						{
+							console.log('通用');
+							//通用
+							return _react2.default.createElement(_Generic2.default, { ref: 'myForm', stage: this });
+							break;
+						}
+				}
+			}
+		}, {
+			key: 'renderDialog',
+			value: function renderDialog() {
+				console.log(this.state.dialog);
+				return _react2.default.createElement(_Dialog2.default, _extends({ stage: this }, this.state.dialog));
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this6 = this;
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(_reactHelmet2.default, { title: this.params.title }),
+					this.renderForm(),
+					this.state.showAddPic ? _react2.default.createElement(
+						'div',
+						{ className: 'row add-photo' },
+						_react2.default.createElement(
+							'h4',
+							{ onClick: this.selectPictrues.bind(this) },
+							'照片',
+							_react2.default.createElement(
+								'span',
+								null,
+								'(最多可添加4张)'
+							),
+							_react2.default.createElement('i', { className: 'iconfont icon-qiandaotianjiazhaopian' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'upload-list' },
+							this.state.imgList.map(function (item, index) {
+								console.log(item.uploaded);
+								return _react2.default.createElement(
+									'div',
+									{ key: index, className: 'item' },
+									!item.uploaded ? _react2.default.createElement(
+										'span',
+										{ className: 'uploading' },
+										'上传中...'
+									) : _react2.default.createElement('i', { onClick: _this6.del.bind(_this6, item, index), className: 'del iconfont icon-103' }),
+									_react2.default.createElement('img', { src: "data:image/png;base64," + item.data })
+								);
+							})
+						)
+					) : undefined,
+					_react2.default.createElement(
+						'div',
+						{ className: 'row add-people' },
+						_react2.default.createElement(
+							'h4',
+							null,
+							'审批人',
+							_react2.default.createElement(
+								'span',
+								null,
+								'(管理员已设置审批人)'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'people-list' },
+							this.state.authList.map(function (item, index) {
+								return _react2.default.createElement(
+									'span',
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'item', key: index, onClick: _this6.delPeople.bind(_this6, index) },
+										_this6.formatImg(item),
+										!item.error ? _react2.default.createElement('img', { onError: _this6.errorImg.bind(_this6, item), src: "http://n1.store.uban360.com:7188/sfs/avatar?uid=" + item.uid }) : undefined,
+										_react2.default.createElement(
+											'div',
+											{ className: 'userName' },
+											item.name
+										)
+									),
+									_react2.default.createElement('i', { className: 'iconfont icon-shenpiliucheng' })
+								);
+							}),
+							_react2.default.createElement(
+								'div',
+								{ className: 'item', onClick: this.addUser.bind(this) },
+								_react2.default.createElement('i', { className: 'iconfont icon-113' })
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row add-people' },
+						_react2.default.createElement(
+							'h4',
+							null,
+							'知会人',
+							_react2.default.createElement(
+								'span',
+								null,
+								'(点击头像可删除)'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'people-list' },
+							this.state.informList.map(function (item, index) {
+								return _react2.default.createElement(
+									'div',
+									{ className: 'item', key: index, onClick: _this6.delPeople2.bind(_this6, index) },
+									_this6.formatImg(item),
+									!item.error ? _react2.default.createElement('img', { onError: _this6.errorImg.bind(_this6, item), src: "http://n1.store.uban360.com:7188/sfs/avatar?uid=" + item.uid }) : undefined,
+									_react2.default.createElement(
+										'div',
+										{ className: 'userName' },
+										item.name
+									)
+								);
+							}),
+							_react2.default.createElement(
+								'div',
+								{ className: 'item', onClick: this.addUser2.bind(this) },
+								_react2.default.createElement('i', { className: 'iconfont icon-113' })
+							)
+						)
+					),
+					_react2.default.createElement(
+						'a',
+						{ className: 'btn-submit', onClick: this.submit.bind(this) },
+						'提交'
+					),
+					this.state.dialog ? this.renderDialog() : undefined
+				);
+			}
+		}]);
+
+		return Create;
+	}(Component);
+
+	exports.default = Create;
+
+/***/ },
+
+/***/ 257:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _CaigouDetail = __webpack_require__(258);
+
+	var _CaigouDetail2 = _interopRequireDefault(_CaigouDetail);
+
+	var _config = __webpack_require__(242);
+
+	var _config2 = _interopRequireDefault(_config);
+
+	var _alert = __webpack_require__(259);
+
+	var _alert2 = _interopRequireDefault(_alert);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Component = _react2.default.Component;
+
+	var Caigou = function (_Component) {
+		_inherits(Caigou, _Component);
+
+		function Caigou(props) {
+			_classCallCheck(this, Caigou);
+
+			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Caigou).call(this, props));
+
+			_this2.state = { detail: [{ key: +new Date() }], caigouList: [], sumPrice: 0, expectPayDate: undefined };
+			return _this2;
+		}
+
+		_createClass(Caigou, [{
+			key: 'getValues',
+			value: function getValues() {
+				var _this3 = this;
+
+				var arr = [];
+				this.state.detail.forEach(function (item, index) {
+					var values = _this3.refs['caigouDetail' + index].getValues();
+					console.log(values);
+					arr.push(values);
+				});
+				return {
+					applyResean: this.refs.applyResean.value,
+					amount: this.state.sumPrice,
+					expectPayDate: this.state.expectPayDate,
+					detailJArr: arr
+				};
+			}
+		}, {
+			key: 'AddRow',
+			value: function AddRow() {
+				this.state.detail.push({ key: +new Date() });
+				this.setState({ detail: this.state.detail });
+			}
+		}, {
+			key: 'del',
+			value: function del(index) {
+				var detail = this.state.detail;
+				var newDetail = detail;
+				newDetail.splice(index, 1);
+				this.setState({ detail: newDetail });
+			}
+			/*reRender(){
+	  	this.setState({detail:this.state.detail});
+	  }*/
+
+		}, {
+			key: 'computeMoney',
+			value: function computeMoney() {
+				var _this4 = this;
+
+				console.log(this.refs);
+				var sumMoney = 0;
+				this.state.detail.forEach(function (item, index) {
+					var money = _this4.refs['caigouDetail' + index].getMoney();
+					sumMoney += money;
+				});
+				this.setState({ sumPrice: sumMoney });
+			}
+		}, {
+			key: 'validate',
+			value: function validate() {
+				var returnValue = true;
+				if (this.refs.applyResean.value == "") {
+					(0, _alert2.default)('请输入采购事由', this.props.stage);
+					return false;
+				}
+				if (this.state.expectPayDate == "") {
+					(0, _alert2.default)('请选择期望交付日期', this.props.stage);
+					return false;
+				}
+				for (var i = 0, l = this.state.detail.length - 1; i <= l; i++) {
+					var item = this.state.detail[i];
+					var validate = this.refs['caigouDetail' + i].validate();
+					if (validate.status == false) {
+						returnValue = false;
+						(0, _alert2.default)(validate.text, this.props.stage);
+						break;
+					}
+				};
+				return returnValue;
+			}
+		}, {
+			key: 'setTime',
+			value: function setTime() {
+				var _this = this;
+				_config2.default.native('setTime').then(function (res) {
+					_this.setState({ expectPayDate: res.data });
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this5 = this;
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'txt-reason' },
+						_react2.default.createElement('textarea', { ref: 'applyResean', maxLength: '60', placeholder: '请输入采购事由（必填）' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row', onClick: this.setTime.bind(this) },
+						_react2.default.createElement(
+							'span',
+							null,
+							'期望交付日期'
+						),
+						_react2.default.createElement('input', { type: 'text', placeholder: '请选择（必填）', value: this.state.expectPayDate, readonly: 'readonly', disabled: 'true' })
+					),
+					this.state.detail.map(function (item, index) {
+						var indx = index + 1;
+						return _react2.default.createElement(_CaigouDetail2.default, { detail: _this5.state.detail, ref: "caigouDetail" + index, index: indx, computeMoney: _this5.computeMoney.bind(_this5), item: item, key: item.key, del: _this5.del.bind(_this5, index) });
+					}),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row add-row', onClick: this.AddRow.bind(this) },
+						_react2.default.createElement('i', { className: 'iconfont icon-113' }),
+						'添加采购明细'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row sum-price' },
+						'总价（元）:',
+						_react2.default.createElement(
+							'span',
+							null,
+							this.state.sumPrice.toFixed(2)
+						)
+					)
+				);
+			}
+		}]);
+
+		return Caigou;
+	}(Component);
+
+	exports.default = Caigou;
+
+/***/ },
+
+/***/ 258:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Component = _react2.default.Component;
+
+	var CaigouDetail = function (_Component) {
+		_inherits(CaigouDetail, _Component);
+
+		function CaigouDetail(props) {
+			_classCallCheck(this, CaigouDetail);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CaigouDetail).call(this, props));
+
+			_this.text = [{ field: 'item', text: '名称' }, { field: 'spec', text: '规格' }, { field: 'unit', text: '单位' }, { field: 'price', text: '价格' }, { field: 'quantity', text: '数量' }];
+			_this.state = { item: { price: '', quantity: '', spec: '', item: '', unit: '' } };
+			return _this;
+		}
+
+		_createClass(CaigouDetail, [{
+			key: 'del',
+			value: function del(index) {
+				var hasValue = false;
+				for (var key in this.state.item) {
+					if (this.state.item[key] != "") {
+						hasValue = true;
+					}
+				}
+				if (hasValue) {
+					if (confirm("确定删除采购明细" + this.props.index + "?")) {
+						this.props.del(this.props.index);
+					}
+				} else {
+					this.props.del(this.props.index);
+				}
+
+				//this.props.reRender();
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				//console.log("didMount")
+				this.setState({ state: this.props.item });
+			}
+		}, {
+			key: 'change',
+			value: function change(field, e) {
+				var value = e.target.value;
+				if (field == "price") {
+					var regStr = /^[0-9]+(\.)?([0-9]{1,2})?$/;
+					if (!regStr.test(value) && value != "") {
+						this.state.item[field] = this.state.item[field];
+					} else {
+						this.state.item[field] = value;
+					}
+					this.setState({ item: this.state.item });
+				} else if (field == "quantity") {
+					//let regStr = /^\d+$/;
+					var _regStr = /^[0-9]+(\.)?([0-9]{1,2})?$/;
+					if (!_regStr.test(value) && value != "") {
+						this.state.item[field] = this.state.item[field];
+					} else {
+						this.state.item[field] = value;
+					}
+					this.setState({ item: this.state.item });
+				} else {
+					this.state.item[field] = value;
+					this.setState({ item: this.state.item });
+				}
+				this.props.computeMoney(this);
+			}
+		}, {
+			key: 'getMoney',
+			value: function getMoney() {
+				var price = this.state.item.price || 0;
+				var quantity = this.state.item.quantity || 0;
+				return price * quantity;
+			}
+		}, {
+			key: 'validate',
+			value: function validate() {
+				var returnValue = { status: true };
+				for (var i = this.text.length - 1; i >= 0; i--) {
+					var item = this.text[i];
+					if (this.state.item[item.field].length == 0) {
+						returnValue = { status: false, text: "请输入采购明细" + this.props.index + "的" + item.text };
+					}
+				};
+				return returnValue;
+			}
+		}, {
+			key: 'getValues',
+			value: function getValues() {
+				var returnValues = {};
+				Object.assign(returnValues, this.state.item);
+				return returnValues;
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'detail', title: this.props.title },
+						_react2.default.createElement(
+							'h3',
+							null,
+							'采购明细',
+							this.props.detail.length > 1 ? "(" + this.props.index + ")" : undefined,
+							' ',
+							_react2.default.createElement(
+								'a',
+								{ onClick: this.del.bind(this), className: this.props.index > 1 ? "del" : "hide" },
+								'删除'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'formbox' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'rowinput' },
+								'名称',
+								_react2.default.createElement('input', { type: 'text', ref: 'item', maxLength: '60', value: this.state.item.item, onChange: this.change.bind(this, "item"), placeholder: '请输入（必填）' })
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'rowinput' },
+								'规格',
+								_react2.default.createElement('input', { type: 'text', ref: 'spec', maxLength: '60', value: this.state.item.spec, onChange: this.change.bind(this, "spec"), placeholder: '请输入（必填）' })
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'rowinput' },
+								'单位',
+								_react2.default.createElement('input', { type: 'text', ref: 'unit', maxLength: '60', value: this.state.item.unit, onChange: this.change.bind(this, "unit"), placeholder: '请输入（必填）' })
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'rowinput' },
+								'单价（元）',
+								_react2.default.createElement('input', { type: 'text', ref: 'price', maxLength: '12', value: this.state.item.price, onChange: this.change.bind(this, "price"), placeholder: '请输入（必填）' })
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'rowinput' },
+								'数量',
+								_react2.default.createElement('input', { type: 'text', ref: 'quantity', maxLength: '12', value: this.state.item.quantity, onChange: this.change.bind(this, "quantity"), placeholder: '请输入（必填）' })
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return CaigouDetail;
+	}(Component);
+
+	exports.default = CaigouDetail;
+
+/***/ },
+
+/***/ 259:
+/***/ function(module, exports) {
+
+	"use strict";
+
+	module.exports = function (msg, stage) {
+		stage.setState({
+			dialog: {
+				show: true,
+				msg: msg,
+				type: "alert"
+			}
+		});
+	};
+
+/***/ },
+
+/***/ 260:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ExpenseDetail = __webpack_require__(261);
+
+	var _ExpenseDetail2 = _interopRequireDefault(_ExpenseDetail);
+
+	var _alert = __webpack_require__(259);
+
+	var _alert2 = _interopRequireDefault(_alert);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Component = _react2.default.Component;
+
+	var Expense = function (_Component) {
+		_inherits(Expense, _Component);
+
+		function Expense(props) {
+			_classCallCheck(this, Expense);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Expense).call(this, props));
+
+			_this.state = { detail: [{ key: +new Date() }], caigouList: [], sumPrice: 0, expectPayDate: undefined };
+			return _this;
+		}
+
+		_createClass(Expense, [{
+			key: 'getValues',
+			value: function getValues() {
+				var _this2 = this;
+
+				var returnValue = { detailJArr: [] };
+				var arr = [];
+				this.state.detail.forEach(function (item, index) {
+					var values = _this2.refs['caigouDetail' + index].getValues();
+					console.log(values);
+					arr.push(values);
+				});
+				returnValue.detailJArr = arr;
+				returnValue.amount = this.state.sumPrice;
+				returnValue.applyResean = "报销总金额" + returnValue.amount;
+				return returnValue;
+			}
+		}, {
+			key: 'AddRow',
+			value: function AddRow() {
+				this.state.detail.push({ key: +new Date() });
+				this.setState({ detail: this.state.detail });
+			}
+		}, {
+			key: 'del',
+			value: function del(index) {
+				var detail = this.state.detail;
+				var newDetail = detail;
+				newDetail.splice(index, 1);
+				this.setState({ detail: newDetail });
+			}
+			/*reRender(){
+	  	this.setState({detail:this.state.detail});
+	  }*/
+
+		}, {
+			key: 'computeMoney',
+			value: function computeMoney() {
+				var _this3 = this;
+
+				console.log(this.refs);
+				var sumMoney = 0;
+				this.state.detail.forEach(function (item, index) {
+					var money = _this3.refs['caigouDetail' + index].getMoney();
+					sumMoney += money;
+				});
+				this.setState({ sumPrice: sumMoney });
+			}
+		}, {
+			key: 'validate',
+			value: function validate() {
+				var returnValue = true;
+				for (var i = 0, l = this.state.detail.length - 1; i <= l; i++) {
+					var item = this.state.detail[i];
+					var validate = this.refs['caigouDetail' + i].validate();
+					if (validate.status == false) {
+						returnValue = false;
+						(0, _alert2.default)(validate.text, this.props.stage);
+						break;
+					}
+				};
+				return returnValue;
+			}
+		}, {
+			key: 'setTime',
+			value: function setTime() {
+				var _this4 = this;
+
+				Config.native('setTime').then(function (res) {
+					console.log(res.data);
+					_this4.setState({ expectPayDate: res.data });
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this5 = this;
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					this.state.detail.map(function (item, index) {
+						var indx = index + 1;
+						return _react2.default.createElement(_ExpenseDetail2.default, { detail: _this5.state.detail, ref: "caigouDetail" + index, index: indx, computeMoney: _this5.computeMoney.bind(_this5), item: item, key: item.key, del: _this5.del.bind(_this5, index) });
+					}),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row add-row', onClick: this.AddRow.bind(this) },
+						_react2.default.createElement('i', { className: 'iconfont icon-113' }),
+						'添加报销明细'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row sum-price' },
+						'总价（元）:',
+						_react2.default.createElement(
+							'span',
+							null,
+							this.state.sumPrice.toFixed(2)
+						)
+					)
+				);
+			}
+		}]);
+
+		return Expense;
+	}(Component);
+
+	exports.default = Expense;
+
+/***/ },
+
+/***/ 261:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _config = __webpack_require__(242);
+
+	var _config2 = _interopRequireDefault(_config);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Component = _react2.default.Component;
+
+	var ExpenseDetail = function (_Component) {
+		_inherits(ExpenseDetail, _Component);
+
+		function ExpenseDetail(props) {
+			_classCallCheck(this, ExpenseDetail);
+
+			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(ExpenseDetail).call(this, props));
+
+			_this2.imgList = [];
+			_this2.typeArr = ['交通费', '住宿费', '通讯费', '采购费', '餐补费', '其他'];
+			_this2.text = [{ field: 'money', text: '价格' }];
+			_this2.state = { type: 0, imgList: [], showUpload: true, item: { money: '', type: 0, remark: '', photoJArr: '' } };
+			return _this2;
+		}
+
+		_createClass(ExpenseDetail, [{
+			key: 'del',
+			value: function del(index) {
+				var hasValue = false;
+				for (var key in this.state.item) {
+					if (this.state.item[key] != "") {
+						hasValue = true;
+					}
+				}
+				if (hasValue) {
+					if (confirm("确定删除报销明细" + this.props.index + "?")) {
+						this.props.del(this.props.index);
+					}
+				} else {
+					this.props.del(this.props.index);
+				}
+
+				//this.props.reRender();
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				//console.log("didMount")
+				this.setState({ state: this.props.item });
+			}
+		}, {
+			key: 'change',
+			value: function change(field, e) {
+				var value = e.target.value;
+				if (field == "money") {
+					var regStr = /^[0-9]+(\.)?([0-9]{1,2})?$/;
+					if (!regStr.test(value) && value != "") {
+						this.state.item[field] = this.state.item[field];
+					} else {
+						this.state.item[field] = value;
+					}
+					this.setState({ item: this.state.item });
+				} else {
+					this.state.item[field] = value;
+					this.setState({ item: this.state.item });
+				}
+				this.props.computeMoney(this);
+			}
+		}, {
+			key: 'getMoney',
+			value: function getMoney() {
+				return Number(this.state.item.money);
+			}
+		}, {
+			key: 'validate',
+			value: function validate() {
+				var returnValue = { status: true };
+				for (var i = this.text.length - 1; i >= 0; i--) {
+					var item = this.text[i];
+					if (this.state.item[item.field].length == 0) {
+						returnValue = { status: false, text: "请输入报销明细" + this.props.index + "的" + item.text };
+					}
+				};
+				return returnValue;
+			}
+			//选择图片
+
+		}, {
+			key: 'selectPictrues',
+			value: function selectPictrues() {
+				if (!this.state.showUpload) {
+					return false;
+				}
+				var _this = this;
+				_config2.default.native('selectPictures', { count: this.state.imgList.length, sum: 4 }).then(function (res) {
+					if (res.code == 200) {
+						var data = res.data.map(function (item) {
+							return { data: item, uploaded: false };
+						});
+						data = _this.state.imgList.concat(data);
+						console.log(data);
+						_this.setState({ "imgList": data });
+						if (data.length >= 4) {
+							_this.setState({ showUpload: false });
+						}
+						_this.upload();
+					}
+				});
+			}
+		}, {
+			key: 'delImg',
+			value: function delImg(item, index) {
+				this.state.imgList.splice(index, 1);
+				this.setState({ imgList: this.state.imgList, showUpload: true });
+				this.imgList.splice(index, 1);
+			}
+			//上传
+
+		}, {
+			key: 'upload',
+			value: function upload() {
+				var _this = this;
+				this.state.imgList.forEach(function (item, index) {
+					if (!item.uploaded && !item.uploading) {
+						var param = {
+							index: index.toString(),
+							imageData: item.data
+						};
+						item.uploading = true;
+						_config2.default.ajax('upload', {
+							/*headers: {
+	      	'Accept': 'application/json',
+	      	'Content-Type': 'application/json'
+	      },*/
+							method: 'POST',
+							body: JSON.stringify(param)
+						}).then(function (res) {
+							if (res.code == 200) {
+								(function () {
+									var data = res.data;
+									var i = data.index;
+									var arr = _this.state.imgList.map(function (item, index) {
+										if (index == i) {
+											item.uploaded = true;
+										}
+										return item;
+									});
+									_this.setState({
+										"imgList": arr
+									});
+									_this.imgList.push(data.url);
+								})();
+							}
+						});
+					}
+				});
+			}
+		}, {
+			key: 'selectType',
+			value: function selectType(type) {
+				this.setState({ type: type });
+			}
+		}, {
+			key: 'getValues',
+			value: function getValues() {
+				var returnValues = {};
+				Object.assign(returnValues, this.state.item, { photoJArr: this.imgList });
+				return returnValues;
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this3 = this;
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'detail', title: this.props.title },
+						_react2.default.createElement(
+							'h3',
+							null,
+							'报销明细',
+							this.props.detail.length > 1 ? "(" + this.props.index + ")" : undefined,
+							' ',
+							_react2.default.createElement(
+								'a',
+								{ onClick: this.del.bind(this), className: this.props.index > 1 ? "del" : "hide" },
+								'删除'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'formbox' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'rowinput' },
+								'报销类型',
+								_react2.default.createElement(
+									'div',
+									{ className: 'type-list' },
+									this.typeArr.map(function (item, index) {
+										return _react2.default.createElement(
+											'a',
+											{ onClick: _this3.selectType.bind(_this3, index), className: _this3.state.type == index ? "focus" : undefined },
+											item
+										);
+									})
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'rowinput' },
+								'金额（元）',
+								_react2.default.createElement('input', { type: 'text', ref: 'price', maxLength: '12', value: this.state.item.money, onChange: this.change.bind(this, "money"), placeholder: '请输入（必填）' })
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'row add-photo rowinput' },
+								_react2.default.createElement(
+									'h4',
+									{ onClick: this.selectPictrues.bind(this) },
+									'照片',
+									_react2.default.createElement(
+										'span',
+										null,
+										'(最多可添加4张)'
+									),
+									_react2.default.createElement('i', { className: 'iconfont icon-qiandaotianjiazhaopian' })
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'upload-list' },
+									this.state.imgList.map(function (item, index) {
+										console.log(item.uploaded);
+										return _react2.default.createElement(
+											'div',
+											{ key: index, className: 'item' },
+											!item.uploaded ? _react2.default.createElement(
+												'span',
+												{ className: 'uploading' },
+												'上传中...'
+											) : _react2.default.createElement('i', { onClick: _this3.delImg.bind(_this3, item, index), className: 'del iconfont icon-103' }),
+											_react2.default.createElement('img', { src: "data:image/png;base64," + item.data })
+										);
+									})
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'txt-reason rowinput' },
+								_react2.default.createElement('textarea', { ref: 'applyResean', value: this.state.item.applyResean, onChange: this.change.bind(this, "applyResean"), maxLength: '140', placeholder: '备注（非必填）' })
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return ExpenseDetail;
+	}(Component);
+
+	exports.default = ExpenseDetail;
+
+/***/ },
+
+/***/ 262:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _alert = __webpack_require__(259);
+
+	var _alert2 = _interopRequireDefault(_alert);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*通用*/
+
+
+	var Component = _react2.default.Component;
+
+	var Generic = function (_Component) {
+		_inherits(Generic, _Component);
+
+		function Generic(props) {
+			_classCallCheck(this, Generic);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Generic).call(this, props));
+
+			_this.state = { applyDetail: '' };
+			return _this;
+		}
+
+		_createClass(Generic, [{
+			key: 'getValues',
+			value: function getValues() {
+				return {
+					applyDetail: this.refs.applyDetail.value,
+					applyResean: this.refs.applyResean.value
+				};
+			}
+		}, {
+			key: 'validate',
+			value: function validate() {
+				if (this.refs.applyDetail.value == "") {
+					(0, _alert2.default)('请输入申请内容', this.props.stage);
+					return false;
+				}
+				if (this.refs.applyResean.value == "") {
+					(0, _alert2.default)('请输入申请详情', this.props.stage);
+					return false;
+				}
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'row applyDetail' },
+						_react2.default.createElement(
+							'span',
+							null,
+							'申请内容'
+						),
+						_react2.default.createElement('input', { type: 'text', ref: 'applyDetail', maxLength: '60', placeholder: '请输入（必填）' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'txt-reason' },
+						_react2.default.createElement('textarea', { ref: 'applyResean', maxLength: '60', placeholder: '请输入申请详情（必填）' })
+					)
+				);
+			}
+		}]);
+
+		return Generic;
+	}(Component);
+
+	exports.default = Generic;
+
+/***/ },
+
+/***/ 263:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactHelmet = __webpack_require__(232);
+
+	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
+
+	var _Caigou = __webpack_require__(264);
+
+	var _Caigou2 = _interopRequireDefault(_Caigou);
+
+	var _Expense = __webpack_require__(266);
+
+	var _Expense2 = _interopRequireDefault(_Expense);
+
+	var _Generic = __webpack_require__(268);
+
+	var _Generic2 = _interopRequireDefault(_Generic);
+
+	var _reactCookie = __webpack_require__(252);
+
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+
+	var _config = __webpack_require__(242);
+
+	var _config2 = _interopRequireDefault(_config);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Component = _react2.default.Component;
+
+	var Detail = function (_Component) {
+		_inherits(Detail, _Component);
+
+		function Detail(props) {
+			_classCallCheck(this, Detail);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Detail).call(this, props));
+
+			_this.status = {
+				isLast: 0, //0非最后,1是最后
+				isMeToDeal: false, //test txb false   //0是未完成，1是完成
+				id: 0,
+				isEnd: false };
+			// 流程是否结束
+			_this.state = { detail: { approveDetailVo: [] }, customStruct: { detailJArr: [] }, userInfo: {} };
+			return _this;
+		}
+
+		_createClass(Detail, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				var _this2 = this;
+
+				console.log('will');
+				/*cookie.save('userId',80976)
+	   this.setState({
+	   	userInfo:{
+	   		"uid":"80976",
+	   		"uname": "严丽芳",
+	   		"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=80976",
+	   	},
+	   	detail: {
+	   		"uid": "80976",
+	   		"uname": "严丽芳",
+	   		"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=80976",
+	   		"applyId": "QJ1464745300081",
+	   		"deptName": "测试部",
+	   		"applyType": "0",
+	   		"beginDate": "2016-05-13 14:36:00",
+	   		"endDate": "2016-05-13 15:36:00",
+	   		"beginOverTime": "0000-00-00 00:00:00",
+	   		"endOverTime": "0000-00-00 00:00:00",
+	   		"travelAddr": null,
+	   		"leaveType": 0,
+	   		"outType": 0,
+	   		"applyResean": "/script",
+	   		"approveStatus": 1,
+	   		"photos": [
+	   			{
+	   				photo_url:"https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
+	   			},
+	   			{
+	   				photo_url:"https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
+	   			},
+	   			{
+	   				photo_url:"https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
+	   			},
+	   			{
+	   				photo_url:"https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
+	   			}
+	   		],
+	   		"customStruct":{
+	   			"amount": "采购 总金额",
+	   			"expectPayDate": "期望交付日期，如 2016-6-6 12:11:10",
+	   			"detailJArr": [ {"item":"物品名称", "spec": "规格", "unit": "单位", "quantity": "数量", "price": "单价"}, {"item":"物品名称", "spec": "规格", "unit": "单位", "quantity": "数量", "price": "单价"} ]
+	   		},
+	   		"approveDetailVo": [{
+	   			"id": "547",
+	   			"uid": "80976",
+	   			"uname": "严丽芳",
+	   			"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=80976",
+	   			"approveStatus": "3",
+	   			"approveDate": "2016-06-01 09:41:40",
+	   			"approveOrder": "0",
+	   			"approveDesc": null,
+	   			"userMobile": "18268832118"
+	   		}, {
+	   			"id": "548",
+	   			"uid": "80976",
+	   			"uname": "田想兵",
+	   			"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=10101001610432",
+	   			"approveStatus": "1",
+	   			"approveDate": "2016-06-01 09:41:40",
+	   			"approveOrder": "1",
+	   			"approveDesc": null,
+	   			"userMobile": "18667040027"
+	   		}],
+	   		"customJObj": null
+	   	}
+	   });*/
+				var param = {};
+				param.applyId = this.props.params.id;
+				_config2.default.ajax('queryApplyDetail', {
+					method: 'POST',
+					body: JSON.stringify(param)
+				}).then(function (res) {
+					_this2.setState({ userInfo: {
+							"uid": res.result.uid,
+							"uname": res.result.uname,
+							"avatar": res.result.avatar
+						}, detail: res.result });
+					console.log(_this2.state);
+				});
+				//获取知会人
+				this.setState({
+					extraknower: [{ "uid": "10101001610432", "name": "田想兵", "avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=10101001610432" }]
+				});
+			}
+		}, {
+			key: 'formatImg',
+			value: function formatImg(item) {
+				if (item.error) {
+					return _react2.default.createElement(
+						'div',
+						{ className: 'img', style: { backgroundColor: item.color } },
+						item.uname
+					);
+				} else {
+					return undefined;
+				}
+			}
+		}, {
+			key: 'errorImg',
+			value: function errorImg(item, e) {
+				console.log(e);
+				var avatarColors = ['#f17474', '#7ac47a', '#efbc6b', '#75a4d7', '#45b2e3'];
+				var color = avatarColors[item.uid % 5];
+				item.error = true;
+				item.color = color;
+				this.setState({ userInfo: this.state.userInfo });
+			}
+		}, {
+			key: 'errorImg2',
+			value: function errorImg2(item, e) {
+				console.log(e);
+				var avatarColors = ['#f17474', '#7ac47a', '#efbc6b', '#75a4d7', '#45b2e3'];
+				var color = avatarColors[item.uid % 5];
+				item.error = true;
+				item.color = color;
+				this.setState({ detail: this.state.detail });
+			}
+		}, {
+			key: 'renderDetail',
+			value: function renderDetail() {
+				var category = this.props.params.type;
+				switch (parseInt(category)) {
+					case 5:
+						{
+							//采购
+							return _react2.default.createElement(_Caigou2.default, { ref: 'myForm', detail: this.state.detail, stage: this });
+							break;
+						}
+					case 4:
+						{
+							//报销
+							return _react2.default.createElement(_Expense2.default, { ref: 'myForm', detail: this.state.detail, stage: this });
+							break;
+						}
+					case 6:
+						{
+							console.log('通用');
+							//通用
+							return _react2.default.createElement(_Generic2.default, { ref: 'myForm', detail: this.state.detail, stage: this });
+							break;
+						}
+				}
+			}
+		}, {
+			key: 'renderStatus',
+			value: function renderStatus(status) {
+				var proveStatus = {
+					"0": "fqsq",
+					"1": "spz",
+					"2": "spty",
+					"3": "spjj",
+					"4": "ych",
+					"5": "wsp"
+				};
+				var proveStatusText = {
+					"0": "发起申请",
+					"1": "审批中",
+					"2": "审批同意",
+					"3": "审批拒绝",
+					"4": "已撤回",
+					"5": "未审批"
+				};
+				var proveStatusIcon = {
+					"0": "101",
+					"1": "105",
+					"2": "102",
+					"3": "103",
+					"4": "106",
+					"5": "104"
+				};
+				return _react2.default.createElement(
+					'div',
+					{ className: "state " + proveStatus[status.toString()] },
+					_react2.default.createElement('i', { className: "iconfont icon-" + proveStatusIcon[status.toString()] }),
+					proveStatusText[status.toString()]
+				);
+			}
+		}, {
+			key: 'submit',
+			value: function submit(approveStatus) {
+				console.log(approveStatus);
+				var params = {};
+				params.ts = +new Date();
+				params.token = _reactCookie2.default.load('token');
+				params.applyId = this.props.params.id;
+				params.orgId = _reactCookie2.default.load('orgId');
+				params.uid = _reactCookie2.default.load('uid');
+				params.approveStatus = approveStatus;
+				params.approveDesc = "审批理由";
+				params.approveOrder = this.status.approveOrder;
+				params.isLast = this.status.isLast;
+				if (approveStatus == -1) {
+					console.log('重新申请');
+					location.href = "/#create/" + this.props.params.type + "/" + this.props.params.title + "/" + this.props.params.id;
+				}
+			}
+		}, {
+			key: 'renderButton',
+			value: function renderButton() {
+				var data = this.state.detail;
+				var isNeedReApply = false; //是否需要重新申请
+				var isFromme = this.props.params.pageType == "fromme" ? true : false;
+				var uid = _reactCookie2.default.load('userId');
+				if (data.approveStatus == "2" || data.approveStatus == "3" || data.approveStatus == "4") {
+					this.status.isEnd = true;
+				}
+				for (var i = data.approveDetailVo.length - 1; i >= 0; i--) {
+					var d = data.approveDetailVo[i];
+					if (data.uid == uid && data.approveStatus == "3") {
+						isNeedReApply = true;
+					}
+
+					//记录当前正在审批中的顺序
+					if (d.approveStatus == 1) {
+						this.status.approveOrder = d.approveOrder;
+					}
+
+					//判断审批中是否是最后的审批
+					if (d.approveStatus == 1 && d.approveOrder == data.approveDetailVo.length - 1) {
+						this.status.isLast = 1;
+					}
+					//获取id
+					if (uid == d.uid) {
+						this.status.id = d.id;
+					}
+					if (uid == d.uid && d.approveStatus == 1) {
+						this.status.isMeToDeal = true;
+					}
+					// 审批拒绝后就跳出循环
+					if (d.approveStatus == 3) {
+						break;
+					}
+				};
+				var status = this.status;
+				// 底部按钮显示控制
+				if (isFromme) {
+					//我发起的
+					if (!status.isEnd) {
+						return _react2.default.createElement(
+							'a',
+							{ className: 'bottomBtn', onClick: this.submit.bind(this, 4) },
+							'撤回'
+						);
+					}
+				} else {
+					//待我审批
+					if (status.isMeToDeal) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'two' },
+							_react2.default.createElement(
+								'a',
+								{ className: 'bottomBtn jj', onClick: this.submit.bind(this, 3) },
+								'拒绝'
+							),
+							_react2.default.createElement(
+								'a',
+								{ className: 'bottomBtn', onClick: this.submit.bind(this, 2) },
+								'同意'
+							)
+						);
+					}
+				}
+				// 是否显示重新申请
+				if (isNeedReApply) {
+					return _react2.default.createElement(
+						'a',
+						{ className: 'bottomBtn', onClick: this.submit.bind(this, -1) },
+						'重新申请'
+					);
+				}
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this3 = this;
+
+				return _react2.default.createElement(
+					'div',
+					{ className: 'detail-info' },
+					_react2.default.createElement(_reactHelmet2.default, { title: this.props.params.title + "详情" }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'box userInfo' },
+						_react2.default.createElement(
+							'h3',
+							null,
+							_react2.default.createElement(
+								'span',
+								{ className: 'userAvatar' },
+								this.formatImg(this.state.userInfo),
+								!this.state.userInfo.error ? _react2.default.createElement('img', { onError: this.errorImg.bind(this, this.state.userInfo), src: "http://n1.store.uban360.com:7188/sfs/avatar?uid=" + this.state.userInfo.uid }) : undefined
+							),
+							_react2.default.createElement(
+								'span',
+								{ className: 'uname' },
+								this.state.detail.uname
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'detail-row' },
+							_react2.default.createElement(
+								'label',
+								null,
+								'所在部门：'
+							),
+							_react2.default.createElement(
+								'span',
+								null,
+								this.state.detail.deptName
+							)
+						),
+						this.renderDetail()
+					),
+					_react2.default.createElement(
+						'h4',
+						null,
+						'请假流程'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'box process' },
+						_react2.default.createElement('div', { className: 'line' }),
+						(this.state.detail.approveDetailVo || []).map(function (item) {
+							return _react2.default.createElement(
+								'div',
+								{ className: 'item' },
+								_this3.renderStatus(item.approveStatus),
+								_react2.default.createElement(
+									'div',
+									{ className: 'user-box' },
+									_this3.formatImg(item),
+									!item.error ? _react2.default.createElement('img', { onError: _this3.errorImg2.bind(_this3, item), src: "http://n1.store.uban360.com:7188/sfs/avatar?uid=" + item.uid }) : undefined,
+									_react2.default.createElement(
+										'div',
+										{ className: 'userName' },
+										item.uname,
+										_react2.default.createElement(
+											'div',
+											{ className: 'time' },
+											item.approveDate
+										)
+									)
+								)
+							);
+						})
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'box zhr' },
+						_react2.default.createElement(
+							'h2',
+							null,
+							'知会人'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'zhr-list' },
+							function () {
+								var arr = (_this3.state.extraknower || []).map(function (item) {
+									return item.name;
+								});
+								return arr.join('、');
+							}()
+						)
+					),
+					this.renderButton()
+				);
+			}
+		}]);
+
+		return Detail;
+	}(Component);
+
+	exports.default = Detail;
+
+/***/ },
+
+/***/ 264:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _CaigouDetail = __webpack_require__(265);
+
+	var _CaigouDetail2 = _interopRequireDefault(_CaigouDetail);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Component = _react2.default.Component;
+
+	var Caigou = function (_Component) {
+		_inherits(Caigou, _Component);
+
+		function Caigou(props) {
+			_classCallCheck(this, Caigou);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Caigou).call(this, props));
+
+			_this.detail = _this.props.detail;
+			return _this;
+		}
+
+		_createClass(Caigou, [{
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'detail-row' },
+						_react2.default.createElement(
+							'label',
+							null,
+							'采购事由：'
+						),
+						_react2.default.createElement(
+							'span',
+							null,
+							'日常办公'
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'detail-row' },
+						_react2.default.createElement(
+							'label',
+							null,
+							'期望交付日期：'
+						),
+						_react2.default.createElement(
+							'span',
+							null,
+							'2015.1.1'
+						)
+					),
+					_react2.default.createElement('div', { className: 'topborder' }),
+					(this.detail.customStruct && this.detail.customStruct.detailJArr || []).map(function (item, index) {
+						var indx = index + 1;
+						return _react2.default.createElement(_CaigouDetail2.default, { detail: _this2.detail.customStruct.detailJArr, ref: "caigouDetail" + index, index: indx, item: item, key: index });
+					}),
+					_react2.default.createElement('div', { className: 'topborder' }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'detail-row sum-price' },
+						_react2.default.createElement(
+							'label',
+							null,
+							'总价：'
+						),
+						_react2.default.createElement(
+							'span',
+							{ className: 'price' },
+							this.detail.customStruct && this.detail.customStruct.amount
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'detail-row' },
+						_react2.default.createElement(
+							'label',
+							null,
+							'相关照片：'
+						),
+						_react2.default.createElement(
+							'span',
+							{ className: 'photos' },
+							this.detail.photos && this.detail.photos.length > 0 ? (this.detail.photos || []).map(function (item) {
+								return _react2.default.createElement('img', { src: item.photo_url });
+							}) : "无"
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'detail-row' },
+						_react2.default.createElement(
+							'label',
+							null,
+							'审批编号：'
+						),
+						_react2.default.createElement(
+							'span',
+							null,
+							this.detail.applyId
+						)
+					)
+				);
+			}
+		}]);
+
+		return Caigou;
+	}(Component);
+
+	exports.default = Caigou;
+
+/***/ },
+
+/***/ 265:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Component = _react2.default.Component;
+
+	var CaigouDetail = function (_Component) {
+		_inherits(CaigouDetail, _Component);
+
+		function CaigouDetail() {
+			_classCallCheck(this, CaigouDetail);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(CaigouDetail).apply(this, arguments));
+		}
+
+		_createClass(CaigouDetail, [{
+			key: "render",
+			value: function render() {
+				return _react2.default.createElement(
+					"div",
+					{ className: "one" },
+					_react2.default.createElement(
+						"div",
+						{ className: "detail", title: this.props.title },
+						_react2.default.createElement(
+							"div",
+							{ className: "detail-row" },
+							_react2.default.createElement(
+								"label",
+								null,
+								_react2.default.createElement(
+									"b",
+									null,
+									"采购明细",
+									this.props.detail.length > 1 ? "(" + this.props.index + ")" : undefined
+								)
+							)
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "detail-row" },
+							_react2.default.createElement(
+								"label",
+								null,
+								"名称："
+							),
+							this.props.item.item
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "detail-row" },
+							_react2.default.createElement(
+								"label",
+								null,
+								"规格："
+							),
+							this.props.item.spec
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "detail-row" },
+							_react2.default.createElement(
+								"label",
+								null,
+								"单位："
+							),
+							this.props.item.unit
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "detail-row" },
+							_react2.default.createElement(
+								"label",
+								null,
+								"单价："
+							),
+							this.props.item.price
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "detail-row" },
+							_react2.default.createElement(
+								"label",
+								null,
+								"数量："
+							),
+							this.props.item.quantity
+						)
+					)
+				);
+			}
+		}]);
+
+		return CaigouDetail;
+	}(Component);
+
+	exports.default = CaigouDetail;
+
+/***/ },
+
+/***/ 266:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ExpenseDetail = __webpack_require__(267);
+
+	var _ExpenseDetail2 = _interopRequireDefault(_ExpenseDetail);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Component = _react2.default.Component;
+
+	var Expense = function (_Component) {
+		_inherits(Expense, _Component);
+
+		function Expense(props) {
+			_classCallCheck(this, Expense);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Expense).call(this, props));
+
+			_this.detail = _this.props.detail;
+			return _this;
+		}
+
+		_createClass(Expense, [{
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement('div', { className: 'topborder' }),
+					this.detail.customStruct.detailJArr.map(function (item, index) {
+						var indx = index + 1;
+						return _react2.default.createElement(_ExpenseDetail2.default, { detail: _this2.detail.customStruct.detailJArr, ref: "ExpenseDetail" + index, index: indx, item: item, key: index });
+					}),
+					_react2.default.createElement('div', { className: 'topborder' }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'detail-row sum-price' },
+						_react2.default.createElement(
+							'label',
+							null,
+							'总价：'
+						),
+						_react2.default.createElement(
+							'span',
+							{ className: 'price' },
+							this.detail.customStruct.amount
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'detail-row' },
+						_react2.default.createElement(
+							'label',
+							null,
+							'审批编号：'
+						),
+						_react2.default.createElement(
+							'span',
+							null,
+							this.detail.applyId
+						)
+					)
+				);
+			}
+		}]);
+
+		return Expense;
+	}(Component);
+
+	exports.default = Expense;
+
+/***/ },
+
+/***/ 267:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Component = _react2.default.Component;
+
+	var ExpenseDetail = function (_Component) {
+		_inherits(ExpenseDetail, _Component);
+
+		function ExpenseDetail() {
+			_classCallCheck(this, ExpenseDetail);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(ExpenseDetail).apply(this, arguments));
+		}
+
+		_createClass(ExpenseDetail, [{
+			key: "render",
+			value: function render() {
+				return _react2.default.createElement(
+					"div",
+					{ className: "one" },
+					_react2.default.createElement(
+						"div",
+						{ className: "detail", title: this.props.title },
+						_react2.default.createElement(
+							"div",
+							{ className: "detail-row" },
+							_react2.default.createElement(
+								"label",
+								null,
+								_react2.default.createElement(
+									"b",
+									null,
+									"报销明细",
+									this.props.detail.length > 1 ? "(" + this.props.index + ")" : undefined
+								)
+							)
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "detail-row" },
+							_react2.default.createElement(
+								"label",
+								null,
+								"报销类型："
+							),
+							this.props.item.type
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "detail-row" },
+							_react2.default.createElement(
+								"label",
+								null,
+								"金额（元）："
+							),
+							this.props.item.money
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "detail-row" },
+							_react2.default.createElement(
+								"label",
+								null,
+								"备注："
+							),
+							this.props.item.remark
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "detail-row" },
+							_react2.default.createElement(
+								"label",
+								null,
+								"相关照片："
+							),
+							_react2.default.createElement(
+								"span",
+								{ className: "photos" },
+								this.props.item.photoJArr && this.props.item.photoJArr.length > 0 ? (this.detail.photos || []).map(function (item) {
+									return _react2.default.createElement("img", { src: item });
+								}) : "无"
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return ExpenseDetail;
+	}(Component);
+
+	exports.default = ExpenseDetail;
+
+/***/ },
+
+/***/ 268:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Component = _react2.default.Component;
+
+	var Generic = function (_Component) {
+		_inherits(Generic, _Component);
+
+		function Generic(props) {
+			_classCallCheck(this, Generic);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Generic).call(this, props));
+
+			_this.detail = _this.props.detail;
+			return _this;
+		}
+
+		_createClass(Generic, [{
+			key: "render",
+			value: function render() {
+				return _react2.default.createElement(
+					"div",
+					null,
+					_react2.default.createElement("div", { className: "topborder" }),
+					_react2.default.createElement(
+						"div",
+						{ className: "detail-row sum-price" },
+						_react2.default.createElement(
+							"label",
+							null,
+							"申请内容："
+						),
+						_react2.default.createElement(
+							"span",
+							null,
+							this.detail.applyResean
+						)
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "detail-row" },
+						_react2.default.createElement(
+							"label",
+							null,
+							"申请详情："
+						),
+						_react2.default.createElement(
+							"span",
+							null,
+							this.detail.customStruct.applyDetail
+						)
+					)
+				);
+			}
+		}]);
+
+		return Generic;
+	}(Component);
+
+	exports.default = Generic;
 
 /***/ }
 
