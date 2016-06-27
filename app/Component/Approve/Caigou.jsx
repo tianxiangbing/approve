@@ -50,11 +50,11 @@ export default class Caigou extends Component{
 	}
 	validate(){
 		let returnValue = true;
-		if(this.refs.applyResean.value==""){
+		if(Config.trim(this.refs.applyResean.value)==""){
 			alert('请输入采购事由',this.props.stage);
 			return false;
 		}
-		if(this.state.expectPayDate ==""){
+		if(Config.trim(this.state.expectPayDate) ==""){
 			alert('请选择期望交付日期',this.props.stage);
 			return false;
 		}
@@ -83,7 +83,7 @@ export default class Caigou extends Component{
 				</div>
 				<div className="row" onClick={this.setTime.bind(this)}>
 					<span>期望交付日期</span>
-					<input type="text" placeholder="请选择（必填）" value={this.state.expectPayDate} readonly="readonly" disabled="true"/>
+					<span className="expectPayDate">{!this.state.expectPayDate?<i>请选择（必填）</i>:this.state.expectPayDate}</span>
 				</div>
 				{
 					this.state.detail.map((item,index)=>{
@@ -91,10 +91,15 @@ export default class Caigou extends Component{
 						return <CaigouDetail detail={this.state.detail} ref={"caigouDetail"+index} index={indx} computeMoney={this.computeMoney.bind(this)} item={item} key={item.key} del={this.del.bind(this,index)}/>
 					})
 				}
-				<div className="row add-row" onClick={this.AddRow.bind(this)}>
-					<i className="iconfont icon-113"/>添加采购明细
-				</div>
-				<div className="row sum-price">总价（元）:<span>{this.state.sumPrice.toFixed(2)}</span></div>
+				{
+					this.state.detail.length<10?(
+						<div className="row add-row" onClick={this.AddRow.bind(this)}>
+							<i className="iconfont icon-113"/>添加采购明细
+						</div>
+						):undefined
+				}
+				
+				<div className="row sum-price">总价（元）：<span>{this.state.sumPrice.toFixed(2)}</span></div>
 			</div>
 			)
 	}

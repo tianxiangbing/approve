@@ -8,8 +8,9 @@ import Generic from 'Component/Approve/Generic';
 import cookie from 'react-cookie';
 import Dialog from 'Component/Dialog';
 import alert from 'Component/alert.js';
+import { withRouter } from 'react-router'
 
-export default class Create extends Component{
+class Create extends Component{
 	constructor(props){
 		super(props);
 		console.log(props)
@@ -43,10 +44,22 @@ export default class Create extends Component{
 		});
 	}
 	componentDidMount(){
-		console.log(this.refs)
+	/*	this.props.router.setRouteLeaveHook(
+			this.props.route,
+			this.routerWillLeave
+		)*/
 	}
+	 routerWillLeave(nextLocation) {
+      // 返回 false 会继续停留当前页面，
+      // 否则，返回一个字符串，会显示给用户，让其自己决定
+        return '确认要离开？';
+    }
 	submit(){
 		if(this.refs.myForm.validate()){
+			if(this.state.authList.length==0){
+				alert('请选择审批人',this);
+				return false;
+			}
 			let values= this.refs.myForm.getValues();
 			console.log(values);
 			let params = {};
@@ -242,7 +255,7 @@ export default class Create extends Component{
 				}
 				
 				<div className="row add-people">
-					<h4>审批人<span>{this.state.isSet?"(管理员已设置审批人)":undefined}</span></h4>
+					<h4>审批人<span>{this.state.isSet?"(管理员已设置审批人)":"(点击头像可删除)"}</span></h4>
 					<div className="people-list">
 						{
 							this.state.authList.map((item,index)=>{
@@ -284,3 +297,5 @@ export default class Create extends Component{
 			)
 	}
 }
+
+export default withRouter(Create);

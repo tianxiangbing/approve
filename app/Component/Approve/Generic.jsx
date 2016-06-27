@@ -23,6 +23,7 @@ export default class Generic extends Component{
 			alert('请输入申请详情',this.props.stage);
 			return false;
 		}
+		return true;
 	}
 	render(){
 		return (

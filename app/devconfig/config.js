@@ -154,7 +154,7 @@ let Config = {
 				{
 					//window.selectPictureIOS&&window.selectPictureIOS(data.count,data.sum);
 					window.AndroidUploadImage = function(data) {
-						alert(1)
+						//alert(1)
 						data = JSON.parse(decodeURI(data));
 						let result = {
 							code: 200,
@@ -206,7 +206,7 @@ let Config = {
 					//window.selectPeopleIOS&&window.selectPeopleIOS("500",localStorage.getItem('orgId'),localStorage.getItem('orgName'));
 					try {
 						window.AndroidChoosePeople = function(data) {
-							alert(1)
+							//alert(1)
 							data = JSON.parse(data);
 							let result = {
 								code: 200,
@@ -214,7 +214,7 @@ let Config = {
 							};
 							t && t.call(null, result)
 						};
-						alert("500&" + orgId + "&" + orgName)
+						//alert("500&" + orgId + "&" + orgName)
 						if (!isAndr) {
 							window.selectPeopleIOS && window.selectPeopleIOS("500", orgId, orgName);
 						} else {
@@ -268,6 +268,13 @@ let Config = {
 		return fetch("/mock/" + method + ".json").then((response) => {
 			return response.json()
 		});
+	},
+	trim: function(str) {
+		if (str) {
+			return str.replace(/(^\s*)|(\s*$)/g, "");
+		} else {
+			return "";
+		}
 	}
 }
 export default Config;

@@ -73,10 +73,15 @@ export default class Expense extends Component{
 						return <ExpenseDetail detail={this.state.detail} ref={"caigouDetail"+index} index={indx} computeMoney={this.computeMoney.bind(this)} item={item} key={item.key} del={this.del.bind(this,index)}/>
 					})
 				}
-				<div className="row add-row" onClick={this.AddRow.bind(this)}>
-					<i className="iconfont icon-113"/>添加报销明细
-				</div>
-				<div className="row sum-price">总价（元）:<span>{this.state.sumPrice.toFixed(2)}</span></div>
+
+				{
+					this.state.detail.length<10?(
+						<div className="row add-row" onClick={this.AddRow.bind(this)}>
+							<i className="iconfont icon-113"/>添加报销明细
+						</div>
+						):undefined
+				}
+				<div className="row sum-price">总价（元）：<span>{this.state.sumPrice.toFixed(2)}</span></div>
 			</div>
 			)
 	}

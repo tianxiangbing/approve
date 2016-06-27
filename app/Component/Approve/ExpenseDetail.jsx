@@ -23,7 +23,7 @@ export default class ExpenseDetail extends Component{
 			}
 		}
 		if(hasValue){
-			if(confirm("确定删除报销明细"+this.props.index+"?")){
+			if(confirm("确定删除报销明细（"+this.props.index+"）?")){
 				this.props.del(this.props.index);
 			}
 		}else{
@@ -59,8 +59,10 @@ export default class ExpenseDetail extends Component{
 		let returnValue = {status:true}
 		for (var i = this.text.length - 1; i >= 0; i--) {
 		 	let item = this.text[i];
-		 	if( this.state.item[item.field].length ==0){
-				returnValue = {status:false,text:"请输入报销明细"+this.props.index+"的"+item.text}
+		 	if( Config.trim(this.state.item[item.field]).length ==0){
+		 		let indexstr="";
+		 		this.props.detail.length===1?undefined:indexstr=this.props.index;
+				returnValue = {status:false,text:"请输入报销明细"+indexstr+"的"+item.text}
 			}
 		};
 		return returnValue;

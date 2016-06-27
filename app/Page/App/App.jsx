@@ -83,6 +83,8 @@ export default class App extends Component{
 			//this.setState({currCorp:currCorp});
 			this.select(currCorp);
 			localStorage.setItem('orgName',currCorp.orgName);
+			localStorage.setItem('orgId',currCorp.orgId);
+			cookie.save('orgId',currCorp.orgId,{ path: '/' });
 		});
 	}
 	componentDidMount(){
@@ -115,6 +117,14 @@ export default class App extends Component{
 	
 	hideDialog(){
 		this.setState({dialog:0})
+	}
+	willTransitionFrom(transition, component) {
+		if (component.formHasUnsavedData()) {
+			if (!confirm('You have unsaved information,' +
+					'are you sure you want to leave this page?')) {
+				transition.abort();
+			}
+		}
 	}
 	
 	render(){
@@ -154,7 +164,7 @@ export default class App extends Component{
 				<div className="menu-list">
 					<a href="http://10.0.10.46:8080/approve/app/form_qj.html"><i className="iconfont icon-110"/>请假</a>
 					<a href="http://10.0.10.46:8080/approve/app/form_tx.html"><i className="iconfont icon-107"/>调休</a>
-					<a href="http://10.0.10.46:8080/approve/app/form_wq.html"><i className="iconfont icon-108"/>外出</a>
+					<a href="http://10.0.10.46:8080/approve/app/form_wc.html"><i className="iconfont icon-108"/>外出</a>
 					<a href="http://10.0.10.46:8080/approve/app/form_cc.html"><i className="iconfont icon-109"/>出差</a>
 					<a href="#create/4/报销"><i className="iconfont icon-iconfontshenpicaigou02"/>报销</a>
 					<a href="#create/5/采购"><i className="iconfont icon-iconfontshenpicaigou01"/>采购</a>

@@ -60,10 +60,10 @@ $fontFamily:'Microsoft Yahei', 'Hiragino Sans GB', Helvetica;
 	@include font-dpr(19px);
 }
 .fontSize1{
-	@include font-dpr(14px);
+	@include font-dpr(13px);
 }
 .fontSize2{
-	@include font-dpr(16px);
+	@include font-dpr(15px);
 }
 .fontSize3{
 	@include font-dpr(18px);
@@ -78,7 +78,10 @@ $focusColor:#fa565a;
 $fontColorGray:#9a9a9a;
 $fontColorBlack:#222222;
 $fontColorRed:#f85e57;
-
+::-webkit-input-placeholder { color:#B4B4B4; }
+::-moz-placeholder { color:#B4B4B4; } /* firefox 19+ */
+:-ms-input-placeholder { color:#B4B4B4; } /* ie */
+input:-moz-placeholder { color:#B4B4B4; }
 
 html,
 	body{
@@ -150,6 +153,7 @@ margin:0;
 input,textarea{
 	outline:none;
 	resize:none;
+	margin:0;
 }
 *{
 	-webkit-tap-highlight-color: rgba(0,0,0,0);

@@ -7,8 +7,9 @@
 		height: pxToRem2(120);
 		@extend .fontSize2;
 		padding:pxToRem2(14) pxToRem2(15);
-		margin:pxToRem2(15) 0 0 0;
+		/* margin:pxToRem2(15) 0 0 0; */
 		border:none;
+		vertical-align: top;
 	}
 }
 
@@ -25,6 +26,7 @@
 		text-align: right;
 		&:disabled {
 			background-color: $whiteColor;
+			color:$fontColorBlack !important;
 		}
 	}
 	&.sum-price{
@@ -34,6 +36,12 @@
 		&:before{
 			border:none;
 		} 
+	}
+	.expectPayDate{
+		float: right;
+		i{
+			color:#B4B4B4;
+		}
 	}
 }
 .detail{
@@ -64,9 +72,6 @@
 			}
 			&.txt-reason{
 				padding:0 !important;
-				textarea{
-					padding-top:0;
-				}
 			}
 			.upload-list{
 				.item{
@@ -80,8 +85,8 @@
 				text-align: left;
 				width:pxToRem2(230);
 				border:none;
-				height:pxToRem2(44);
-				line-height: pxToRem2(44);
+				/* height:pxToRem2(44);
+				line-height: pxToRem2(44); */
 				@extend .fontSize2;
 				/* position: absolute;
 				top:0;
@@ -221,6 +226,7 @@
 		&.focus{
 			color:#fff;
 			background-color:#FA565A;
+			border-color:#FA565A;
 		}
 		&:last-child{
 			margin-right: 0;
