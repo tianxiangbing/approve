@@ -9,6 +9,7 @@ import cookie from 'react-cookie';
 import Dialog from 'Component/Dialog';
 import alert from 'Component/alert.js';
 import { withRouter } from 'react-router'
+import UserAvatar from 'Component/UserAvatar';
 
 class Create extends Component{
 	constructor(props){
@@ -81,7 +82,7 @@ class Create extends Component{
 				if(res.status==200){
 					alert(this.props.params.title+'申请提交成功',this);
 					setTimeout(()=>{
-						location.href="#/"
+						location.href="#/detail/"+params.applyType+"/"+this.params.title+"/"+res.result+"/fromme"
 					},2000)
 				}
 			});
@@ -131,8 +132,8 @@ class Create extends Component{
 					method: 'POST',
 					body:JSON.stringify(param)
 				}).then((res) => {
-					if (res.code == 200) {
-						let data = res.data;
+					if (res.code == 200 ||res.status==200) {
+						let data = res.result;
 						let i = data.flag;
 						let arr = _this.state.imgList.map((item,index)=>{
 							if(index == i){
@@ -181,22 +182,6 @@ class Create extends Component{
 			}
 		});
 		return isuploading;
-	}
-	errorImg(item,e){
-		console.log(e)
-      let avatarColors = ['#f17474','#7ac47a','#efbc6b','#75a4d7','#45b2e3']
-      let color = avatarColors[item.uid% 5];
-      item.error=true;
-      item.color= color;
-      this.setState({authList:this.state.authList});
-	}
-	formatImg(item){
-		if(item.error)
-		{
-			return <div className="img" style={{backgroundColor:item.color}}>{item.name}</div>
-		}else{
-			return undefined;
-		}
 	}
 	delPeople(index){
 		if(!this.state.isSet){
@@ -262,8 +247,7 @@ class Create extends Component{
 								return (
 									<span>
 										<div className="item" key={index} onClick={this.delPeople.bind(this,index)}>
-											{this.formatImg(item)}
-											{!item.error?<img onError={this.errorImg.bind(this,item)} src={"http://n1.store.uban360.com:7188/sfs/avatar?uid="+item.uid}/>:undefined}
+											<UserAvatar item={item} errorCallback={()=>{ this.setState({authList:this.state.authList});}}/>
 											<div className="userName">{item.name}</div>
 										</div>
 										{this.state.isSet&&index==this.state.authList.length-1?undefined:<i className="iconfont icon-shenpiliucheng"/>}
@@ -281,8 +265,7 @@ class Create extends Component{
 							this.state.informList.map((item,index)=>{
 								return (
 									<div className="item" key={index} onClick={this.delPeople2.bind(this,index)}>
-										{this.formatImg(item)}
-										{!item.error?<img onError={this.errorImg.bind(this,item)} src={"http://n1.store.uban360.com:7188/sfs/avatar?uid="+item.uid}/>:undefined}
+										<UserAvatar item={item} errorCallback={()=>{ this.setState({authList:this.state.authList});}}/>
 										<div className="userName">{item.name}</div>
 									</div>
 									)

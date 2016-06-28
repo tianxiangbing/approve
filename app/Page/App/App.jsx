@@ -84,7 +84,8 @@ export default class App extends Component{
 			this.select(currCorp);
 			localStorage.setItem('orgName',currCorp.orgName);
 			localStorage.setItem('orgId',currCorp.orgId);
-			cookie.save('orgId',currCorp.orgId,{ path: '/' });
+			localStorage.setItem('deptName',currCorp.deptName);
+			cookie.save('orgId',currCorp.orgId);
 		});
 	}
 	componentDidMount(){
@@ -99,6 +100,7 @@ export default class App extends Component{
 		//cookie.save('orgId', obj.orgId, { path: '/' });
 		localStorage.setItem('orgId',obj.orgId);
 		localStorage.setItem('orgName',obj.orgName);
+		localStorage.setItem('deptName',obj.deptName);
 	}
 	expandOrg(){
 		this.setState({expand:!this.state.expand});
@@ -157,15 +159,15 @@ export default class App extends Component{
 					}
 				</div>
 				<div className="menu">
-				<a href="http://10.0.10.46:8080/approve/app/tome.html"><i className="iconfont icon-111"/>待我审批</a>
-				<a href="http://10.0.10.46:8080/approve/app/fromme.html"><i className="iconfont icon-112 ifuck"/>我发起的</a>
+				<a href="http://10.1.40.6/approve/app/tome.html"><i className="iconfont icon-111"/>待我审批</a>
+				<a href="http://10.1.40.6/approve/app/fromme.html"><i className="iconfont icon-112 ifuck"/>我发起的</a>
 				</div>
 				<a className="followme" href="http://10.0.10.46:8080/approve/app/notify.html">知会我的<i className="iconfont icon-xiayibu"/></a>
 				<div className="menu-list">
-					<a href="http://10.0.10.46:8080/approve/app/form_qj.html"><i className="iconfont icon-110"/>请假</a>
-					<a href="http://10.0.10.46:8080/approve/app/form_tx.html"><i className="iconfont icon-107"/>调休</a>
-					<a href="http://10.0.10.46:8080/approve/app/form_wc.html"><i className="iconfont icon-108"/>外出</a>
-					<a href="http://10.0.10.46:8080/approve/app/form_cc.html"><i className="iconfont icon-109"/>出差</a>
+					<a href="http://10.1.40.6/approve/app/form_qj.html"><i className="iconfont icon-110"/>请假</a>
+					<a href="http://10.1.40.6/approve/app/form_tx.html"><i className="iconfont icon-107"/>调休</a>
+					<a href="http://10.1.40.6/approve/app/form_wc.html"><i className="iconfont icon-108"/>外出</a>
+					<a href="http://10.1.40.6/approve/app/form_cc.html"><i className="iconfont icon-109"/>出差</a>
 					<a href="#create/4/报销"><i className="iconfont icon-iconfontshenpicaigou02"/>报销</a>
 					<a href="#create/5/采购"><i className="iconfont icon-iconfontshenpicaigou01"/>采购</a>
 					<a href="#create/6/通用"><i className="iconfont icon-shenpi03"/>通用</a>

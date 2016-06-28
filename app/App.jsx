@@ -14,6 +14,7 @@ import Styles from './_App.scss';
 import App from './page/App/App';
 import Create from './page/Create/Create';
 import Detail from './page/Detail/Detail';
+import List from './page/List/List';
 
 render((
 	<Router history={hashHistory}>
@@ -22,5 +23,6 @@ render((
 		<Route path="/create/:type/:title/:id" component={Create}/>
 		<Route path="/detail/:type/:title/:id" component={Detail}/>
 		<Route path="/detail/:type/:title/:id/:pageType" component={Detail}/>
+		<Route path="/tome" component={List}/>
 	</Router>
 ), document.getElementById('app'))

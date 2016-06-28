@@ -17,20 +17,46 @@
 		"outType": 0,
 		"applyResean": "/script",
 		"approveStatus": 1,
-		"photos": null,
+		"photos": [{
+			"photo_url": "https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
+		}, {
+			"photo_url": "https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
+		}, {
+			"photo_url": "https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
+		}, {
+			"photo_url": "https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
+		}],
+		"customStruct": {
+			"amount": "采购 总金额",
+			"expectPayDate": "期望交付日期，如 2016-6-6 12:11:10",
+			"detailJArr": [{
+				"item": "物品名称",
+				"spec": "规格",
+				"unit": "单位",
+				"quantity": "数量",
+				"price": "单价"
+			}, {
+				"item": "物品名称",
+				"spec": "规格",
+				"unit": "单位",
+				"quantity": "数量",
+				"price": "单价"
+			}],
+			"applyDetail": "applyDetail"
+		},
 		"approveDetailVo": [{
 			"id": "547",
 			"uid": "80976",
 			"uname": "严丽芳",
 			"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=80976",
-			"approveStatus": "0",
+			"approveStatus": "3",
 			"approveDate": "2016-06-01 09:41:40",
 			"approveOrder": "0",
 			"approveDesc": null,
 			"userMobile": "18268832118"
 		}, {
 			"id": "548",
-			"uid": "10101001610432",
+			"uid": "80976",
 			"uname": "田想兵",
 			"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=10101001610432",
 			"approveStatus": "1",
@@ -40,6 +66,5 @@
 			"userMobile": "18667040027"
 		}],
 		"customJObj": null
-	},
-	"msg": null
+	}
 }

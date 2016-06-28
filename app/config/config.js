@@ -32,6 +32,13 @@ let Config = {
 		return qwest.get("/mock/" + method + ".json").then((res, data) => {
 			return data;
 		})
+	},
+	trim: function(str) {
+		if (str) {
+			return str.replace(/(^\s*)|(\s*$)/g, "");
+		} else {
+			return "";
+		}
 	}
 }
 export default Config;

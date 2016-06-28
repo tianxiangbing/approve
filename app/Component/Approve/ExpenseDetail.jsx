@@ -30,6 +30,7 @@ export default class ExpenseDetail extends Component{
 			this.props.del(this.props.index);
 		}
 
+		this.props.computeMoney(this);
 		//this.props.reRender();
 	}
 	componentDidMount(){
@@ -111,9 +112,9 @@ export default class ExpenseDetail extends Component{
 					method: 'POST',
 					body:JSON.stringify(param)
 				}).then((res) => {
-					if (res.code == 200) {
-						let data = res.data;
-						let i = data.index;
+					if (res.code == 200 ||res.status==200) {
+						let data = res.result;
+						let i = data.flag;
 						let arr = _this.state.imgList.map((item,index)=>{
 							if(index == i){
 								item.uploaded=true;
@@ -123,7 +124,7 @@ export default class ExpenseDetail extends Component{
 						_this.setState({
 							"imgList":arr
 						});
-						_this.imgList.push(data.url);
+						_this.imgList.push(data.photo_url);
 					}
 				});
 			}

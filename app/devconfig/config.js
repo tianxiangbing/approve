@@ -42,12 +42,12 @@ let Config = {
 		}
 		//qwest.setDefaultDataType('json');
 		data.ts = +new Date();
-		data.token = "8b4fa0650e1866d5bd68a8dca678ada0" || cookie.load('token');
-		data.uid = "10101001610432" || cookie.load('userId');
-		data.orgId = 57171554250 || cookie.load('orgId');
-		data.uname = "田想兵" || $.cookie('username');
-		data.deptName = "讯盟科技" || localStorage.getItem("deptName");
-		data.orgName = "青城集团" + localStorage.getItem("orgName");
+		data.token = cookie.load('token');
+		data.uid = cookie.load('userId');
+		data.orgId = cookie.load('orgId');
+		data.uname = cookie.load('username');
+		data.deptName = localStorage.getItem("deptName");
+		data.orgName = localStorage.getItem("orgName");
 		for (let key in this.ajaxList) {
 			if (args[0] == this.ajaxList[key]) {
 				console.log('loading...')

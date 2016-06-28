@@ -1,5 +1,6 @@
 import React from 'react';
 let {Component} = React;
+import Config from 'config';
 
 export default class Generic extends Component{
 	constructor(props){

@@ -1,8 +1,9 @@
 {
-	"code": 200,
-	"data": {
-		"index": "0",
-		"url": "http://7xnmmr.com2.z0.glb.qiniucdn.com/1464939347101"
+	"status": 200,
+	"total": 0,
+	"result": {
+		"photo_url": "http://7xnmmr.com2.z0.glb.qiniucdn.com/9f9b6f64a24fa7f3252608526d423fb92a1d85ff",
+		"flag": "0"
 	},
-	"success": true
+	"msg": null
 }

@@ -6,6 +6,7 @@ import Expense from 'Component/Detail/Expense';
 import Generic from 'Component/Detail/Generic';
 import cookie from 'react-cookie';
 import Config from 'config';
+import UserAvatar from 'Component/UserAvatar';
 
 export default class Detail extends Component{
 	constructor(props){
@@ -16,7 +17,7 @@ export default class Detail extends Component{
 			id: 0,
 			isEnd: false, // 流程是否结束
 		};
-		this.state = {detail:{approveDetailVo:[]},customStruct:{detailJArr:[]},userInfo:{}};
+		this.state = {detail:{approveDetailVo:[],customStruct:{}},customStruct:{detailJArr:[]},userInfo:{}};
 	}
 	componentWillMount(){
 		console.log('will')
@@ -104,7 +105,7 @@ export default class Detail extends Component{
 			extraknower:[{"uid":"10101001610432","name":"田想兵","avatar":"http://n1.store.uban360.com:7188/sfs/avatar?uid=10101001610432"}]
 		});
 	}
-	formatImg(item){
+	/*formatImg(item){
 		if(item.error)
 		{
 			return <div className="img" style={{backgroundColor:item.color}}>{item.uname}</div>
@@ -127,7 +128,7 @@ export default class Detail extends Component{
       item.error=true;
       item.color= color;
       this.setState({detail:this.state.detail});
-	}
+	}*/
 	renderDetail(){
 		let category = this.props.params.type;
 		switch (parseInt(category)){
@@ -261,8 +262,7 @@ export default class Detail extends Component{
 				<div className="box userInfo">
 					<h3>
 						<span className="userAvatar">
-						{this.formatImg(this.state.userInfo)}
-						{!this.state.userInfo.error?<img onError={this.errorImg.bind(this,this.state.userInfo)} src={"http://n1.store.uban360.com:7188/sfs/avatar?uid="+this.state.userInfo.uid}/>:undefined}
+							<UserAvatar item={this.state.userInfo} errorCallback={()=>{ this.setState({userInfo:this.state.userInfo});}}/>
 						</span>
 						<span className="uname">{this.state.detail.uname}</span>
 					</h3>
@@ -271,17 +271,17 @@ export default class Detail extends Component{
 					</div>
 					{this.renderDetail()}
 				</div>
-				<h4>请假流程</h4>
+				<h4>审批流程</h4>
 				<div className="box process">
 					<div className="line"></div>
 					{
 						(this.state.detail.approveDetailVo||[]).map((item)=>{
+							item.name = item.name ||item.uname;
 							return (
 								<div className="item">
 									{this.renderStatus(item.approveStatus)}
 									<div className="user-box">
-										{this.formatImg(item)}
-										{!item.error?<img onError={this.errorImg2.bind(this,item)} src={"http://n1.store.uban360.com:7188/sfs/avatar?uid="+item.uid}/>:undefined}
+										<UserAvatar item={item} errorCallback={()=>{ this.setState({detail:this.state.detail});}}/>
 										<div className="userName">
 											{item.uname}
 											<div className="time">{item.approveDate}</div>
