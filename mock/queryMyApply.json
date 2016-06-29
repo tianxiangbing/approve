@@ -1,0 +1,27 @@
+{
+	"status": 200,
+	"total": 0,
+	"result": [{
+		"uid": "10101001610432",
+		"uname": "田想兵",
+		"applyResean": "approve_20",
+		"applyType": "6",
+		"gmtCreate": "11:19",
+		"approveName": "陈骞",
+		"orgId": "8947",
+		"applyId": "TY1467170471436",
+		"approveStatus": "1",
+		"gmtCreateDate": "2016-06-29 11:19:48"
+	}, {
+		"uid": "10101001610432",
+		"uname": "田想兵",
+		"applyResean": "approve_20",
+		"applyType": "5",
+		"gmtCreate": "11:19",
+		"approveName": "陈骞",
+		"orgId": "8947",
+		"applyId": "TY1467170471436",
+		"approveStatus": "1",
+		"gmtCreateDate": "2016-06-29 11:19:48"
+	}]
+}

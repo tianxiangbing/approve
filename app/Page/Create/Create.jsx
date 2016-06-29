@@ -71,7 +71,10 @@ class Create extends Component{
 			params.endDate = new Date();
 			params.flowStr = JSON.stringify(this.state.authList);
 			params.photoStr = JSON.stringify(this.imgList);
-
+			let zhrArr = this.state.informList.map((item)=>{
+						 	return item.uid
+						})
+			params.extraKnowerJarr =JSON.stringify( zhrArr);
 			//事由
 			params.applyResean=values.applyResean;
 

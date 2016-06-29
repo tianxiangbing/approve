@@ -21,72 +21,6 @@ export default class Detail extends Component{
 	}
 	componentWillMount(){
 		console.log('will')
-		/*cookie.save('userId',80976)
-		this.setState({
-			userInfo:{
-				"uid":"80976",
-				"uname": "严丽芳",
-				"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=80976",
-			},
-			detail: {
-				"uid": "80976",
-				"uname": "严丽芳",
-				"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=80976",
-				"applyId": "QJ1464745300081",
-				"deptName": "测试部",
-				"applyType": "0",
-				"beginDate": "2016-05-13 14:36:00",
-				"endDate": "2016-05-13 15:36:00",
-				"beginOverTime": "0000-00-00 00:00:00",
-				"endOverTime": "0000-00-00 00:00:00",
-				"travelAddr": null,
-				"leaveType": 0,
-				"outType": 0,
-				"applyResean": "/script",
-				"approveStatus": 1,
-				"photos": [
-					{
-						photo_url:"https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
-					},
-					{
-						photo_url:"https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
-					},
-					{
-						photo_url:"https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
-					},
-					{
-						photo_url:"https://signin.api.jituancaiyun.com/signin/styles/images/sprite3.png"
-					}
-				],
-				"customStruct":{
-					"amount": "采购 总金额",
-					"expectPayDate": "期望交付日期，如 2016-6-6 12:11:10",
-					"detailJArr": [ {"item":"物品名称", "spec": "规格", "unit": "单位", "quantity": "数量", "price": "单价"}, {"item":"物品名称", "spec": "规格", "unit": "单位", "quantity": "数量", "price": "单价"} ]
-				},
-				"approveDetailVo": [{
-					"id": "547",
-					"uid": "80976",
-					"uname": "严丽芳",
-					"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=80976",
-					"approveStatus": "3",
-					"approveDate": "2016-06-01 09:41:40",
-					"approveOrder": "0",
-					"approveDesc": null,
-					"userMobile": "18268832118"
-				}, {
-					"id": "548",
-					"uid": "80976",
-					"uname": "田想兵",
-					"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=10101001610432",
-					"approveStatus": "1",
-					"approveDate": "2016-06-01 09:41:40",
-					"approveOrder": "1",
-					"approveDesc": null,
-					"userMobile": "18667040027"
-				}],
-				"customJObj": null
-			}
-		});*/
 		let param = {};
 		param.applyId = this.props.params.id;
 		Config.ajax('queryApplyDetail',{
@@ -95,57 +29,37 @@ export default class Detail extends Component{
 		}).then((res)=>{
 			this.setState({userInfo:{
 				"uid":res.result.uid,
-				"uname": res.result.uname,
+				"name": res.result.uname,
 				"avatar": res.result.avatar
 			},detail:res.result});
-			console.log(this.state)
+			console.log(res.result)
 		});
 		//获取知会人
-		this.setState({
-			extraknower:[{"uid":"10101001610432","name":"田想兵","avatar":"http://n1.store.uban360.com:7188/sfs/avatar?uid=10101001610432"}]
+		Config.ajax ('zhrList',{
+			method: 'POST',
+			body:JSON.stringify(param)
+		}).then((res)=>{
+			this.setState({
+				extraknower:res.result
+			});
 		});
 	}
-	/*formatImg(item){
-		if(item.error)
-		{
-			return <div className="img" style={{backgroundColor:item.color}}>{item.uname}</div>
-		}else{
-			return undefined;
-		}
-	}
-	errorImg(item,e){
-		console.log(e)
-      let avatarColors = ['#f17474','#7ac47a','#efbc6b','#75a4d7','#45b2e3']
-      let color = avatarColors[item.uid% 5];
-      item.error=true;
-      item.color= color;
-      this.setState({userInfo:this.state.userInfo});
-	}
-	errorImg2(item,e){
-		console.log(e)
-      let avatarColors = ['#f17474','#7ac47a','#efbc6b','#75a4d7','#45b2e3']
-      let color = avatarColors[item.uid% 5];
-      item.error=true;
-      item.color= color;
-      this.setState({detail:this.state.detail});
-	}*/
 	renderDetail(){
 		let category = this.props.params.type;
 		switch (parseInt(category)){
 			case 5:{
 				//采购
-				return <Caigou ref="myForm" detail={this.state.detail} stage={this}/>;
+				return <Caigou key={category} ref="myForm" detail={this.state.detail} stage={this}/>;
 				break;
 			}
 			case 4:{
 				//报销
-				return <Expense ref="myForm" detail={this.state.detail} stage={this}/>;
+				return <Expense key={category}  ref="myForm" detail={this.state.detail} stage={this}/>;
 				break;
 			}
 			case 6:{
-				console.log('通用')
 				//通用
-				return <Generic ref="myForm" detail={this.state.detail} stage={this}/>;
+				return <Generic key={category}  ref="myForm" detail={this.state.detail} stage={this}/>;
 				break;
 			}
 		}

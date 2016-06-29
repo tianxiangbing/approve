@@ -17,7 +17,7 @@ export default class List extends Component{
 		return <UesrAvatar item={item}/>
 	}
 	bind(index){
-
+		Config.ajax("");
 	}
 	Tab(index){
 		this.setState({tabIndex:index});
@@ -34,12 +34,13 @@ export default class List extends Component{
 					{
 						this.state.list.map((item)=>{
 							return (
-								<ListItem avatar={this.renderAvatar(item)} title="标题xxxx " desc="这是描述啊" time="昨天" status="1"/>
+								<ListItem avatar={this.renderAvatar(item)} title="标题xxxx " desc="这是描述啊" time="昨天" status="3"/>
 								)
 						})
 					}
+					<div>
 
-					<div></div>
+					</div>
 				</div>
 			</div>
 			)

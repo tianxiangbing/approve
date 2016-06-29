@@ -119,6 +119,14 @@ let Config = {
 					return domain + 'flow/getFlowByType?h5t=' + h5tRandom
 					break;
 				}
+			case 'queryMyApply':
+				{
+					return domain + 'apply/queryMyApply?h5t=' + h5tRandom
+				}
+			case 'zhrList':
+				{
+					return domain + 'extraknower/list?h5t=' + h5tRandom
+				}
 		}
 	},
 	native: function(method, data) {
@@ -275,6 +283,15 @@ let Config = {
 		} else {
 			return "";
 		}
-	}
+	},
+	applyType: ["请假", "外出", "出差", "调休", "报销", "采购", "通用"],
+	applyTypeColor: ['#efbc6b', '#4ec2b5', '#7ac47a', '#75a4d7', '#efbc6b', '#efbc6b', '#efbc6b'],
+	expenseType: ['交通费',
+		'住宿费',
+		'通讯费',
+		'采购费',
+		'餐补费',
+		'其他'
+	]
 }
 export default Config;

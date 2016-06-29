@@ -6,14 +6,7 @@ export default class UserAvatar extends Component{
 		console.log(this.props.item.userName)
 		this.state={error:false};
 	}
-	formatImg(){
-		if(this.state.error)
-		{
-			return <div className="img" style={{backgroundColor:this.state.color}}>{(this.props.item.name||"").slice(-2)}</div>
-		}else{
-			return undefined;
-		}
-	}
+	
 	errorImg(item,e){
 		//console.log(e)
       let avatarColors = ['#f17474','#7ac47a','#efbc6b','#75a4d7','#45b2e3']
@@ -29,8 +22,7 @@ export default class UserAvatar extends Component{
 	render(){
 		return (
 		<span>
-			{this.formatImg()}
-			{!this.state.error?<img onError={this.errorImg.bind(this,this.props.item)} src={"http://n1.store.uban360.com:7188/sfs/avatar?uid="+this.props.item.uid}/>:undefined}
+			{!this.state.error?<img onError={this.errorImg.bind(this,this.props.item)} src={"http://n1.store.uban360.com:7188/sfs/avatar?uid="+this.props.item.uid}/>:<div className="img" style={{backgroundColor:this.state.color}}>{(this.props.item.name||"").slice(-2)}</div>}
 		</span>
 		);
 	}

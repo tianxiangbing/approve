@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Config from 'config';
 let {Component} = React;
 
 export default class ExpenseDetail extends Component{
@@ -11,7 +11,7 @@ export default class ExpenseDetail extends Component{
 						<label><b>报销明细{this.props.detail.length>1 ?"("+this.props.index+")":undefined}</b></label>
 					</div>
 					<div className="detail-row">
-						<label>报销类型：</label>{this.props.item.type}
+						<label>报销类型：</label>{Config.expenseType[this.props.item.type]}
 					</div>
 					<div className="detail-row">
 						<label>金额（元）：</label>{this.props.item.money}

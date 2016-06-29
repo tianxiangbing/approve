@@ -6,12 +6,7 @@ export default class ExpenseDetail extends Component{
 	constructor(props){
 		super(props);
 		this.imgList =[];
-		this.typeArr = ['交通费',
-						'住宿费',
-						'通讯费',
-						'采购费',
-						'餐补费',
-						'其他'];
+		this.typeArr =Config.expenseType;
 		this.text = [{field:'money',text:'价格'}];
 		this.state={type:0, imgList:[],showUpload:true,item:{money:'',type:0,remark:'',photoJArr:''}};
 	}
@@ -169,7 +164,7 @@ export default class ExpenseDetail extends Component{
 							</div>
 						</div>
 						<div className="txt-reason rowinput">
-							<textarea ref="applyResean" value={this.state.item.applyResean} onChange={this.change.bind(this,"applyResean")} maxLength ="140" placeholder="备注（非必填）"/>
+							<textarea ref="applyResean" value={this.state.item.applyResean} onChange={this.change.bind(this,"remark")} maxLength ="140" placeholder="备注（非必填）"/>
 						</div>
 					</div>
 				</div>

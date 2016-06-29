@@ -39,6 +39,15 @@ let Config = {
 		} else {
 			return "";
 		}
-	}
+	},
+	applyType: ["请假", "外出", "出差", "调休", "报销", "采购", "通用"],
+	applyTypeColor: ['#F17474', '#70A1D9', '#72C474', '#4DC1B4', '#EEBB6A', '#72C474', '#70A1D9'],
+	expenseType: ['交通费',
+		'住宿费',
+		'通讯费',
+		'采购费',
+		'餐补费',
+		'其他'
+	]
 }
 export default Config;

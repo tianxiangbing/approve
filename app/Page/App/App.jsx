@@ -85,7 +85,7 @@ export default class App extends Component{
 			localStorage.setItem('orgName',currCorp.orgName);
 			localStorage.setItem('orgId',currCorp.orgId);
 			localStorage.setItem('deptName',currCorp.deptName);
-			cookie.save('orgId',currCorp.orgId);
+			cookie.save('orgId',currCorp.orgId,"/");
 		});
 	}
 	componentDidMount(){
@@ -160,7 +160,7 @@ export default class App extends Component{
 				</div>
 				<div className="menu">
 				<a href="http://10.1.40.6/approve/app/tome.html"><i className="iconfont icon-111"/>待我审批</a>
-				<a href="http://10.1.40.6/approve/app/fromme.html"><i className="iconfont icon-112 ifuck"/>我发起的</a>
+				<a href="#fromme"><i className="iconfont icon-112 ifuck"/>我发起的</a>
 				</div>
 				<a className="followme" href="http://10.0.10.46:8080/approve/app/notify.html">知会我的<i className="iconfont icon-xiayibu"/></a>
 				<div className="menu-list">
