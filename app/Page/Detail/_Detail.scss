@@ -62,7 +62,7 @@
 		img{
 			width:pxToRem2(60);
 			height:pxToRem2(60);
-			margin-right:pxToRem2(10);
+			margin-right:pxToRem2(8);
 		}
 	}
 	.zhr{
@@ -117,6 +117,24 @@
 			margin-right: pxToRem2(7);
 			background-color: #fff;
 		}
+		&.fqsq{
+			color:#72C474;
+		}
+		&.spz{
+			color:#EEBB6A;
+		}
+		&.spty{
+			color:#72C474;
+		}
+		&.spjj{
+			color:#717474;
+		}
+		&.ych{
+			color:#ccc;
+		}
+		&.wsp{
+			color:#ccc;
+		}
 		padding-top:pxToRem2(10);
 	}
 	.user-box{
@@ -126,6 +144,7 @@
 		@include border(#BBBBBB,5px,1px,1);
 		margin-right: pxToRem2(15);
 		padding:pxToRem2(5);
+		position: relative;
 		img,i,.img{
 			display:inline-block;
 			height:pxToRem2(40);
@@ -142,24 +161,6 @@
 			@extend .fontSize2;
 			color:#FA565A;
 		}
-		.fqsq{
-			color:#72C474;
-		}
-		.spz{
-			color:#EEBB6A;
-		}
-		.spty{
-			color:#72C474;
-		}
-		.spjj{
-			color:#717474;
-		}
-		.ych{
-			color:#ccc;
-		}
-		.wsp{
-			color:#ccc;
-		}
 		.userName{
 			@extend .fontSize1;
 			display: inline-block;
@@ -170,6 +171,17 @@
 				@extend .fontSize;
 				color:#999;
 			}
+		}
+		.fqsx{
+			position:absolute;
+			top:pxToRem(32);
+			right:pxToRem(14);
+			color:#FA565A;
+			border:1px solid #FA565A;
+			height: pxToRem(36);
+			line-height: pxToRem(36);
+			border-radius: pxToRem(36);
+			padding:0 pxToRem(18);
 		}
 	}
 }
@@ -191,6 +203,21 @@
 		color:#222;
 		&.jj{
 			color:#FA565A;
+		}
+	}
+}
+.statusIcon{
+	position:absolute;
+	top:pxToRem(100);
+	right:pxToRem(60);
+	i{
+		font-size: pxToRem(150);
+		color:#d3d3d3;
+		&.icontg{
+			color:#7ac47a;
+		}
+		&.iconjj{
+			color:#7ac47a;
 		}
 	}
 }

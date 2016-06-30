@@ -95,8 +95,8 @@ export default class ExpenseDetail extends Component{
 		this.state.imgList.forEach((item, index) => {
 			if (!item.uploaded &&!item.uploading) {
 				let param = {
-					index: index.toString(),
-					imageData: item.data
+					flag: index.toString(),
+					Base64Stream: item.data
 				}
 				item.uploading=true;
 				Config.ajax('upload', {
@@ -107,6 +107,7 @@ export default class ExpenseDetail extends Component{
 					method: 'POST',
 					body:JSON.stringify(param)
 				}).then((res) => {
+					console.log(res)
 					if (res.code == 200 ||res.status==200) {
 						let data = res.result;
 						let i = data.flag;

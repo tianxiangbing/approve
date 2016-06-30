@@ -17,10 +17,13 @@ export default class Detail extends Component{
 			id: 0,
 			isEnd: false, // 流程是否结束
 		};
-		this.state = {detail:{approveDetailVo:[],customStruct:{}},customStruct:{detailJArr:[]},userInfo:{}};
+		this.state = {detail:{approveDetailVo:[],customStruct:{}},customStruct:{detailJArr:[]},userInfo:{},extraknower:[],approveDesc:""};
 	}
 	componentWillMount(){
 		console.log('will')
+		this.init();
+	}
+	init(){
 		let param = {};
 		param.applyId = this.props.params.id;
 		Config.ajax('queryApplyDetail',{
@@ -110,6 +113,39 @@ export default class Detail extends Component{
 			console.log('重新申请');
 			location.href="/#create/"+this.props.params.type+"/"+this.props.params.title+"/"+this.props.params.id
 		}
+		if(approveStatus==2){
+			//同意
+		}
+		if(approveStatus==3){
+			//拒绝
+			params.approveDesc=this.state.approveDesc;
+		}
+		if(approveStatus==4){
+			if(confirm("您确定要撤销申请吗？")){
+				//撤回
+				Config.ajax('retract',{
+					method: 'POST',
+					body:JSON.stringify(params)
+				}).then((data)=>{
+					if (data.status == 200) {
+						this.init();
+			        }else{
+			        	alert("操作失败！状态码：" + data.status);
+			        }
+				});
+			}
+			return;
+		}
+		Config.ajax('update',{
+			method: 'POST',
+			body:JSON.stringify(params)
+		}).then((data)=>{
+			if (data.status == 200) {
+				this.init();
+	        }else{
+	        	alert("操作失败！状态码：" + data.status);
+	        }
+		});
 	}
 	renderButton() {
 		let data = this.state.detail;
@@ -169,7 +205,16 @@ export default class Detail extends Component{
 			return <a className="bottomBtn" onClick={this.submit.bind(this,-1)}>重新申请</a>;
 		}
 	}
+	fqsx(item){
+		item.content = this.state.detail.uname + "请您审批他的" + Config.applyType[this.props.params.type] + "申请";
+	    Config.native('fqsx',item);
+	}
 	render(){
+		/*"1": "进行中",
+		"2": "已完成",
+		"3": "已完成",
+		"4": "已撤回",
+		"5": "进行中"*/
 		return (
 			<div className="detail-info">
 				<Helmet title={this.props.params.title+"详情"}/>
@@ -181,9 +226,14 @@ export default class Detail extends Component{
 						<span className="uname">{this.state.detail.uname}</span>
 					</h3>
 					<div className="detail-row">
-						<label>所在部门：</label><span>{this.state.detail.deptName}</span>
+						<label>所在部门：</label><span>{Config.isNullShowText(this.state.detail.deptName)}</span>
 					</div>
 					{this.renderDetail()}
+				</div>
+				<div className="statusIcon">
+					{this.state.detail.approveStatus==3?<i className="iconfont icon-tuzhang02 iconjj"/>:undefined}
+					{this.state.detail.approveStatus==2?<i className="iconfont icon-weibiaoti201 icontg"/>:undefined}
+					{this.state.detail.approveStatus==4?<i className="iconfont icon-tuzhang03 iconch"/>:undefined}
 				</div>
 				<h4>审批流程</h4>
 				<div className="box process">
@@ -198,7 +248,8 @@ export default class Detail extends Component{
 										<UserAvatar item={item} errorCallback={()=>{ this.setState({detail:this.state.detail});}}/>
 										<div className="userName">
 											{item.uname}
-											<div className="time">{item.approveDate}</div>
+											<div className="time"> {item.approveDate.substr(0, 4) == "0000"||item.approveStatus==1 ? "" : item.approveDate}</div>
+											{item.approveStatus==1?<span className="fqsx" onClick={this.fqsx.bind(this,item)}>发事项</span>:undefined}
 										</div>
 									</div>
 								</div>
@@ -206,19 +257,21 @@ export default class Detail extends Component{
 						})
 					}
 				</div>
-				<div className="box zhr">
-					<h2>知会人</h2>
-					<div className="zhr-list">
-						{
-							(()=>{
-							let arr = (this.state.extraknower||[]).map((item)=>{
-								return item.name
-							})
-							return arr.join('、');
-							})()
-						}
-					</div>
-				</div>
+				{this.state.extraknower.length>0?
+					(<div className="box zhr">
+						<h2>知会人</h2>
+						<div className="zhr-list">
+							{
+								(()=>{
+								let arr = (this.state.extraknower||[]).map((item)=>{
+									return item.name
+								})
+								return arr.join('、');
+								})()
+							}
+						</div>
+					</div>)
+					:undefined}
 				{this.renderButton()}
 			</div>
 			);

@@ -127,6 +127,14 @@ let Config = {
 				{
 					return domain + 'extraknower/list?h5t=' + h5tRandom
 				}
+			case "update":
+				{
+					return domain + "approve/updateApprove?h5t=" + h5tRandom
+				}
+			case 'retract':
+				{
+					return domain + "apply/retractApply?h5t=" + h5tRandom
+				}
 		}
 	},
 	native: function(method, data) {
@@ -253,6 +261,20 @@ let Config = {
 					}
 					break;
 				}
+			case "fqsx":
+				{
+					if (!isAndr) {
+						newEventIOS(data.uid, data.uname, data.content);
+					} else {
+						window.location.href = 'uban://start/createNote?uid=' + data.uid + "&uname=" + data.uname + "&mobile=" + data.mobile + "&content=" + data.content;
+					}
+					return {
+						then: function(f) {
+							t = f;
+						}
+					}
+					break;
+				}
 			default:
 				{
 					setTimeout(() => {
@@ -292,6 +314,13 @@ let Config = {
 		'采购费',
 		'餐补费',
 		'其他'
-	]
+	],
+	isNullShowText: function(value, text) {
+		if (typeof value == "undefined" || this.trim(value) == "") {
+			return text || "无";
+		} else {
+			return value;
+		}
+	}
 }
 export default Config;

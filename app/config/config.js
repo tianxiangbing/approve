@@ -28,7 +28,7 @@ let Config = {
 		/*	return fetch("/mock/" + method + ".json").then((response) => {
 				return response.json()
 			});*/
-
+		console.log(data)
 		return qwest.get("/mock/" + method + ".json").then((res, data) => {
 			return data;
 		})
@@ -48,6 +48,13 @@ let Config = {
 		'采购费',
 		'餐补费',
 		'其他'
-	]
+	],
+	isNullShowText: function(value, text) {
+		if (typeof value == "undefined" || this.trim(value) == "") {
+			return text || "无";
+		} else {
+			return value;
+		}
+	}
 }
 export default Config;

@@ -38,9 +38,10 @@
 		} 
 	}
 	.expectPayDate{
+		color:#666;
 		float: right;
 		i{
-			color:#B4B4B4;
+			color:#dcdcdc;
 		}
 	}
 }
@@ -92,6 +93,7 @@
 				top:0;
 				right:0; */
 				margin-left:pxToRem2(7);
+				color:#666;
 			}
 		}
 	}
@@ -106,13 +108,13 @@
 }
 .add-photo{
 	span{
-		color:#B4B4B4;
+		color:#dcdcdc;
 		margin-left:pxToRem(10);
 	}
 	i{
 		float: right;
 		font-size: pxToRem2(19);
-		color:#B4B4B4;
+		color:#dcdcdc;
 	}
 }
 .btn-submit{
@@ -167,7 +169,7 @@
 	h4{
 		padding-bottom:pxToRem2(15);
 		span{
-			color:#B4B4B4;
+			color:#dcdcdc;
 		}
 	}
 }
@@ -208,7 +210,7 @@
 		height:pxToRem2(46);
 		line-height:pxToRem2(46);
 		margin-right: pxToRem2(7);
-		color:#B4B4B4;
+		color:#dcdcdc;
 	}
 }
 .type-list{

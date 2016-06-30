@@ -76,18 +76,18 @@ $borderColor:#cdcdcd;
 $borderColor2:#cecece;
 $focusColor:#fa565a;
 $fontColorGray:#9a9a9a;
-$fontColorBlack:#222222;
+$fontColorBlack:#333333;
 $fontColorRed:#f85e57;
-::-webkit-input-placeholder { color:#B4B4B4; }
-::-moz-placeholder { color:#B4B4B4; } /* firefox 19+ */
-:-ms-input-placeholder { color:#B4B4B4; } /* ie */
-input:-moz-placeholder { color:#B4B4B4; }
+::-webkit-input-placeholder { color:#dcdcdc; }
+::-moz-placeholder { color:#dcdcdc; } /* firefox 19+ */
+:-ms-input-placeholder { color:#dcdcdc; } /* ie */
+input:-moz-placeholder { color:#dcdcdc; }
 
 html,
 	body{
 	margin:0;padding:0;
 	.body{
-		color:#222222;
+		color:#333333;
 		@extend .fontSize1;
 		font-family: $fontFamily;
 	}
@@ -197,5 +197,5 @@ input,textarea{
 	}
 }
 a{
-	color:#222
+	color:#333333
 }

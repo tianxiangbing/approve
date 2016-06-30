@@ -18,6 +18,7 @@
 	}
 	height: 100%;
 	background-color: #fff;
+	overflow:auto;
 }
 .list-body{
 	.item{
@@ -44,6 +45,14 @@
 	.event{
 		@extend .fontSize2;
 		padding-bottom: pxToRem(20);
+		overflow: hidden;
+		p{
+			width:pxToRem(350);
+			overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+			float:left;
+		}
 		.time{
 			float: right;
 			color:#999;
@@ -52,17 +61,24 @@
 	}
 	.desc{
 		padding:0 0 pxToRem(22) 0;
-		border-bottom:1px solid #cdcdcd;
+		/* border-bottom:1px solid #cdcdcd; */
+		@include border(#cdcdcd,0,0 0 1px 0,4);
 		color:#999;
 		@extend .fontSize1;
 		p{
-			width:pxToRem(375);
+			width:pxToRem(350);
 			overflow: hidden;
 			text-overflow:ellipsis;
+			white-space: nowrap;
 		}
 		.status{
 			float:right;
 			color:#d2d2d2;
+			width:pxToRem(200);
+			text-align: right;
+			overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
 			&.reject{
 				color:#f95559;
 			}

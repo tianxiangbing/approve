@@ -17,7 +17,11 @@ export default class List extends Component{
 		return <UesrAvatar item={item}/>
 	}
 	bind(index){
-		Config.ajax("");
+		Config.ajax("queryMyApprove").then((res)=>{
+			if(res.status==200){
+				this.setState({list:res.result})
+			}
+		});
 	}
 	Tab(index){
 		this.setState({tabIndex:index});

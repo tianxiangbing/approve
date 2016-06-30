@@ -37,13 +37,15 @@ export default class Expense extends Component{
 		this.setState({detail:this.state.detail});
 	}*/
 	computeMoney(){
-		console.log(this.refs)
-		let sumMoney = 0;
-		this.state.detail.forEach((item,index)=>{
-			let money = this.refs['caigouDetail'+index].getMoney();
-			sumMoney+=money;
-		});
-		this.setState({sumPrice:sumMoney});
+		setTimeout(()=>{
+			console.log(this.refs)
+			let sumMoney = 0;
+			this.state.detail.forEach((item,index)=>{
+				let money = this.refs['caigouDetail'+index].getMoney();
+				sumMoney+=money;
+			});
+			this.setState({sumPrice:sumMoney});
+		},250)
 	}
 	validate(){
 		let returnValue = true;

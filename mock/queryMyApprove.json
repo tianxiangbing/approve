@@ -1,0 +1,45 @@
+{
+	"status": 200,
+	"total": 0,
+	"result": [{
+		"uid": "924064",
+		"uname": "密码",
+		"applyResean": "Hhbb",
+		"applyType": "5",
+		"gmtCreate": "昨天 11:55",
+		"approveName": null,
+		"orgId": "83209",
+		"applyId": "CG1467172436252",
+		"approveStatus": "1",
+		"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=924064",
+		"currStatus": "1",
+		"gmtCreateDate": "2016-06-29 11:55:46"
+	}, {
+		"uid": "924064",
+		"uname": "密码",
+		"applyResean": "Ggb",
+		"applyType": "6",
+		"gmtCreate": "昨天 11:53",
+		"approveName": null,
+		"orgId": "83209",
+		"applyId": "TY1467172329528",
+		"approveStatus": "1",
+		"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=924064",
+		"currStatus": "1",
+		"gmtCreateDate": "2016-06-29 11:53:59"
+	}, {
+		"uid": "924064",
+		"uname": "密码",
+		"applyResean": "给黄金季节",
+		"applyType": "6",
+		"gmtCreate": "昨天 11:32",
+		"approveName": null,
+		"orgId": "83209",
+		"applyId": "TY1467171013219",
+		"approveStatus": "1",
+		"avatar": "http://n1.store.uban360.com:7188/sfs/avatar?uid=924064",
+		"currStatus": "1",
+		"gmtCreateDate": "2016-06-29 11:32:03"
+	}],
+	"msg": null
+}

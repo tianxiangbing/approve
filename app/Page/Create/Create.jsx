@@ -70,7 +70,10 @@ class Create extends Component{
 			params.beginDate = new Date();
 			params.endDate = new Date();
 			params.flowStr = JSON.stringify(this.state.authList);
-			params.photoStr = JSON.stringify(this.imgList);
+			let imgList = this.imgList.map((item,indx)=>{
+				return {id:indx,photoUrl:item};
+			});
+			params.photoStr = JSON.stringify(imgList);
 			let zhrArr = this.state.informList.map((item)=>{
 						 	return item.uid
 						})

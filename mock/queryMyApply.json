@@ -4,24 +4,69 @@
 	"result": [{
 		"uid": "10101001610432",
 		"uname": "田想兵",
-		"applyResean": "approve_20",
-		"applyType": "6",
-		"gmtCreate": "11:19",
-		"approveName": "陈骞",
-		"orgId": "8947",
-		"applyId": "TY1467170471436",
+		"applyResean": "报销总金额14",
+		"applyType": "4",
+		"gmtCreate": "昨天 18:39",
+		"approveName": "密码",
+		"orgId": "83209",
+		"applyId": "BX1467196654748",
 		"approveStatus": "1",
-		"gmtCreateDate": "2016-06-29 11:19:48"
+		"gmtCreateDate": "2016-06-29 18:39:24"
 	}, {
 		"uid": "10101001610432",
 		"uname": "田想兵",
-		"applyResean": "approve_20",
-		"applyType": "5",
-		"gmtCreate": "11:19",
-		"approveName": "陈骞",
-		"orgId": "8947",
-		"applyId": "TY1467170471436",
+		"applyResean": "报销总金额121",
+		"applyType": "4",
+		"gmtCreate": "昨天 18:31",
+		"approveName": "密码",
+		"orgId": "83209",
+		"applyId": "BX1467196157544",
 		"approveStatus": "1",
-		"gmtCreateDate": "2016-06-29 11:19:48"
-	}]
+		"gmtCreateDate": "2016-06-29 18:31:07"
+	}, {
+		"uid": "10101001610432",
+		"uname": "田想兵",
+		"applyResean": "详情",
+		"applyType": "6",
+		"gmtCreate": "昨天 17:17",
+		"approveName": "密码",
+		"orgId": "83209",
+		"applyId": "TY1467191762854",
+		"approveStatus": "1",
+		"gmtCreateDate": "2016-06-29 17:17:52"
+	}, {
+		"uid": "10101001610432",
+		"uname": "田想兵",
+		"applyResean": "采购一个",
+		"applyType": "5",
+		"gmtCreate": "昨天 17:16",
+		"approveName": "密码",
+		"orgId": "83209",
+		"applyId": "CG1467191686970",
+		"approveStatus": "1",
+		"gmtCreateDate": "2016-06-29 17:16:37"
+	}, {
+		"uid": "10101001610432",
+		"uname": "田想兵",
+		"applyResean": "Bxhhsj",
+		"applyType": "6",
+		"gmtCreate": "昨天 11:34",
+		"approveName": "测试敏",
+		"orgId": "83209",
+		"applyId": "TY1467171166205",
+		"approveStatus": "1",
+		"gmtCreateDate": "2016-06-29 11:34:36"
+	}, {
+		"uid": "10101001610432",
+		"uname": "田想兵",
+		"applyResean": "一样",
+		"applyType": "0",
+		"gmtCreate": "昨天 11:33",
+		"approveName": "测试敏",
+		"orgId": "83209",
+		"applyId": "QJ1467171125606",
+		"approveStatus": "1",
+		"gmtCreateDate": "2016-06-29 11:33:55"
+	}],
+	"msg": null
 }

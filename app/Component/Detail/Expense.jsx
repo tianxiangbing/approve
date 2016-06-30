@@ -1,6 +1,7 @@
 import React from 'react';
 import ExpenseDetail from './ExpenseDetail';
 let {Component} = React;
+import Config from 'config';
 
 export default class Expense extends Component{
 	constructor(props){
@@ -9,6 +10,7 @@ export default class Expense extends Component{
 	render(){
 		this.detail = this.props.detail;
 		this.detail.customJObj = JSON.parse(this.detail.customJObj||"{}")||{};
+		console.log(this.detail.customJObj)
 		return (
 			<div>
 				<div className="topborder"/>
@@ -19,7 +21,7 @@ export default class Expense extends Component{
 					})
 				}
 				<div className="topborder"/>
-				<div className="detail-row sum-price"><label>总价：</label><span className="price">{this.detail.customJObj.amount}</span></div>
+				<div className="detail-row sum-price"><label>总价（元）：</label><span className="price">{(this.detail.customJObj.amount||0).toFixed(2)}</span></div>
 				<div className="detail-row"><label>审批编号：</label><span>{this.detail.applyId}</span></div>
 			</div>
 		);

@@ -45,10 +45,10 @@ export default class FromMe extends Component{
 				</div>
 				<div className="list-body">
 					{
-						this.state.list.map((item)=>{
+						(this.state.list||[]).map((item)=>{
 							console.log(item)
 							return (
-								<ListItem applyType={item.applyType} applyId={item.applyId} avatar={this.renderAvatar(item)} title={item.applyResean} desc={item.uname} time={item.gmtCreate} status={item.approveStatus}/>
+								<ListItem {...item} applyType={item.applyType} applyId={item.applyId} avatar={this.renderAvatar(item)} title={item.applyResean} desc={item.uname} time={item.gmtCreate} status={item.approveStatus}/>
 								)
 						})
 					}

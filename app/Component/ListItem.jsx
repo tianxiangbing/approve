@@ -29,9 +29,9 @@ export default class ListItem extends Component{
 						{this.props.avatar}
 					</div>
 					<div className="rcontent">
-						<div className="event">{this.props.title}<span className="time">{this.props.time}</span></div>
+						<div className="event"><p>{this.props.title}</p><span className="time">{this.props.time}</span></div>
 						<div className="desc">
-						<span className={this.props.status==3? "status reject" :"status"}>{this.approveStatus[this.props.status]}</span>
+						{this.props.status==1?<span className="status">{'等待'+this.props.approveName+'处理'}</span>:<span className={this.props.status==3? "status reject" :"status"}>{this.approveStatus[this.props.status]}</span>}
 						<p>{this.props.desc}</p>
 						</div>
 					</div>
