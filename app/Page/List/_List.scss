@@ -3,8 +3,8 @@
 	.head{
 		@extend .fontSize2;
 		color:#9a9a9a;
-		height: pxToRem(70);
-		line-height: pxToRem(70);
+		height: pxToRem(80);
+		line-height: pxToRem(80);
 		a{
 			width:50%;
 			display:inline-block;
@@ -66,7 +66,7 @@
 		color:#999;
 		@extend .fontSize1;
 		p{
-			width:pxToRem(350);
+			width:pxToRem(300);
 			overflow: hidden;
 			text-overflow:ellipsis;
 			white-space: nowrap;
@@ -74,7 +74,7 @@
 		.status{
 			float:right;
 			color:#d2d2d2;
-			width:pxToRem(200);
+			width:pxToRem(250);
 			text-align: right;
 			overflow: hidden;
 			text-overflow:ellipsis;
@@ -83,5 +83,21 @@
 				color:#f95559;
 			}
 		}
+	}
+}
+.nodata{
+	text-align: center;
+	color:#929292;
+	@extend .fontSize2;
+	i{
+		display:block;
+		font-size:pxToRem(125);
+		color:#fff;
+		background-color: #dcdcdc;
+		height:pxToRem(210);
+		width:pxToRem(210);
+		line-height:pxToRem(210);
+		border-radius: pxToRem(210);
+		margin:pxToRem(250) auto pxToRem(40) auto;
 	}
 }

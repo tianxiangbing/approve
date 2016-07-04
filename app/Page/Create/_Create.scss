@@ -48,6 +48,7 @@
 .detail{
 	h3{
 		@extend .fontSize13;
+		color:#999999;
 		padding:pxToRem2(9) pxToRem2(14) pxToRem2(14) pxToRem2(14);
 		a{
 			float:right;

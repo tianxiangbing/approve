@@ -17,7 +17,7 @@ class Create extends Component{
 		console.log(props)
 		this.imgList = [];
 		this.params =props.params
-		this.state={imgList:[],showUpload:true,authList:[],informList:[],showAddPic:true,dialog:0,isSet:0}
+		this.state={imgList:[],showUpload:true,authList:[],informList:[],showAddPic:true,dialog:0,isSet:0,detail:null};
 	}
 	componentWillMount(){
 		if(this.params.type == 4){
@@ -43,6 +43,28 @@ class Create extends Component{
 			})
 			this.setState({authList:arr,isSet:data.result.isSet})
 		});
+
+		if(this.params.id){
+			let param={};
+			param.applyId = this.props.params.id;
+			Config.ajax('queryApplyDetail', {
+				method: 'POST',
+				body: JSON.stringify(param)
+			}).then((res) => {
+				if(res.status==200){
+					this.setState({
+						userInfo: {
+							"uid": res.result.uid,
+							"name": res.result.uname,
+							"avatar": res.result.avatar
+						},
+						detail: res.result,
+						imgList:res.result.photos||[]
+					});
+				}
+				console.log(res.result)
+			});
+		}
 	}
 	componentDidMount(){
 	/*	this.props.router.setRouteLeaveHook(
@@ -163,7 +185,17 @@ class Create extends Component{
 			return;
 		}
 		Config.native('selectPeopleIOS').then((res)=>{
-			let data = res.data;
+			let data = res.data.map((item)=>{
+				let ishave =false;
+				for(let i=0;i<this.state.authList.length;i++){
+					if(item.uid == this.state.authList[i].uid){
+						ishave=true;
+					}
+				}
+				if(!ishave){
+					return item;
+				}
+			});
 			let authList = this.state.authList .concat(data);
 			this.setState({authList:authList});
 		});
@@ -175,7 +207,17 @@ class Create extends Component{
 			return;
 		}
 		Config.native('selectPeopleIOS').then((res)=>{
-			let data = res.data;
+			let data = res.data.map((item)=>{
+				let ishave =false;
+				for(let i=0;i<this.state.informList.length;i++){
+					if(item.uid == this.state.informList[i].uid){
+						ishave=true;
+					}
+				}
+				if(!ishave){
+					return item;
+				}
+			});
 			let informList = this.state.informList .concat(data);
 			this.setState({informList:informList});
 		});
@@ -204,18 +246,18 @@ class Create extends Component{
 		switch (parseInt(category)){
 			case 5:{
 				//采购
-				return <Caigou ref="myForm" stage={this}/>;
+				return <Caigou ref="myForm" stage={this} detail={this.state.detail}/>;
 				break;
 			}
 			case 4:{
 				//报销
-				return <Expense ref="myForm" stage={this}/>;
+				return <Expense ref="myForm" stage={this} detail={this.state.detail}/>;
 				break;
 			}
 			case 6:{
 				console.log('通用')
 				//通用
-				return <Generic ref="myForm" stage={this}/>;
+				return <Generic ref="myForm" stage={this} detail={this.state.detail}/>;
 				break;
 			}
 		}

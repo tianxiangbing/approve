@@ -14,7 +14,7 @@ export default class ExpenseDetail extends Component{
 			<div className="one">
 				<div className="detail" title={this.props.title}>
 					<div className="detail-row">
-						<label><b>报销明细{this.props.detail.length>1 ?"("+this.props.index+")":undefined}</b></label>
+						<label><b>报销明细{this.props.detail.length>1 ?"（"+this.props.index+"）":undefined}</b></label>
 					</div>
 					<div className="detail-row">
 						<label>报销类型：</label>{Config.expenseType[this.props.item.type]}

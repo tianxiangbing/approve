@@ -66,7 +66,7 @@ export  default  class CaigouDetail extends Component{
 		 	let item = this.text[i];
 		 	if( Config.trim(this.state.item[item.field]).length ==0){
 		 		let indexstr="";
-		 		this.props.detail.length===1?undefined:indexstr=this.props.index;
+		 		this.props.detail.length===1?undefined:indexstr="（"+this.props.index+"）";
 				returnValue = {status:false,text:"请输入采购明细"+indexstr+"的"+item.text}
 			}
 		};
@@ -81,7 +81,7 @@ export  default  class CaigouDetail extends Component{
 		return (
 			<div>
 				<div className="detail" title={this.props.title}>
-					<h3>采购明细{this.props.detail.length>1 ?"("+this.props.index+")":undefined} <a onClick={this.del.bind(this)} className={this.props.index>1?"del":"hide"}>删除</a></h3>
+					<h3>采购明细{this.props.detail.length>1 ?"（"+this.props.index+"）":undefined} <a onClick={this.del.bind(this)} className={this.props.index>1?"del":"hide"}>删除</a></h3>
 					<div className="formbox">
 						<div className="rowinput">
 							名称<input type="text" ref="item" maxLength ="60" value={this.state.item.item} onChange={this.change.bind(this,"item")} placeholder="请输入（必填）"/>

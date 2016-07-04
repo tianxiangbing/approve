@@ -5,7 +5,7 @@ export default class CaigouDetail extends Component{
 		return (
 			<div className="one">
 				<div className="detail" title={this.props.title}>
-					<div className="detail-row"><label><b>采购明细{this.props.detail.length>1 ?"("+this.props.index+")":undefined}</b></label></div>
+					<div className="detail-row"><label><b>采购明细{this.props.detail.length>1 ?"（"+this.props.index+"）":undefined}</b></label></div>
 					<div className="detail-row">
 						<label>名称：</label>{this.props.item.item}
 					</div>

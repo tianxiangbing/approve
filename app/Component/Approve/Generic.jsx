@@ -7,13 +7,29 @@ import Config from 'config';
 export default class Generic extends Component{
 	constructor(props){
 		super(props);
-		this.state={applyDetail:''};
+		this.state={customJObj:{}};
+		this.props.detail=Object.assign({customJObj:"{}"},this.props.detail);
+		console.log('constructor')
 	}
 	getValues(){
 		return {
 			applyDetail:this.refs.applyDetail.value,
 			applyResean:this.refs.applyResean.value
 		}
+	}
+
+	componentDidMount(){
+		console.log('did')
+
+	}
+	change(field,e){
+		let value= e.target.value;
+		let customJObj = {};
+		customJObj[field] = value;
+		this.setState({customJObj:customJObj});
+	}
+	shouldComponentUpdate(nextProps, nextState) {
+		return JSON.stringify( nextProps.detail) !== JSON.stringify(this.props.detail);
 	}
 	validate(){
 		if(Config.trim(this.refs.applyDetail.value)==""){
@@ -26,15 +42,24 @@ export default class Generic extends Component{
 		}
 		return true;
 	}
+	componentWillReceiveProps( nextProps){
+		/*console.log('prev',prevProps)
+		console.log('cur',this.props)*/
+		if(nextProps.detail){
+			let customJObj =JSON.parse(nextProps.detail.customJObj)||{};
+			this.setState({'customJObj':customJObj});
+			//console.log(this.state.applyDetail)
+		}
+	}
 	render(){
 		return (
 			<div>
 				<div className="row applyDetail">
 					<span>申请内容</span>
-					<input type="text" ref="applyDetail" maxLength="60" placeholder="请输入（必填）"/>
+					<input type="text" value={this.state.customJObj.applyDetail} onChange={this.change.bind(this,'applyDetail')} ref="applyDetail" maxLength="60" placeholder="请输入（必填）"/>
 				</div>
 				<div className="txt-reason">
-					<textarea ref="applyResean"  maxLength ="60" placeholder="请输入申请详情（必填）"/>
+					<textarea ref="applyResean" value={this.state.customJObj.applyResean} onChange={this.change.bind(this,'applyResean')} maxLength ="60" placeholder="请输入申请详情（必填）"/>
 				</div>
 			</div>
 			);

@@ -109,9 +109,11 @@ export default class Detail extends Component{
 		params.approveDesc = "审批理由"
 		params.approveOrder= this.status.approveOrder;
 		params.isLast = this.status.isLast;
+		params.id = this.status.id;
 		if(approveStatus==-1){
 			console.log('重新申请');
-			location.href="/#create/"+this.props.params.type+"/"+this.props.params.title+"/"+this.props.params.id
+			location.href="#create/"+this.props.params.type+"/"+this.props.params.title+"/"+this.props.params.id
+			return false;
 		}
 		if(approveStatus==2){
 			//同意
@@ -152,9 +154,16 @@ export default class Detail extends Component{
 		let isNeedReApply=false;//是否需要重新申请
 		let isFromme = this.props.params.pageType == "fromme" ? true : false;
 		let uid=cookie.load('userId');
+		this.status.isMeToDeal = false;
 		if (data.approveStatus == "2" || data.approveStatus == "3" || data.approveStatus == "4") {
 			this.status.isEnd = true;
 		}
+
+        if(data.approveDetailVo.length && data.approveDetailVo[0].uid==uid){
+        	isFromme =true;
+        }else{
+        	isFromme = false;
+        }
 		for (var i = data.approveDetailVo.length - 1; i >= 0; i--) {
 			let d = data.approveDetailVo[i]
 			if (data.uid == uid && data.approveStatus == "3") {
@@ -174,7 +183,7 @@ export default class Detail extends Component{
 			if (uid == d.uid) {
 				this.status.id = d.id;
 			}
-			if ((uid == d.uid) && d.approveStatus == 1) {
+			if ((uid == d.uid) && d.approveStatus == 1 ) {
 				this.status.isMeToDeal = true;
 			}
 	        // 审批拒绝后就跳出循环
@@ -189,16 +198,15 @@ export default class Detail extends Component{
 			if (!status.isEnd){
 				return <a className="bottomBtn" onClick={this.submit.bind(this,4)}>撤回</a>;
 			}
-		} else {
-			//待我审批
-			if (status.isMeToDeal) {
-				return (
-					<div className="two">
-					    <a className="bottomBtn jj" onClick={this.submit.bind(this,3)}>拒绝</a>
-					    <a className="bottomBtn" onClick={this.submit.bind(this,2)}>同意</a>
-					</div>
-					)
-			}
+		}else
+		//待我审批
+		if (status.isMeToDeal) {
+			return (
+				<div className="two">
+				    <a className="bottomBtn jj" onClick={this.submit.bind(this,3)}>拒绝</a>
+				    <a className="bottomBtn" onClick={this.submit.bind(this,2)}>同意</a>
+				</div>
+				)
 		}
 		// 是否显示重新申请
 		if (isNeedReApply) {
@@ -217,11 +225,11 @@ export default class Detail extends Component{
 		"5": "进行中"*/
 		return (
 			<div className="detail-info">
-				<Helmet title={this.props.params.title+"详情"}/>
+				<Helmet title={Config.applyType[this.props.params.type]+"详情"}/>
 				<div className="box userInfo">
 					<h3>
 						<span className="userAvatar">
-							<UserAvatar item={this.state.userInfo} errorCallback={()=>{ this.setState({userInfo:this.state.userInfo});}}/>
+							{this.state.userInfo.uid ?<UserAvatar item={this.state.userInfo} errorCallback={()=>{ this.setState({userInfo:this.state.userInfo});}}/>:undefined}
 						</span>
 						<span className="uname">{this.state.detail.uname}</span>
 					</h3>
@@ -247,7 +255,7 @@ export default class Detail extends Component{
 									<div className="user-box">
 										<UserAvatar item={item} errorCallback={()=>{ this.setState({detail:this.state.detail});}}/>
 										<div className="userName">
-											{item.uname}
+											<div className="name">{item.uid == cookie.load('userId') ?"我":item.uname}</div>
 											<div className="time"> {item.approveDate.substr(0, 4) == "0000"||item.approveStatus==1 ? "" : item.approveDate}</div>
 											{item.approveStatus==1?<span className="fqsx" onClick={this.fqsx.bind(this,item)}>发事项</span>:undefined}
 										</div>

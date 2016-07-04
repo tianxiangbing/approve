@@ -44,10 +44,11 @@ let Config = {
 		data.ts = +new Date();
 		data.token = cookie.load('token');
 		data.uid = cookie.load('userId');
-		data.orgId = cookie.load('orgId');
+		data.orgId = localStorage.getItem('orgId') || cookie.load('orgId');
 		data.uname = cookie.load('username');
 		data.deptName = localStorage.getItem("deptName");
 		data.orgName = localStorage.getItem("orgName");
+		data.userType = cookie.load('orgType');
 		for (let key in this.ajaxList) {
 			if (args[0] == this.ajaxList[key]) {
 				console.log('loading...')
@@ -81,7 +82,7 @@ let Config = {
 		//CONFIG.domain = CONFIG.domain || "http://10.1.40.6/";
 		//var domain = CONFIG.domain + 'signin/api/';
 		let domain = "/approve/";
-		var orgId = cookie.load('orgId') || localStorage.getItem('orgId');
+		var orgId = localStorage.getItem('orgId') || cookie.load('orgId');
 		/*if(typeof param != "string"){
 			param='?debug=true&uid='+cookie.load('userId')+'&orgId='+orgId;
 		}else{
@@ -134,6 +135,21 @@ let Config = {
 			case 'retract':
 				{
 					return domain + "apply/retractApply?h5t=" + h5tRandom
+				}
+			case 'queryMyApprove':
+				{
+					return domain + 'approve/queryMyApprove?h5t=' + h5tRandom
+					break;
+				}
+			case 'extraKnownForMe':
+				{
+					return domain + 'approve/extraKnownForMe?h5t=' + h5tRandom
+					break;
+				}
+			case 'querylist':
+				{
+					return domain + 'org/queryList?h5t=' + h5tRandom
+					break;
 				}
 		}
 	},
@@ -307,7 +323,7 @@ let Config = {
 		}
 	},
 	applyType: ["请假", "外出", "出差", "调休", "报销", "采购", "通用"],
-	applyTypeColor: ['#efbc6b', '#4ec2b5', '#7ac47a', '#75a4d7', '#efbc6b', '#efbc6b', '#efbc6b'],
+	applyTypeColor: ['#F17474', '#70A1D9', '#72C474', '#4DC1B4', '#EEBB6A', '#72C474', '#70A1D9'],
 	expenseType: ['交通费',
 		'住宿费',
 		'通讯费',

@@ -23,7 +23,7 @@ export default class App extends Component{
 		this.isLocated = 0;
 		this.action = 0;
 		this .signType = 0;
-		this.state={corpList:[],currCorp:{},expand:false,dialog:0};
+		this.state={corpList:[],currCorp:{},expand:false,dialog:0,list:[]};
 	}
 	componentWillMount(){
 	}
@@ -81,11 +81,11 @@ export default class App extends Component{
 				//this.setState({currCorp:data[0]});
 			}
 			//this.setState({currCorp:currCorp});
-			this.select(currCorp);
 			localStorage.setItem('orgName',currCorp.orgName);
 			localStorage.setItem('orgId',currCorp.orgId);
 			localStorage.setItem('deptName',currCorp.deptName);
 			cookie.save('orgId',currCorp.orgId,"/");
+			this.select(currCorp);
 		});
 	}
 	componentDidMount(){
@@ -97,10 +97,22 @@ export default class App extends Component{
 	select(obj){
 		this.state.currCorp=obj;
 		this.setState({currCorp:obj,expand:false});
-		//cookie.save('orgId', obj.orgId, { path: '/' });
+		cookie.save('orgId', obj.orgId, { path: '/' });
 		localStorage.setItem('orgId',obj.orgId);
 		localStorage.setItem('orgName',obj.orgName);
 		localStorage.setItem('deptName',obj.deptName);
+		this.bindInfo();
+	}
+	bindInfo(){
+		Config.ajax('querylist',{
+			body:JSON.stringify({approveStatus:0}),
+			method:'post'
+		}).then((res)=>{
+			if(res.status==200){
+				let data = res.result;
+				this.setState({list:data});
+			}
+		});
 	}
 	expandOrg(){
 		this.setState({expand:!this.state.expand});
@@ -144,10 +156,38 @@ export default class App extends Component{
 							}
 						})()
 					}
+					{
+						(()=>{
+							let returnValue = null;
+							(this.state.list||[]).forEach((org)=>{
+								if( org.count>0 && org.orgId != this.state.currCorp.orgId){
+									returnValue = <i className="redCircle"></i>
+								} 
+							})
+							console.log(returnValue)
+							return returnValue;
+						})()
+					}
 						<div className={this.state.expand?"orgList":"orgList hide"}>
 						{
 							(this.state.corpList||[]).map((item)=>{
-								return <div className={item.orgId==this.state.currCorp.orgId?"focusorg":""} onClick={this.select.bind(this,item)}>{item.orgName}</div>
+								return (
+									<div className={item.orgId==this.state.currCorp.orgId?"focusorg":""} onClick={this.select.bind(this,item)}>
+									{item.orgName}
+									{
+										(()=>{
+											let returnValue = null;
+											(this.state.list||[]).forEach((org)=>{
+												if(org.orgId == item.orgId && org.count>0){
+													returnValue = <i>（{org.count}）</i>
+													return ;
+												} 
+											})
+											return returnValue;
+										})()
+									}
+									</div>
+									)
 							})
 						}
 						</div>
@@ -159,10 +199,24 @@ export default class App extends Component{
 					}
 				</div>
 				<div className="menu">
-				<a href="http://10.1.40.6/approve/app/tome.html"><i className="iconfont icon-111"/>待我审批</a>
+				<a href="#tome"><i className="iconfont icon-111"/>
+				待我审批
+					{
+						(()=>{
+							let returnValue = null;
+							(this.state.list||[]).forEach((org)=>{
+								if( org.count>0 && org.orgId == this.state.currCorp.orgId){
+									returnValue = <i className="redCircle">{org.count}</i>
+								} 
+							})
+							console.log(returnValue)
+							return returnValue;
+						})()
+					}
+				</a>
 				<a href="#fromme"><i className="iconfont icon-112 ifuck"/>我发起的</a>
 				</div>
-				<a className="followme" href="http://10.0.10.46:8080/approve/app/notify.html">知会我的<i className="iconfont icon-xiayibu"/></a>
+				<a className="followme" href="#extrame">知会我的<i className="iconfont icon-xiayibu"/></a>
 				<div className="menu-list">
 					<a href="http://10.1.40.6/approve/app/form_qj.html"><i className="iconfont icon-110"/>请假</a>
 					<a href="http://10.1.40.6/approve/app/form_tx.html"><i className="iconfont icon-107"/>调休</a>

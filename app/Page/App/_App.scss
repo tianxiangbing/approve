@@ -11,6 +11,17 @@
 	height:pxToRem(90);
 	position:relative;
 	z-index:3;
+	.redCircle{
+		width:pxToRem(16);
+		height:pxToRem(16);
+		border-radius: pxToRem(16);
+		background-color: #ff0202;
+		position:absolute;
+		right:pxToRem(65);
+		top:pxToRem(36);
+		overflow:hidden;
+		border:1px solid #fff;
+	}
 	.focusorg{
 		padding-left:pxToRem(28);
 		color:$fontColorBlack;
@@ -64,7 +75,8 @@
 		width:50%;
 		text-align: center;
 		display:inline-block;
-		i{
+		position:relative;
+		i.iconfont{
 			display: block;
 			font-size:pxToRem2(30);
 			width:pxToRem2(80);
@@ -82,6 +94,19 @@
 		}
 		&:active{
 			opacity: 0.7;
+		}
+		.redCircle{
+			position:absolute;
+			top:pxToRem(15);
+			right:pxToRem(100);
+			width:pxToRem(36);
+			height:pxToRem(36);
+			border-radius: pxToRem(36);
+			border:pxToRem(5) solid #fff;
+			background-color: #ff0202;
+			color:#fff;
+			font-size:pxToRem(20);
+			overflow: hidden;
 		}
 	}
 	@include border(#e2e2e2,0,0 0 1px 0,1);

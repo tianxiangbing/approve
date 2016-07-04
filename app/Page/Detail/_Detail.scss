@@ -118,22 +118,22 @@
 			background-color: #fff;
 		}
 		&.fqsq{
-			color:#72C474;
+			color:#7ac47a;
 		}
 		&.spz{
-			color:#EEBB6A;
+			color:#efbc6b;
 		}
 		&.spty{
 			color:#72C474;
 		}
 		&.spjj{
-			color:#717474;
+			color:#fa6669;
 		}
 		&.ych{
 			color:#ccc;
 		}
 		&.wsp{
-			color:#ccc;
+			color:#cecece;
 		}
 		padding-top:pxToRem2(10);
 	}
@@ -167,6 +167,12 @@
 			vertical-align: top;
 			margin:pxToRem2(5) 0 0 pxToRem2(14);
 			color:#222;
+			.name{
+				width:pxToRem2(100);
+				overflow: hidden;
+				text-overflow:ellipsis;
+				white-space: nowrap;
+			}
 			.time{
 				@extend .fontSize;
 				color:#999;
@@ -217,7 +223,7 @@
 			color:#7ac47a;
 		}
 		&.iconjj{
-			color:#7ac47a;
+			color:#fa5a5e;
 		}
 	}
 }

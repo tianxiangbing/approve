@@ -16,6 +16,7 @@ import Create from './page/Create/Create';
 import Detail from './page/Detail/Detail';
 import List from './page/List/List';
 import FromMe from './page/FromMe/FromMe';
+import ExtraMe from './page/ExtraMe/ExtraMe';
 
 render((
 	<Router history={hashHistory}>
@@ -26,5 +27,6 @@ render((
 		<Route path="/detail/:type/:title/:id/:pageType" component={Detail}/>
 		<Route path="/tome" component={List}/>
 		<Route path="/fromme" component={FromMe}/>
+		<Route path="/extrame" component={ExtraMe}/>
 	</Router>
 ), document.getElementById('app'))

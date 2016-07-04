@@ -11,6 +11,7 @@ export default class UserAvatar extends Component{
 		//console.log(e)
       let avatarColors = ['#f17474','#7ac47a','#efbc6b','#75a4d7','#45b2e3']
       let color = avatarColors[item.uid% 5];
+		//alert(item.uid+'头像error:::'+color)
     /*  item.error=true;
       item.color= color;*/
       //this.setState({userInfo:this.state.userInfo});

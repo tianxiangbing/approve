@@ -5,10 +5,11 @@ import Config from 'config';
 import Dialog from 'Component/Dialog';
 import alert from 'Component/alert.js';
 
+import Helmet from "react-helmet";
 export default class FromMe extends Component{
 	constructor(props){
 		super(props);
-		this.state={list:[],tabIndex:1,dialog:0};
+		this.state={list:[],tabIndex:1,dialog:0,nodata:false,nodataText:["没有已完成的审批","您的申请都已处理完毕"]};
 	}
 	componentDidMount(){
 		this.bind(this.state.tabIndex);
@@ -19,8 +20,14 @@ export default class FromMe extends Component{
 			body:JSON.stringify({approveStatus:index})
 		}).then((res)=>{
 			if(res.status==200){
+				if(res.result==null || res.result.length ==0 ){
+					this.setState({nodata:true});
+				}else{
+					this.setState({nodata:false});
+				}
 				this.setState({list:res.result||[]})
 			}else{
+				this.setState({nodata:true});
 				alert(res.result[0].message,this)
 			}
 		});
@@ -39,6 +46,7 @@ export default class FromMe extends Component{
 	render(){
 		return (
 			<div className="list">
+				<Helmet title="我发起的"/>
 				<div className="head">
 					<a className={this.state.tabIndex ==1?"focus":undefined} onClick={this.Tab.bind(this,1)}>审批中</a>
 					<a className={this.state.tabIndex ==0?"focus":undefined} onClick={this.Tab.bind(this,0)}>已完成</a>
@@ -52,9 +60,7 @@ export default class FromMe extends Component{
 								)
 						})
 					}
-					<div>
-
-					</div>
+					{this.state.nodata ?(<div className="nodata"><i className="iconfont icon-111"/>{this.state.nodataText[this.state.tabIndex]}</div>):undefined}
 				</div>
                 {this.state.dialog?this.renderDialog():undefined}
 			</div>

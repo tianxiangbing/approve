@@ -20,7 +20,7 @@ export default class Expense extends Component{
 		});
 		returnValue.detailJArr = arr;
 		returnValue.amount = this.state.sumPrice;
-		returnValue.applyResean ="报销总金额"+returnValue.amount;
+		returnValue.applyResean ="报销金额："+returnValue.amount.toFixed(2)+"元";
 		return returnValue;
 	}
 	AddRow(){
