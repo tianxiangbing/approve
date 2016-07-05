@@ -4,6 +4,7 @@ import Helmet from "react-helmet";
 import Caigou from 'Component/Detail/Caigou';
 import Expense from 'Component/Detail/Expense';
 import Generic from 'Component/Detail/Generic';
+import Leave from 'Component/Detail/Leave';
 import cookie from 'react-cookie';
 import Config from 'config';
 import UserAvatar from 'Component/UserAvatar';
@@ -17,7 +18,7 @@ export default class Detail extends Component{
 			id: 0,
 			isEnd: false, // 流程是否结束
 		};
-		this.state = {detail:{approveDetailVo:[],customStruct:{}},customStruct:{detailJArr:[]},userInfo:{},extraknower:[],approveDesc:""};
+		this.state = {detail:{approveDetailVo:[],customStruct:{}},customStruct:{detailJArr:[]},userInfo:{},extraknower:[],approveDesc:"",isFromme:false};
 	}
 	componentWillMount(){
 		console.log('will')
@@ -25,31 +26,43 @@ export default class Detail extends Component{
 	}
 	init(){
 		let param = {};
+		let _this =this;
 		param.applyId = this.props.params.id;
 		Config.ajax('queryApplyDetail',{
 			method: 'POST',
 			body:JSON.stringify(param)
 		}).then((res)=>{
-			this.setState({userInfo:{
+			_this.setState({userInfo:{
 				"uid":res.result.uid,
 				"name": res.result.uname,
 				"avatar": res.result.avatar
 			},detail:res.result});
 			console.log(res.result)
+			let data = res.result;
+	        if(data.approveDetailVo.length && data.approveDetailVo[0].uid==uid){
+	        	this.setState({isFromme:true});
+	        }
 		});
 		//获取知会人
 		Config.ajax ('zhrList',{
 			method: 'POST',
 			body:JSON.stringify(param)
 		}).then((res)=>{
-			this.setState({
-				extraknower:res.result
+			console.log(res.result)
+			_this.setState({
+				"extraknower":res.result
 			});
+			console.log('doing...')
 		});
 	}
 	renderDetail(){
 		let category = this.props.params.type;
 		switch (parseInt(category)){
+			case 0 :{
+				//请假
+				return <Leave key={category} ref="myForm" detail={this.state.detail} stage={this}/>;
+				break;
+			}
 			case 5:{
 				//采购
 				return <Caigou key={category} ref="myForm" detail={this.state.detail} stage={this}/>;
@@ -257,7 +270,7 @@ export default class Detail extends Component{
 										<div className="userName">
 											<div className="name">{item.uid == cookie.load('userId') ?"我":item.uname}</div>
 											<div className="time"> {item.approveDate.substr(0, 4) == "0000"||item.approveStatus==1 ? "" : item.approveDate}</div>
-											{item.approveStatus==1?<span className="fqsx" onClick={this.fqsx.bind(this,item)}>发事项</span>:undefined}
+											{item.approveStatus==1&& this.state.isFromme?<span className="fqsx" onClick={this.fqsx.bind(this,item)}>发事项</span>:undefined}
 										</div>
 									</div>
 								</div>

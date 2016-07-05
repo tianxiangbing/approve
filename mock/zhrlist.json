@@ -1,0 +1,14 @@
+{
+	"status": 200,
+	"total": 0,
+	"result": [{
+		"uid": "10101001610472",
+		"name": "小号生活",
+		"avatar": "http://10.0.10.31:8040/sfs/avatar?uid=10101001610472"
+	}, {
+		"uid": "927801",
+		"name": "测试敏",
+		"avatar": "http://10.0.10.31:8040/sfs/avatar?uid=927801"
+	}],
+	"msg": null
+}

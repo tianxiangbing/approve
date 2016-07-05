@@ -1,6 +1,8 @@
 import React from 'react';
 let {Component} = React;
 import Config from 'config';
+import Dialog from 'Component/Dialog';
+import alert from 'Component/alert.js';
 
 export default class ExpenseDetail extends Component{
 	constructor(props){
@@ -8,7 +10,7 @@ export default class ExpenseDetail extends Component{
 		this.imgList =[];
 		this.typeArr =Config.expenseType;
 		this.text = [{field:'money',text:'价格'}];
-		this.state={type:0, imgList:[],showUpload:true,item:{money:'',type:0,remark:'',photoJArr:''}};
+		this.state={type:0, imgList:[],showUpload:true,item:{money:'',type:0,remark:'',photoJArr:''},dialog:0};
 	}
 	del(index){
 		let hasValue= false;
@@ -28,10 +30,14 @@ export default class ExpenseDetail extends Component{
 		this.props.computeMoney(this);
 		//this.props.reRender();
 	}
-	componentDidMount(){
-		//console.log("didMount")
-		this.setState({state:this.props.item});
+	componentWillMount(){
+		console.log(this.props.item)
+		this.setState({item:this.props.item,imgList:(this.props.item.photoJArr||[]).map((item)=>{
+			return {uploaded:true,data:item}
+		})
+		,type:this.props.item.type||0});
 	}
+
 	change(field,e){
 		let value= e.target.value;
 		if(field == "money"){
@@ -65,14 +71,15 @@ export default class ExpenseDetail extends Component{
 	}
 	//选择图片
 	selectPictrues(){
-		if(!this.state.showUpload){
+		if(!this.state.showUpload || this.state.imgList.length>=4){
+			alert('最多只能选择4张哦！',this);
 			return false;
 		}
 		let _this = this;
 		Config.native('selectPictures',{count:this.state.imgList.length,sum:4}).then((res)=>{
 			if(res.code ==200){
 				let data = res.data.map((item)=>{
-					return {data:item,uploaded:false};
+					return {data:"data:image/png;base64,"+item,uploaded:false};
 				});
 				data = _this.state.imgList.concat(data);
 				console.log(data)
@@ -96,7 +103,7 @@ export default class ExpenseDetail extends Component{
 			if (!item.uploaded &&!item.uploading) {
 				let param = {
 					flag: index.toString(),
-					Base64Stream: item.data
+					Base64Stream: item.data.substr(21)
 				}
 				item.uploading=true;
 				Config.ajax('upload', {
@@ -134,6 +141,10 @@ export default class ExpenseDetail extends Component{
 		Object.assign(returnValues,this.state.item,{photoJArr:this.imgList},{type:this.state.type});
 		return returnValues;
 	}
+	renderDialog(){
+		console.log(this.state.dialog)
+		return <Dialog stage={this} {...this.state.dialog}/>
+	}
 	render(){
 		return (
 			<div>
@@ -159,16 +170,17 @@ export default class ExpenseDetail extends Component{
 							{
 								this.state.imgList.map((item,index)=>{
 									console.log(item.uploaded)
-									return <div key={index} className="item">{!item.uploaded?<span className="uploading">上传中...</span>:<i onClick={this.delImg.bind(this,item,index)} className="del iconfont icon-103"/>}<img src={"data:image/png;base64,"+item.data}/></div>
+									return <div key={index} className="item">{!item.uploaded?<span className="uploading">上传中...</span>:<i onClick={this.delImg.bind(this,item,index)} className="del iconfont icon-103"/>}<img src={item.data}/></div>
 								})
 							}
 							</div>
 						</div>
 						<div className="txt-reason rowinput">
-							<textarea ref="applyResean" value={this.state.item.applyResean} onChange={this.change.bind(this,"remark")} maxLength ="140" placeholder="备注（非必填）"/>
+							<textarea ref="applyResean" value={this.state.item.remark} onChange={this.change.bind(this,"remark")} maxLength ="140" placeholder="备注（非必填）"/>
 						</div>
 					</div>
 				</div>
+                {this.state.dialog?this.renderDialog():undefined}
 			</div>
 			);
 	}

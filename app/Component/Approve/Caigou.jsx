@@ -10,7 +10,7 @@ export default class Caigou extends Component{
 
 	constructor(props){
 		super(props);
-		this.state = {detail:[{key:+new Date()}],caigouList:[],sumPrice:0,expectPayDate:undefined};
+		this.state = {detail:[{key:+new Date()}],caigouList:[],sumPrice:0,expectPayDate:undefined,info:{}};
 	}
 	getValues(){
 		let arr=[];
@@ -75,11 +75,29 @@ export default class Caigou extends Component{
 			_this.setState({expectPayDate:res.data})
 		})
 	}
+	//bind
+	componentWillReceiveProps( nextProps){
+		/*console.log('prev',prevProps)
+		console.log('cur',this.props)*/
+		if(nextProps.detail){
+			let customJObj =JSON.parse(nextProps.detail.customJObj)||{};
+			console.log(customJObj)
+			this.setState({'info':nextProps.detail,expectPayDate:customJObj.expectPayDate ,detail:customJObj.detailJArr});
+			//console.log(this.state.applyDetail)
+		}
+	}
+
+	change(field,e){
+		let value= e.target.value;
+		let info = this.state.info;
+		info[field] = value;
+		this.setState({info:info});
+	}
 	render(){
 		return (
 			<div>
 				<div className="txt-reason">
-					<textarea ref="applyResean"  maxLength ="60" placeholder="请输入采购事由（必填）"/>
+					<textarea ref="applyResean" onChange={this.change.bind(this,'applyResean')} value={this.state.info.applyResean} maxLength ="60" placeholder="请输入采购事由（必填）"/>
 				</div>
 				<div className="row" onClick={this.setTime.bind(this)}>
 					<span>期望交付日期</span>

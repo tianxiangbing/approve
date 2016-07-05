@@ -60,6 +60,18 @@ export default class Expense extends Component{
 		};
 		return returnValue;
 	}
+	
+	//bind
+	componentWillReceiveProps( nextProps){
+		/*console.log('prev',prevProps)
+		console.log('cur',this.props)*/
+		if(nextProps.detail){
+			let customJObj =JSON.parse(nextProps.detail.customJObj)||{};
+			console.log(customJObj)
+			this.setState({detail:customJObj.detailJArr});
+			//console.log(this.state.applyDetail)
+		}
+	}
 	setTime(){
 		Config.native('setTime').then((res)=>{
 			console.log(res.data)

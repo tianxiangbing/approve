@@ -26,9 +26,22 @@ export  default  class CaigouDetail extends Component{
 
 		//this.props.reRender();
 	}
+	componentWillMount(){
+		console.log(this.props.item)
+		this.setState({item:this.props.item});
+	}
 	componentDidMount(){
 		//console.log("didMount")
-		this.setState({state:this.props.item});
+	}
+
+	//bind
+	componentWillReceiveProps( nextProps){
+		
+		if(nextProps.item){
+			console.log(nextProps.item)
+			this.setState({'item':nextProps.item});
+			//console.log(this.state.applyDetail)
+		}
 	}
 	change(field,e){
 		let value= e.target.value;
@@ -78,6 +91,7 @@ export  default  class CaigouDetail extends Component{
 		return returnValues;
 	}
 	render(){
+		console.log('aaaaaaaaaaa',this.state.item.item)
 		return (
 			<div>
 				<div className="detail" title={this.props.title}>

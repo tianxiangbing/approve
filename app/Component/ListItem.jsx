@@ -15,9 +15,9 @@ export default class ListItem extends Component{
 		}
 	}
 	jumpLink(){
-		if(this.props.applyType<4){
+		/*if(this.props.applyType<4){
 			location.href="/approve/app/detail.html?applyId="+this.props.applyId+"&pageType=fromme"
-		}else
+		}else*/
 		{
 			location.href="#detail/"+this.props.applyType+"/"+Config.applyType[this.props.applyType]+"/"+this.props.applyId+"/fromme"
 		}
@@ -31,8 +31,17 @@ export default class ListItem extends Component{
 					<div className="rcontent">
 						<div className="event"><p>{this.props.title}</p><span className="time">{this.props.time}</span></div>
 						<div className="desc">
-						{this.props.hideStatus==true?
-							undefined:this.props.status==1 ?<span className="status">{'等待'+this.props.approveName+'处理'}</span>:<span className={this.props.status==3? "status reject" :"status"}>{this.approveStatus[this.props.status]}</span>
+						{
+							this.props.hideStatus==true?
+							undefined:
+							this.props.status==1 
+							?
+							this.props.fucked?
+							<span className="status">进行中（同意）</span>
+							:
+							<span className="status">{'等待'+this.props.approveName+'处理'}</span>
+							:
+							<span className={this.props.status==3? "status reject" :"status"}>{this.approveStatus[this.props.status]}</span>
 						}
 						<p>{this.props.desc}</p>
 						</div>

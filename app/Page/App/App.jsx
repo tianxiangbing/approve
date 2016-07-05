@@ -218,6 +218,7 @@ export default class App extends Component{
 				</div>
 				<a className="followme" href="#extrame">知会我的<i className="iconfont icon-xiayibu"/></a>
 				<div className="menu-list">
+					<a href="#create/0/请假"><i className="iconfont icon-110"/>new请假</a>
 					<a href="http://10.1.40.6/approve/app/form_qj.html"><i className="iconfont icon-110"/>请假</a>
 					<a href="http://10.1.40.6/approve/app/form_tx.html"><i className="iconfont icon-107"/>调休</a>
 					<a href="http://10.1.40.6/approve/app/form_wc.html"><i className="iconfont icon-108"/>外出</a>

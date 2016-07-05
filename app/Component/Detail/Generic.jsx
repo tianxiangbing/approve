@@ -45,6 +45,10 @@ export default class Generic extends Component{
 					}
 					</span>
 				</div>
+				<div className="detail-row">
+					<label>审批编号：</label>
+					<span>{this.props.detail.applyId}</span>
+				</div>
 			</div>
 		);
 	}

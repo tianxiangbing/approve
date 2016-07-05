@@ -10,6 +10,7 @@ import Dialog from 'Component/Dialog';
 import alert from 'Component/alert.js';
 import { withRouter } from 'react-router'
 import UserAvatar from 'Component/UserAvatar';
+import Leave from 'Component/Approve/Leave';
 
 class Create extends Component{
 	constructor(props){
@@ -59,7 +60,9 @@ class Create extends Component{
 							"avatar": res.result.avatar
 						},
 						detail: res.result,
-						imgList:res.result.photos||[]
+						imgList:(res.result.photos||[]).map((item)=>{
+							return  {data:item.photo_url,uploaded:true};
+						})
 					});
 				}
 				console.log(res.result)
@@ -89,8 +92,8 @@ class Create extends Component{
 			
 			params.applyType= this.props.params.type;
 			params.customStruct=JSON.stringify(values);
-			params.beginDate = new Date();
-			params.endDate = new Date();
+			params.beginDate =values.beginDate || new Date();
+			params.endDate = values.endDate ||new Date();
 			params.flowStr = JSON.stringify(this.state.authList);
 			let imgList = this.imgList.map((item,indx)=>{
 				return {id:indx,photoUrl:item};
@@ -102,13 +105,13 @@ class Create extends Component{
 			params.extraKnowerJarr =JSON.stringify( zhrArr);
 			//事由
 			params.applyResean=values.applyResean;
-
+			params.leaveType= values.leaveType;
 			Config.ajax('save',{
 				body:JSON.stringify(params),
 				method:'post'
 			}).then((res)=>{
 				if(res.status==200){
-					alert(this.props.params.title+'申请提交成功',this);
+					alert('您的审批提交成功',this);
 					setTimeout(()=>{
 						location.href="#/detail/"+params.applyType+"/"+this.params.title+"/"+res.result+"/fromme"
 					},2000)
@@ -125,7 +128,7 @@ class Create extends Component{
 		Config.native('selectPictures',{count:this.state.imgList.length,sum:4}).then((res)=>{
 			if(res.code ==200){
 				let data = res.data.map((item)=>{
-					return {data:item,uploaded:false};
+					return {data:"data:image/png;base64,"+item,uploaded:false};
 				});
 				data = _this.state.imgList.concat(data);
 				console.log(data)
@@ -149,7 +152,7 @@ class Create extends Component{
 			if (!item.uploaded &&!item.uploading) {
 				let param = {
 					flag: index.toString(),
-					Base64Stream: item.data
+					Base64Stream: item.data.substr(21)
 				}
 				item.uploading=true;
 				Config.ajax('upload', {
@@ -244,6 +247,10 @@ class Create extends Component{
 	renderForm(){
 		let category = this.params.type;
 		switch (parseInt(category)){
+			case 0:{
+				//请假
+				return <Leave ref="myForm" stage={this} detail={this.state.detail}/>
+			}
 			case 5:{
 				//采购
 				return <Caigou ref="myForm" stage={this} detail={this.state.detail}/>;
@@ -269,7 +276,7 @@ class Create extends Component{
 	render(){
 		return (
 			<div>
-				<Helmet title={this.params.title}/>
+				<Helmet title={Config.applyType[this.props.params.type]}/>
 				{this.renderForm()}
 				{this.state.showAddPic?
 					(
@@ -279,7 +286,7 @@ class Create extends Component{
 						{
 							this.state.imgList.map((item,index)=>{
 								console.log(item.uploaded)
-								return <div key={index} className="item">{!item.uploaded?<span className="uploading">上传中...</span>:<i onClick={this.del.bind(this,item,index)} className="del iconfont icon-103"/>}<img src={"data:image/png;base64,"+item.data}/></div>
+								return <div key={index} className="item">{!item.uploaded?<span className="uploading">上传中...</span>:<i onClick={this.del.bind(this,item,index)} className="del iconfont icon-103"/>}<img src={item.data}/></div>
 							})
 						}
 						</div>

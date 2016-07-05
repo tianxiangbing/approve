@@ -24,12 +24,9 @@ export default class Generic extends Component{
 	}
 	change(field,e){
 		let value= e.target.value;
-		let customJObj = {};
+		let customJObj = this.state.customJObj;
 		customJObj[field] = value;
 		this.setState({customJObj:customJObj});
-	}
-	shouldComponentUpdate(nextProps, nextState) {
-		return JSON.stringify( nextProps.detail) !== JSON.stringify(this.props.detail);
 	}
 	validate(){
 		if(Config.trim(this.refs.applyDetail.value)==""){
@@ -52,6 +49,7 @@ export default class Generic extends Component{
 		}
 	}
 	render(){
+		console.log(this.state.customJObj)
 		return (
 			<div>
 				<div className="row applyDetail">
