@@ -101,6 +101,9 @@ class Create extends Component{
 			params.endOvertime = values.endDate ||new Date();
 			params.outType = values.outType||0;
 			params.flowStr = JSON.stringify(this.state.authList);
+			params.travelCode=values.travelCode||0;
+			params.travelAddr = values.travelAddr||"";
+
 			let imgList = this.imgList.map((item,indx)=>{
 				return {id:indx,photoUrl:item};
 			});

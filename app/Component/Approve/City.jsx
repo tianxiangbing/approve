@@ -31,7 +31,7 @@ export default class City extends Component{
 		for(var key in item ){
 			html.push(
 			(<div className="city-list">
-		      <a className="sta" id="H1" name="{key}">{key}</a>
+		      <a className="sta" id="H1" name={key}>{key}</a>
 		      <div>
 		      {item[key].map((it)=>{
 		      	return (<p data-id={it.id} onClick={this.select.bind(this,it)}>{it.name}</p>)

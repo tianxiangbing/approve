@@ -11,6 +11,8 @@ import UserAvatar from 'Component/UserAvatar';
 import Off from 'Component/Detail/Off';
 import GoOut from 'Component/Detail/GoOut';
 import Travel from 'Component/Detail/Travel';
+import Dialog from 'Component/Dialog';
+import alert from 'Component/alert.js';
 
 export default class Detail extends Component{
 	constructor(props){
@@ -21,8 +23,8 @@ export default class Detail extends Component{
 			id: 0,
 			isEnd: false, // 流程是否结束
 		};
-		 //cookie.save('userId','924064')
-		this.state = {detail:{approveDetailVo:[],customStruct:{}},customStruct:{detailJArr:[]},userInfo:{},extraknower:[],approveDesc:"",isFromme:false};
+		 cookie.save('userId','924064')
+		this.state = {detail:{approveDetailVo:[],customStruct:{}},customStruct:{detailJArr:[]},userInfo:{},extraknower:[],approveDesc:"",isFromme:false,dialog:0};
 	}
 	componentWillMount(){
 		console.log('will')
@@ -129,6 +131,17 @@ export default class Detail extends Component{
 				{proveStatusText[status.toString()]}
 			</div>;
 	}
+	cancel(){
+		this.setState({approveDesc:'',dialog:0});
+	}
+	ok(){
+		this.state.approveDesc=document.getElementById('approveDesc').value;
+		if(Config.trim(this.state.approveDesc)==''){
+			return false;
+		}
+		this.setState({approveDesc:this.state.approveDesc,dialog:0});
+		this.submit();
+	}
 	submit(approveStatus){
 		console.log(approveStatus);
 		let params = {}
@@ -138,21 +151,39 @@ export default class Detail extends Component{
 		params.orgId = cookie.load('orgId');
 		params.uid = cookie.load('uid');
 		params.approveStatus = approveStatus;
-		params.approveDesc = "审批理由"
 		params.approveOrder= this.status.approveOrder;
 		params.isLast = this.status.isLast;
+		params.approveDesc=this.state.approveDesc;
 		params.id = this.status.id;
 		if(approveStatus==-1){
 			console.log('重新申请');
 			location.href="#create/"+this.props.params.type+"/"+this.props.params.title+"/"+this.props.params.id
 			return false;
 		}
-		if(approveStatus==2){
+		if(approveStatus==2 && !this.state.approveDesc){
 			//同意
+			this.setState({
+				dialog:{
+					show: true,
+					mask:true,
+					msg: <div><h2>同意审批</h2><textarea placeholder="请填写同意原因" id="approveDesc"/></div>,
+					buttons:<div className="dialog-button"><a onClick={this.cancel.bind(this)}>取消</a><a onClick={this.ok.bind(this)}>确定</a></div>,
+					type: "confirm"
+				}
+			});
 		}
-		if(approveStatus==3){
+		if(approveStatus==3 && !this.state.approveDesc){
 			//拒绝
-			params.approveDesc=this.state.approveDesc;
+			this.setState({
+				dialog:{
+					show: true,
+					mask:true,
+					msg: <div><h2>拒绝审批</h2><textarea placeholder="请填写拒绝原因" id="approveDesc"/></div>,
+					buttons:<div className="dialog-button"><a onClick={this.cancel.bind(this)}>取消</a><a onClick={this.ok.bind(this)}>确定</a></div>,
+					type: "confirm"
+				}
+			});
+			return false;
 		}
 		if(approveStatus==4){
 			if(confirm("您确定要撤销申请吗？")){
@@ -170,6 +201,7 @@ export default class Detail extends Component{
 			}
 			return;
 		}
+		this.setState({approveDesc:''});
 		Config.ajax('update',{
 			method: 'POST',
 			body:JSON.stringify(params)
@@ -248,6 +280,10 @@ export default class Detail extends Component{
 		item.content = this.state.detail.uname + "请您审批他的" + Config.applyType[this.props.params.type] + "申请";
 	    Config.native('fqsx',item);
 	}
+	renderDialog(){
+		console.log(this.state.dialog)
+		return <Dialog stage={this} {...this.state.dialog}/>
+	}
 	render(){
 		/*"1": "进行中",
 		"2": "已完成",
@@ -313,6 +349,7 @@ export default class Detail extends Component{
 					</div>)
 					:undefined}
 				{this.renderButton()}
+                {this.state.dialog?this.renderDialog():undefined}
 			</div>
 			);
 	}

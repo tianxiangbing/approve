@@ -32,6 +32,20 @@
 	background-color:rgba(0,0,0,0.5);
 }
 .confirm{
+	width:pxToRem2(270);
+	background-color: #fcfcfc;
+	h2{
+		@extend .fontSize17;
+		color:#333;
+		padding:pxToRem2(20) 0 pxToRem2(15) 0;
+		text-align:center;
+	}
+	h3{
+		@extend .fontSize17;
+		color:#222;
+		padding:pxToRem2(40) 0 pxToRem2(35) 0;
+		text-align:center;
+	}
 	.dialog-button{
 		border-top:1px solid $borderColor2;
 		a{
@@ -47,5 +61,13 @@
 				font-weight:bold;
 			}
 		}
+	}
+	textarea{
+		width:pxToRem2(240);
+		margin:0 pxToRem2(15) pxToRem2(15) pxToRem2(15);
+		border:1px solid #dcdcdc;
+		color:#333;
+		@extend .fontSize13;
+		height:pxToRem(170);
 	}
 }

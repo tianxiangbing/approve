@@ -1,12 +1,14 @@
 import React from 'react';
 let {Component} = React;
 import Config from 'config';
+import Dialog from 'Component/Dialog';
+import confirm from 'Component/confirm.js';
 
 export  default  class CaigouDetail extends Component{
 	constructor(props){
 		super(props);
 		this.text = [{field:'item',text:'名称'},{field:'spec',text:'规格'},{field:'unit',text:'单位'},{field:'price',text:'价格'},{field:'quantity',text:'数量'}]
-		this.state={item:{price:'',quantity:'',spec:'',item:'',unit:''}}
+		this.state={item:{price:'',quantity:'',spec:'',item:'',unit:'',dialog:0}}
 	}
 	del(index){
 		let hasValue= false;
@@ -16,9 +18,9 @@ export  default  class CaigouDetail extends Component{
 			}
 		}
 		if(hasValue){
-			if(confirm("确定删除采购明细（"+this.props.index+"）?")){
+			confirm("确定删除采购明细（"+this.props.index+"）?",this,()=>{
 				this.props.del(this.props.index);
-			}
+			})
 		}else{
 			this.props.del(this.props.index);
 		}
@@ -90,6 +92,10 @@ export  default  class CaigouDetail extends Component{
 		Object.assign(returnValues,this.state.item);
 		return returnValues;
 	}
+	renderDialog(){
+		console.log(this.state.dialog)
+		return <Dialog stage={this} {...this.state.dialog}/>
+	}
 	render(){
 		console.log('aaaaaaaaaaa',this.state.item.item)
 		return (
@@ -114,6 +120,7 @@ export  default  class CaigouDetail extends Component{
 						</div>
 					</div>
 				</div>
+                {this.state.dialog?this.renderDialog():undefined}
 			</div>
 			);
 	}

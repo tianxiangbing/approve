@@ -3,6 +3,7 @@ let {Component} = React;
 import Config from 'config';
 import Dialog from 'Component/Dialog';
 import alert from 'Component/alert.js';
+import confirm from 'Component/confirm.js';
 
 export default class ExpenseDetail extends Component{
 	constructor(props){
@@ -20,9 +21,9 @@ export default class ExpenseDetail extends Component{
 			}
 		}
 		if(hasValue){
-			if(confirm("确定删除报销明细（"+this.props.index+"）?")){
+			confirm("确定删除报销明细（"+this.props.index+"）?",this,()=>{
 				this.props.del(this.props.index);
-			}
+			})
 		}else{
 			this.props.del(this.props.index);
 		}
