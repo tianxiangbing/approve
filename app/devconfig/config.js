@@ -160,6 +160,28 @@ let Config = {
 		let orgName = localStorage.getItem('orgName');
 		var t = null;
 		switch (method) {
+			case 'locate':
+				{
+					window.locate = function(data) {
+						data = JSON.parse(decodeURI(data));
+						let result = {
+							code: 200,
+							data: data
+						};
+						t && t.call(null, result)
+					};
+					if (!isAndr) {
+						window.locateIOS && window.locateIOS();
+					} else {
+						window.Native_Bridge_uban.onJsCall('locate', 'locate');
+					}
+					return {
+						then: function(f) {
+							t = f;
+						}
+					}
+					break;
+				}
 			case 'getorglist':
 				{
 					window.setOrgCookie = function(data) {
@@ -324,6 +346,7 @@ let Config = {
 	},
 	leaveType: ["事假", "病假", "婚假", "产假", "陪产假", "年假", "其他"],
 	applyType: ["请假", "外出", "出差", "调休", "报销", "采购", "通用"],
+	goOUtType: ["公交", "地铁", "出租车", "其他"],
 	applyTypeColor: ['#F17474', '#70A1D9', '#72C474', '#4DC1B4', '#EEBB6A', '#72C474', '#70A1D9'],
 	expenseType: ['交通费',
 		'住宿费',

@@ -11,6 +11,9 @@ import alert from 'Component/alert.js';
 import { withRouter } from 'react-router'
 import UserAvatar from 'Component/UserAvatar';
 import Leave from 'Component/Approve/Leave';
+import Off from 'Component/Approve/Off';
+import GoOut from 'Component/Approve/GoOut';
+import Travel from 'Component/Approve/Travel';
 
 class Create extends Component{
 	constructor(props){
@@ -94,6 +97,9 @@ class Create extends Component{
 			params.customStruct=JSON.stringify(values);
 			params.beginDate =values.beginDate || new Date();
 			params.endDate = values.endDate ||new Date();
+			params.beginOvertime =values.beginDate || new Date();
+			params.endOvertime = values.endDate ||new Date();
+			params.outType = values.outType||0;
 			params.flowStr = JSON.stringify(this.state.authList);
 			let imgList = this.imgList.map((item,indx)=>{
 				return {id:indx,photoUrl:item};
@@ -250,6 +256,18 @@ class Create extends Component{
 			case 0:{
 				//请假
 				return <Leave ref="myForm" stage={this} detail={this.state.detail}/>
+			}
+			case 1:{
+				//外出
+				return <GoOut ref="myForm" stage={this} detail={this.state.detail}/>
+			}
+			case 2:{
+				//出差
+				return <Travel ref="myForm" stage={this} detail={this.state.detail}/>
+			}
+			case 3:{
+				//调休
+				return <Off ref="myForm" stage={this} detail={this.state.detail}/>
 			}
 			case 5:{
 				//采购

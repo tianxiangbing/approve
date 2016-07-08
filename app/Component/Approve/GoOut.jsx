@@ -1,15 +1,13 @@
-//请假
 import React from 'react';
+let {Component} = React;
 import Config from 'config';
 
-import alert from '../alert.js';
+export default class GoOut extends Component{
 
-let {Component} = React;
-export default class Leave extends Component{
 	constructor(props){
 		super(props);
 		this.state= {applyResean:'',type:0}
-		this.typeArr = Config .leaveType;
+		this.typeArr = Config .goOUtType;
 	}
 
 	//bind
@@ -20,7 +18,7 @@ export default class Leave extends Component{
 			let customJObj =JSON.parse(nextProps.detail.customJObj)||{};
 			console.log(customJObj)
 			this.setState({'applyResean':nextProps.detail.applyResean,
-				type: nextProps.detail.leaveType || 0});
+				type: nextProps.detail.goOUtType || 0});
 			//console.log(this.state.applyDetail)
 		}
 	}
@@ -30,12 +28,12 @@ export default class Leave extends Component{
 			beginDate:this.state.beginDate,
 			endDate:this.state.endDate,
 			applyResean:this.refs.applyResean.value,
-			leaveType:this.state.type
+			outType:this.state.type
 		}
 	}
 	validate(){
 		if(Config.trim(this.refs.applyResean.value)==""){
-			alert('请输入请假事由',this.props.stage);
+			alert('请输入外出事由',this.props.stage);
 			return false;
 		}
 		if(Config.trim(this.state.beginDate)==""){
@@ -66,7 +64,7 @@ export default class Leave extends Component{
 				}else{
 					_this.setState({endDate:res.data})
 				}
-			}else{
+			}else if(type==0){
 				if(+new Date(res.data) >= +new Date(this.state.endDate)){
 					alert('结束时间必须大于开始时间',this.props.stage);
 				}else{
@@ -75,23 +73,21 @@ export default class Leave extends Component{
 			}
 		})
 	}
-
 	render(){
-		console.log(this.state.beginDate)
 		return (
 			<div className="detail">
 				<div className="txt-reason">
-					<textarea ref="applyResean" value={this.state.applyResean} onChange={this.change.bind(this,'applyResean')} maxLength ="60" placeholder="请输入请假事由（必填）"/>
-				</div>
-				<div className="formbox">
-					<div className="rowinput">
-						请假类型
-						<div className="type-list">
-						{
-							this.typeArr.map((item,index)=>{
-								return <a onClick={this.selectType.bind(this,index)} className={this.state.type== index ?"focus":undefined}>{item}</a>
-							})
-						}
+					<textarea ref="applyResean" value={this.state.applyResean} onChange={this.change.bind(this,'applyResean')} maxLength ="60" placeholder="请输入外出事由（必填）"/>
+					<div className="formbox">
+						<div className="rowinput">
+							<div>外出方式 <span className="tips">请选择</span></div>
+							<div className="type-list">
+							{
+								this.typeArr.map((item,index)=>{
+									return <a onClick={this.selectType.bind(this,index)} className={this.state.type== index ?"focus":undefined}>{item}</a>
+								})
+							}
+							</div>
 						</div>
 					</div>
 				</div>

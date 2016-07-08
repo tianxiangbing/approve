@@ -104,8 +104,10 @@ export default class App extends Component{
 		this.bindInfo();
 	}
 	bindInfo(){
+		let params = {approveStatus:0};
+		params.orgIds = 
 		Config.ajax('querylist',{
-			body:JSON.stringify({approveStatus:0}),
+			body:JSON.stringify(params),
 			method:'post'
 		}).then((res)=>{
 			if(res.status==200){
@@ -218,11 +220,10 @@ export default class App extends Component{
 				</div>
 				<a className="followme" href="#extrame">知会我的<i className="iconfont icon-xiayibu"/></a>
 				<div className="menu-list">
-					<a href="#create/0/请假"><i className="iconfont icon-110"/>new请假</a>
-					<a href="http://10.1.40.6/approve/app/form_qj.html"><i className="iconfont icon-110"/>请假</a>
-					<a href="http://10.1.40.6/approve/app/form_tx.html"><i className="iconfont icon-107"/>调休</a>
-					<a href="http://10.1.40.6/approve/app/form_wc.html"><i className="iconfont icon-108"/>外出</a>
-					<a href="http://10.1.40.6/approve/app/form_cc.html"><i className="iconfont icon-109"/>出差</a>
+					<a href="#create/0/请假"><i className="iconfont icon-110"/>请假</a>
+					<a href="#create/1/外出"><i className="iconfont icon-108"/>外出</a>
+					<a href="#create/2/出差"><i className="iconfont icon-109"/>出差</a>
+					<a href="#create/3/调休"><i className="iconfont icon-107"/>调休</a>
 					<a href="#create/4/报销"><i className="iconfont icon-iconfontshenpicaigou02"/>报销</a>
 					<a href="#create/5/采购"><i className="iconfont icon-iconfontshenpicaigou01"/>采购</a>
 					<a href="#create/6/通用"><i className="iconfont icon-shenpi03"/>通用</a>

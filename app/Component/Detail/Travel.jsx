@@ -2,7 +2,7 @@ import React from 'react';
 let {Component} =React;
 import Config from 'config';
 
-export default class Leave extends Component{
+export default class Travel extends Component{
 	showImage(index){
 		let imgArr = (this.props.detail.photos||[]).map((item)=>{
 				return item.photo_url;
@@ -16,9 +16,9 @@ export default class Leave extends Component{
 		return (
 			<div>
 				<div className="detail-row ">
-					<label>请假类型：</label>
+					<label>出差地点：</label>
 					<span>
-						{Config.leaveType[this.props.detail.leaveType]}
+						{this.props.detail.travelAddr}
 					</span>
 				</div>
 				<div className="detail-row ">
@@ -34,7 +34,7 @@ export default class Leave extends Component{
 					</span>
 				</div>
 				<div className="detail-row ">
-					<label>请假事由：</label>
+					<label>出差事由：</label>
 					<span>
 						{this.props.detail.applyResean}
 					</span>

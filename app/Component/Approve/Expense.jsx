@@ -19,8 +19,8 @@ export default class Expense extends Component{
 			arr.push(values);
 		});
 		returnValue.detailJArr = arr;
-		returnValue.amount = this.state.sumPrice;
-		returnValue.applyResean ="报销金额："+returnValue.amount.toFixed(2)+"元";
+		returnValue.amount = (Number(this.state.sumPrice)||0).toFixed(2);
+		returnValue.applyResean ="报销金额："+returnValue.amount+"元";
 		return returnValue;
 	}
 	AddRow(){
@@ -44,7 +44,7 @@ export default class Expense extends Component{
 				let money = this.refs['caigouDetail'+index].getMoney();
 				sumMoney+=money;
 			});
-			this.setState({sumPrice:sumMoney});
+			this.setState({sumPrice:sumMoney.toFixed(2)});
 		},250)
 	}
 	validate(){
@@ -95,7 +95,7 @@ export default class Expense extends Component{
 						</div>
 						):undefined
 				}
-				<div className="row sum-price">总价（元）：<span>{this.state.sumPrice.toFixed(2)}</span></div>
+				<div className="row sum-price">总价（元）：<span>{this.state.sumPrice}</span></div>
 			</div>
 			)
 	}

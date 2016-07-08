@@ -5,48 +5,44 @@
 		"uid": "10101001610432",
 		"uname": "田想兵",
 		"avatar": "http://10.0.10.31:8040/sfs/avatar?uid=10101001610432",
-		"applyId": "CG1467699140332",
-		"deptName": "测试1",
-		"applyType": "5",
-		"beginDate": "2016-07-05 06:15:36",
-		"endDate": "2016-07-05 06:15:36",
-		"beginOverTime": "0000-00-00 00:00:00",
-		"endOverTime": "0000-00-00 00:00:00",
+		"applyId": "CC1467972430107",
+		"deptName": "讯盟科技",
+		"applyType": "2",
+		"beginDate": "2016-07-08 18:10:00",
+		"endDate": "2016-07-09 18:10:00",
+		"beginOverTime": "2016-07-08 18:10:00",
+		"endOverTime": "2016-07-09 18:10:00",
 		"travelAddr": null,
 		"leaveType": 0,
 		"outType": 0,
-		"applyResean": "多条",
-		"leaveType": 2,
+		"applyResean": "呵呵",
 		"approveStatus": 1,
 		"photos": [{
 			"id": 0,
-			"photo_url": "http://7xnmmr.com2.z0.glb.qiniucdn.com/7af1db74616c568f5038ccfa68e67e6502f1a710"
-		}, {
-			"id": 1,
-			"photo_url": "http://7xnmmr.com2.z0.glb.qiniucdn.com/26d353d846fce755c2570bbc55caac334b47cd02"
+			"photo_url": "http://7xnmmr.com2.z0.glb.qiniucdn.com/90e2cbdebb52c8c9ea1cc1467aa507a22525ebf2"
 		}],
 		"approveDetailVo": [{
-			"id": "1746",
+			"id": "2628",
 			"uid": "10101001610432",
 			"uname": "田想兵",
 			"avatar": "http://10.0.10.31:8040/sfs/avatar?uid=10101001610432",
 			"approveStatus": "0",
-			"approveDate": "2016-07-05 14:12:20",
+			"approveDate": "2016-07-08 18:07:10",
 			"approveOrder": "0",
 			"approveDesc": null,
 			"userMobile": "18667040027"
 		}, {
-			"id": "1747",
-			"uid": "924064",
-			"uname": "密码",
-			"avatar": "http://10.0.10.31:8040/sfs/avatar?uid=924064",
+			"id": "2629",
+			"uid": "437745",
+			"uname": "iPhone5",
+			"avatar": "http://10.0.10.31:8040/sfs/avatar?uid=437745",
 			"approveStatus": "1",
-			"approveDate": "2016-07-05 14:12:20",
+			"approveDate": "2016-07-08 18:07:10",
 			"approveOrder": "1",
 			"approveDesc": null,
-			"userMobile": "13738056812"
+			"userMobile": "15068826984"
 		}],
-		"customJObj": "{\"applyResean\":\"多条\",\"amount\":5010,\"expectPayDate\":\"2016-07-05 14:14\",\"detailJArr\":[{\"key\":1467699275987,\"item\":\"Jj\",\"spec\":\"Vbbj\",\"unit\":\"Uhhg\",\"price\":\"35\",\"quantity\":\"57\"},{\"key\":1467699303371,\"item\":\"Bbbb\",\"spec\":\"Uuuu\",\"unit\":\"Ggvv\",\"price\":\"45\",\"quantity\":\"67\"}]}"
+		"customJObj": "{\"beginDate\":\"2016-07-08 18:10\",\"endDate\":\"2016-07-09 18:10\",\"applyResean\":\"呵呵\",\"travelCode\":0,\"travelAddr\":\"杭州市\"}"
 	},
 	"msg": null
 }

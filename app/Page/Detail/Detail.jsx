@@ -8,6 +8,9 @@ import Leave from 'Component/Detail/Leave';
 import cookie from 'react-cookie';
 import Config from 'config';
 import UserAvatar from 'Component/UserAvatar';
+import Off from 'Component/Detail/Off';
+import GoOut from 'Component/Detail/GoOut';
+import Travel from 'Component/Detail/Travel';
 
 export default class Detail extends Component{
 	constructor(props){
@@ -18,6 +21,7 @@ export default class Detail extends Component{
 			id: 0,
 			isEnd: false, // 流程是否结束
 		};
+		 //cookie.save('userId','924064')
 		this.state = {detail:{approveDetailVo:[],customStruct:{}},customStruct:{detailJArr:[]},userInfo:{},extraknower:[],approveDesc:"",isFromme:false};
 	}
 	componentWillMount(){
@@ -32,16 +36,16 @@ export default class Detail extends Component{
 			method: 'POST',
 			body:JSON.stringify(param)
 		}).then((res)=>{
+			let data = res.result;
+			let isFromme = false;
+	        if(data.approveDetailVo.length && data.approveDetailVo[0].uid==cookie.load('userId')){
+	        	isFromme = true;
+	        }
 			_this.setState({userInfo:{
 				"uid":res.result.uid,
 				"name": res.result.uname,
 				"avatar": res.result.avatar
-			},detail:res.result});
-			console.log(res.result)
-			let data = res.result;
-	        if(data.approveDetailVo.length && data.approveDetailVo[0].uid==uid){
-	        	this.setState({isFromme:true});
-	        }
+			},detail:res.result,isFromme : isFromme});
 		});
 		//获取知会人
 		Config.ajax ('zhrList',{
@@ -61,6 +65,21 @@ export default class Detail extends Component{
 			case 0 :{
 				//请假
 				return <Leave key={category} ref="myForm" detail={this.state.detail} stage={this}/>;
+				break;
+			}
+			case 1 :{
+				//外出
+				return <GoOut key={category} ref="myForm" detail={this.state.detail} stage={this}/>;
+				break;
+			}
+			case 2 :{
+				//出差
+				return <Travel key={category} ref="myForm" detail={this.state.detail} stage={this}/>;
+				break;
+			}
+			case 3 :{
+				//请假
+				return <Off key={category} ref="myForm" detail={this.state.detail} stage={this}/>;
 				break;
 			}
 			case 5:{
@@ -171,7 +190,6 @@ export default class Detail extends Component{
 		if (data.approveStatus == "2" || data.approveStatus == "3" || data.approveStatus == "4") {
 			this.status.isEnd = true;
 		}
-
         if(data.approveDetailVo.length && data.approveDetailVo[0].uid==uid){
         	isFromme =true;
         }else{
@@ -236,6 +254,7 @@ export default class Detail extends Component{
 		"3": "已完成",
 		"4": "已撤回",
 		"5": "进行中"*/
+		console.log(this.state.isFromme)
 		return (
 			<div className="detail-info">
 				<Helmet title={Config.applyType[this.props.params.type]+"详情"}/>

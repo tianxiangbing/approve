@@ -2,7 +2,7 @@ import React from 'react';
 let {Component} =React;
 import Config from 'config';
 
-export default class Leave extends Component{
+export default class Off extends Component{
 	showImage(index){
 		let imgArr = (this.props.detail.photos||[]).map((item)=>{
 				return item.photo_url;
@@ -16,9 +16,15 @@ export default class Leave extends Component{
 		return (
 			<div>
 				<div className="detail-row ">
-					<label>请假类型：</label>
+					<label>加班开始时间：</label>
 					<span>
-						{Config.leaveType[this.props.detail.leaveType]}
+						{this.props.detail.beginOverTime}
+					</span>
+				</div>
+				<div className="detail-row ">
+					<label>加班结束时间：</label>
+					<span>
+						{this.props.detail.endOverTime}
 					</span>
 				</div>
 				<div className="detail-row ">
@@ -34,7 +40,7 @@ export default class Leave extends Component{
 					</span>
 				</div>
 				<div className="detail-row ">
-					<label>请假事由：</label>
+					<label>调休事由：</label>
 					<span>
 						{this.props.detail.applyResean}
 					</span>

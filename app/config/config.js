@@ -2,6 +2,7 @@
 import qwest from 'qwest';
 
 import 'cssconfig.js';
+window.signRecord = 'https://signin.api.jituancaiyun.com/signin/pages/index.html?orgId=' + localStorage.getItem('orgId') + '#/record';
 
 let Config = {
 	ajax: function(url, param) {
@@ -42,6 +43,7 @@ let Config = {
 	},
 	leaveType: ["事假", "病假", "婚假", "产假", "陪产假", "年假", "其他"],
 	applyType: ["请假", "外出", "出差", "调休", "报销", "采购", "通用"],
+	goOUtType: ["公交", "地铁", "出租车", "其他"],
 	applyTypeColor: ['#F17474', '#70A1D9', '#72C474', '#4DC1B4', '#EEBB6A', '#72C474', '#70A1D9'],
 	expenseType: ['交通费',
 		'住宿费',
