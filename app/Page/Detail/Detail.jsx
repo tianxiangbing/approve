@@ -13,6 +13,7 @@ import GoOut from 'Component/Detail/GoOut';
 import Travel from 'Component/Detail/Travel';
 import Dialog from 'Component/Dialog';
 import alert from 'Component/alert.js';
+import confirm from 'Component/confirm.js';
 
 export default class Detail extends Component{
 	constructor(props){
@@ -23,8 +24,8 @@ export default class Detail extends Component{
 			id: 0,
 			isEnd: false, // 流程是否结束
 		};
-		 cookie.save('userId','924064')
-		this.state = {detail:{approveDetailVo:[],customStruct:{}},customStruct:{detailJArr:[]},userInfo:{},extraknower:[],approveDesc:"",isFromme:false,dialog:0};
+		// cookie.save('userId','924064')
+		this.state = {detail:{approveDetailVo:[],customStruct:{}},customStruct:{detailJArr:[]},userInfo:{},extraknower:[],approveDesc:null,isFromme:false,dialog:0};
 	}
 	componentWillMount(){
 		console.log('will')
@@ -38,27 +39,36 @@ export default class Detail extends Component{
 			method: 'POST',
 			body:JSON.stringify(param)
 		}).then((res)=>{
-			let data = res.result;
-			let isFromme = false;
-	        if(data.approveDetailVo.length && data.approveDetailVo[0].uid==cookie.load('userId')){
-	        	isFromme = true;
+			if (res.status == 200) {
+				console.log('ajax')
+				let data = res.result;
+				let isFromme = false;
+		        if(data.approveDetailVo.length && data.approveDetailVo[0].uid==cookie.load('userId')){
+		        	isFromme = true;
+		        }
+				_this.setState({userInfo:{
+					"uid":res.result.uid,
+					"name": res.result.uname,
+					"avatar": res.result.avatar
+				},detail:res.result,isFromme : isFromme});
+			}else{
+	        	alert("失败！状态码：" + data.status+" "+data.msg,this);
 	        }
-			_this.setState({userInfo:{
-				"uid":res.result.uid,
-				"name": res.result.uname,
-				"avatar": res.result.avatar
-			},detail:res.result,isFromme : isFromme});
 		});
 		//获取知会人
 		Config.ajax ('zhrList',{
 			method: 'POST',
 			body:JSON.stringify(param)
 		}).then((res)=>{
-			console.log(res.result)
-			_this.setState({
-				"extraknower":res.result
-			});
-			console.log('doing...')
+			if (res.status == 200) {
+				console.log(res.result)
+				_this.setState({
+					"extraknower":res.result
+				});
+				console.log('doing...')
+			}else{
+	        	alert("失败！状态码：" + data.status+" "+data.msg,this);
+	        }
 		});
 	}
 	renderDetail(){
@@ -132,15 +142,15 @@ export default class Detail extends Component{
 			</div>;
 	}
 	cancel(){
-		this.setState({approveDesc:'',dialog:0});
+		this.setState({approveDesc:null,dialog:0});
 	}
-	ok(){
+	ok(approveStatus){
 		this.state.approveDesc=document.getElementById('approveDesc').value;
-		if(Config.trim(this.state.approveDesc)==''){
+		/*if(Config.trim(this.state.approveDesc)==''){
 			return false;
-		}
+		}*/
 		this.setState({approveDesc:this.state.approveDesc,dialog:0});
-		this.submit();
+		this.submit(approveStatus);
 	}
 	submit(approveStatus){
 		console.log(approveStatus);
@@ -160,56 +170,71 @@ export default class Detail extends Component{
 			location.href="#create/"+this.props.params.type+"/"+this.props.params.title+"/"+this.props.params.id
 			return false;
 		}
-		if(approveStatus==2 && !this.state.approveDesc){
+		if(approveStatus==2 && this.state.approveDesc===null){
 			//同意
 			this.setState({
 				dialog:{
 					show: true,
 					mask:true,
-					msg: <div><h2>同意审批</h2><textarea placeholder="请填写同意原因" id="approveDesc"/></div>,
-					buttons:<div className="dialog-button"><a onClick={this.cancel.bind(this)}>取消</a><a onClick={this.ok.bind(this)}>确定</a></div>,
-					type: "confirm"
-				}
-			});
-		}
-		if(approveStatus==3 && !this.state.approveDesc){
-			//拒绝
-			this.setState({
-				dialog:{
-					show: true,
-					mask:true,
-					msg: <div><h2>拒绝审批</h2><textarea placeholder="请填写拒绝原因" id="approveDesc"/></div>,
-					buttons:<div className="dialog-button"><a onClick={this.cancel.bind(this)}>取消</a><a onClick={this.ok.bind(this)}>确定</a></div>,
+					msg: <div><h2>同意审批</h2><textarea placeholder="请填写同意原因(选填)" id="approveDesc" maxLength="20"/></div>,
+					buttons:<div className="dialog-button"><a onClick={this.cancel.bind(this)}>取消</a><a onClick={this.ok.bind(this,approveStatus)}>确定</a></div>,
 					type: "confirm"
 				}
 			});
 			return false;
 		}
+		if(approveStatus==3 && this.state.approveDesc===null){
+			//拒绝
+			this.setState({
+				dialog:{
+					show: true,
+					mask:true,
+					msg: <div><h2>拒绝审批</h2><textarea placeholder="请填写拒绝原因(选填)" id="approveDesc" maxLength="20"/></div>,
+					buttons:<div className="dialog-button"><a onClick={this.cancel.bind(this)}>取消</a><a onClick={this.ok.bind(this,approveStatus)}>确定</a></div>,
+					type: "confirm"
+				}
+			});
+			return false;
+		}
+			let _self = this; 
 		if(approveStatus==4){
-			if(confirm("您确定要撤销申请吗？")){
+			confirm("您确定要撤销申请吗？",_self,()=>{
 				//撤回
 				Config.ajax('retract',{
 					method: 'POST',
 					body:JSON.stringify(params)
 				}).then((data)=>{
+					_self.setState({dialog:0})
 					if (data.status == 200) {
-						this.init();
-			        }else{
-			        	alert("操作失败！状态码：" + data.status);
+						_self.init();
+			        } else if (data.status == 731) {
+		              	alert("该条审批已同意或已拒绝",_self);
+						_self.init();
+		            } else if (data.status == 732) {
+		              	alert("该条申请已撤回",_self);
+						_self.init();
+		            } else{
+			        	alert("操作失败！状态码：" + data.status,_self);
 			        }
 				});
-			}
+			})
 			return;
 		}
-		this.setState({approveDesc:''});
+		this.setState({approveDesc:null});
 		Config.ajax('update',{
 			method: 'POST',
 			body:JSON.stringify(params)
 		}).then((data)=>{
 			if (data.status == 200) {
 				this.init();
-	        }else{
-	        	alert("操作失败！状态码：" + data.status);
+	        }else if (data.status == 731) {
+	            alert("该审批已同意或已拒绝",this);
+						_self.init();
+	          } else if (data.status == 732) {
+	            alert("该申请已撤回",this);
+						_self.init();
+	          }else{
+	        	alert("操作失败！状态码：" + data.status,this);
 	        }
 		});
 	}
@@ -227,7 +252,7 @@ export default class Detail extends Component{
         }else{
         	isFromme = false;
         }
-		for (var i = data.approveDetailVo.length - 1; i >= 0; i--) {
+		for (var i = 0 ,l = data.approveDetailVo.length ; i < l; i++) {
 			let d = data.approveDetailVo[i]
 			if (data.uid == uid && data.approveStatus == "3") {
 	          isNeedReApply = true;
@@ -256,7 +281,7 @@ export default class Detail extends Component{
 		};
 		let status =this.status;
 		// 底部按钮显示控制
-		if (isFromme) {
+		if (isFromme && this.props.params.pageType == "fromme") {
 			//我发起的
 			if (!status.isEnd){
 				return <a className="bottomBtn" onClick={this.submit.bind(this,4)}>撤回</a>;
@@ -327,6 +352,7 @@ export default class Detail extends Component{
 											<div className="time"> {item.approveDate.substr(0, 4) == "0000"||item.approveStatus==1 ? "" : item.approveDate}</div>
 											{item.approveStatus==1&& this.state.isFromme?<span className="fqsx" onClick={this.fqsx.bind(this,item)}>发事项</span>:undefined}
 										</div>
+										{item.approveDesc?<div className="approveDesc">{item.approveStatus==3?"拒绝理由：":"同意理由："}{item.approveDesc}</div>:undefined}
 									</div>
 								</div>
 								)

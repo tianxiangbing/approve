@@ -57,7 +57,7 @@ export default class List extends Component{
 					{
 						this.state.list.map((item)=>{
 							return (
-								<ListItem fucked={true} applyType={item.applyType} applyId={item.applyId} avatar={this.renderAvatar(item)} title={item.applyResean} desc={item.uname+"的"+Config.applyType[item.applyType]} time={item.gmtCreate} status={item.approveStatus} hideStatus={this.state.hideStatus}/>
+								<ListItem pageType="tome" fucked={true} applyType={item.applyType} applyId={item.applyId} avatar={this.renderAvatar(item)} title={item.applyResean} desc={item.uname+"的"+Config.applyType[item.applyType]} time={item.gmtCreate} status={item.approveStatus} hideStatus={this.state.hideStatus}/>
 								)
 						})
 					}

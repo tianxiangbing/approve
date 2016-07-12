@@ -1,12 +1,12 @@
 import React from 'react';
 let {Component} = React;
 import Config from 'config';
-
+import alert from '../alert.js';
 export default class GoOut extends Component{
 
 	constructor(props){
 		super(props);
-		this.state= {applyResean:'',type:0}
+		this.state= {applyResean:'',type:2}
 		this.typeArr = Config .goOUtType;
 	}
 
@@ -18,7 +18,10 @@ export default class GoOut extends Component{
 			let customJObj =JSON.parse(nextProps.detail.customJObj)||{};
 			console.log(customJObj)
 			this.setState({'applyResean':nextProps.detail.applyResean,
-				type: nextProps.detail.goOUtType || 0});
+				type: nextProps.detail.goOUtType || 0,
+				beginDate:nextProps.detail.beginDate,
+				endDate:nextProps.detail.endDate
+			});
 			//console.log(this.state.applyDetail)
 		}
 	}
@@ -59,13 +62,13 @@ export default class GoOut extends Component{
 		let _this = this;
 		Config.native('setTime').then((res)=>{
 			if(type ===1){
-				if( +new Date(res.data) <= +new Date(this.state.beginDate)){
+				if( +new Date(res.data.replace(/\-/g,'/')) <= +new Date((this.state.beginDate||'').replace(/\-/g,'/'))){
 					alert('结束时间必须大于开始时间',this.props.stage);
 				}else{
 					_this.setState({endDate:res.data})
 				}
 			}else if(type==0){
-				if(+new Date(res.data) >= +new Date(this.state.endDate)){
+				if(+new Date(res.data.replace(/\-/g,'/')) >= +new Date((this.state.endDate||'').replace(/\-/g,'/'))){
 					alert('结束时间必须大于开始时间',this.props.stage);
 				}else{
 					_this.setState({beginDate:res.data})
@@ -80,11 +83,11 @@ export default class GoOut extends Component{
 					<textarea ref="applyResean" value={this.state.applyResean} onChange={this.change.bind(this,'applyResean')} maxLength ="60" placeholder="请输入外出事由（必填）"/>
 					<div className="formbox">
 						<div className="rowinput">
-							<div>外出方式 <span className="tips">请选择</span></div>
+							<div>外出方式 <span className="tips"></span></div>
 							<div className="type-list">
 							{
 								this.typeArr.map((item,index)=>{
-									return <a onClick={this.selectType.bind(this,index)} className={this.state.type== index ?"focus":undefined}>{item}</a>
+									return <a onClick={this.selectType.bind(this,item.key)} className={this.state.type== item.key ?"focus":undefined}>{item.name}</a>
 								})
 							}
 							</div>

@@ -10,6 +10,34 @@ import './bridge';
 }*/
 let Config = {
 	ajaxList: {},
+	getQuery: function(name, type, win) {
+		var reg = new RegExp("(^|&|#)" + name + "=([^&]*)(&|$|#)", "i");
+		win = win || window;
+		var Url = win.location.href;
+		var u, g, StrBack = '';
+		if (type == "#") {
+			u = Url.split("#");
+		} else {
+			u = Url.split("?");
+		}
+		if (u.length == 1) {
+			g = '';
+		} else {
+			g = u[1];
+		}
+		if (g != '') {
+			var gg = g.split(/&|#/);
+			var MaxI = gg.length;
+			var str = arguments[0] + "=";
+			for (var i = 0; i < MaxI; i++) {
+				if (gg[i].indexOf(str) == 0) {
+					StrBack = gg[i].replace(str, "");
+					break;
+				}
+			}
+		}
+		return decodeURI(StrBack);
+	},
 	ajax: function(url, param) {
 		//测试
 		//cookie.save('userId','82977736', { path: '/' });
@@ -44,7 +72,7 @@ let Config = {
 		data.ts = +new Date();
 		data.token = cookie.load('token');
 		data.uid = cookie.load('userId');
-		data.orgId = localStorage.getItem('orgId') || cookie.load('orgId');
+		data.orgId = this.getQuery('orgId') || localStorage.getItem('orgId') || cookie.load('orgId');
 		data.uname = cookie.load('username');
 		data.deptName = localStorage.getItem("deptName");
 		data.orgName = localStorage.getItem("orgName");
@@ -75,7 +103,7 @@ let Config = {
 					delete this.ajaxList[key];
 				}
 			}
-		}, 5000)
+		}, 20000)
 	},
 	makeUrl: function(key, param) {
 		//alert(document.cookie)
@@ -149,6 +177,11 @@ let Config = {
 			case 'querylist':
 				{
 					return domain + 'org/queryList?h5t=' + h5tRandom
+					break;
+				}
+			case 'search':
+				{
+					return domain + 'city/search?h5t=' + h5tRandom
 					break;
 				}
 		}
@@ -346,7 +379,19 @@ let Config = {
 	},
 	leaveType: ["事假", "病假", "婚假", "产假", "陪产假", "年假", "其他"],
 	applyType: ["请假", "外出", "出差", "调休", "报销", "采购", "通用"],
-	goOUtType: ["公交", "地铁", "出租车", "其他"],
+	goOUtType: [{
+		key: 2,
+		name: "出租车"
+	}, {
+		key: 1,
+		name: "地铁"
+	}, {
+		key: 0,
+		name: "公交"
+	}, {
+		key: 3,
+		name: "其他"
+	}],
 	applyTypeColor: ['#F17474', '#70A1D9', '#72C474', '#4DC1B4', '#EEBB6A', '#72C474', '#70A1D9'],
 	expenseType: ['交通费',
 		'住宿费',

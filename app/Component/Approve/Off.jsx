@@ -18,7 +18,12 @@ export default class Off extends Component{
 			let customJObj =JSON.parse(nextProps.detail.customJObj)||{};
 			console.log(customJObj)
 			this.setState({'applyResean':nextProps.detail.applyResean,
-				type: nextProps.detail.leaveType || 0});
+				type: nextProps.detail.leaveType || 0,
+				beginDate:nextProps.detail.beginDate,
+				endDate:nextProps.detail.endDate,
+				beginOverTime:nextProps.detail.beginOverTime,
+				endOverTime:nextProps.detail.endOverTime
+			});
 			//console.log(this.state.applyDetail)
 		}
 	}
@@ -37,20 +42,20 @@ export default class Off extends Component{
 			alert('请输入调休事由',this.props.stage);
 			return false;
 		}
-		if(Config.trim(this.state.beginDate)==""){
-			alert('请选择开始时间',this.props.stage);
-			return false;
-		}
-		if(Config.trim(this.state.endDate)==""){
-			alert('请选择结束时间',this.props.stage);
-			return false;
-		}
 		if(Config.trim(this.state.beginOvertime)==""){
 			alert('请选择加班开始时间',this.props.stage);
 			return false;
 		}
 		if(Config.trim(this.state.endOvertime)==""){
 			alert('请选择加班结束时间',this.props.stage);
+			return false;
+		}
+		if(Config.trim(this.state.beginDate)==""){
+			alert('请选择调休开始时间',this.props.stage);
+			return false;
+		}
+		if(Config.trim(this.state.endDate)==""){
+			alert('请选择调休结束时间',this.props.stage);
 			return false;
 		}
 		return true;
@@ -68,26 +73,26 @@ export default class Off extends Component{
 		let _this = this;
 		Config.native('setTime').then((res)=>{
 			if(type ===1){
-				if( +new Date(res.data) <= +new Date(this.state.beginDate)){
-					alert('结束时间必须大于开始时间',this.props.stage);
+				if( +new Date(res.data.replace(/\-/g,'/')) <= +new Date((this.state.beginDate||'').replace(/\-/g,'/'))){
+					alert('调休结束时间必须大于开始时间',this.props.stage);
 				}else{
 					_this.setState({endDate:res.data})
 				}
 			}else if(type==0){
-				if(+new Date(res.data) >= +new Date(this.state.endDate)){
-					alert('结束时间必须大于开始时间',this.props.stage);
+				if(+new Date(res.data.replace(/\-/g,'/')) >= +new Date((this.state.endDate||'').replace(/\-/g,'/'))){
+					alert('调休结束时间必须大于开始时间',this.props.stage);
 				}else{
 					_this.setState({beginDate:res.data})
 				}
 			}else if(type ===2){
-				if(+new Date(res.data) >= +new Date(this.state.endOvertime)){
-					alert('结束时间必须大于开始时间',this.props.stage);
+				if(+new Date(res.data.replace(/\-/g,'/')) >=+new Date((this.state.endOvertime||'').replace(/\-/g,'/'))){
+					alert('加班结束时间必须大于开始时间',this.props.stage);
 				}else{
 					_this.setState({beginOvertime:res.data})
 				}
 			}else if(type ===3){
-				if(+new Date(res.data) <= +new Date(this.state.beginOvertime)){
-					alert('结束时间必须大于开始时间',this.props.stage);
+				if(+new Date(res.data.replace(/\-/g,'/')) <= +new Date((this.state.beginOvertime||'').replace(/\-/g,'/'))){
+					alert('加班结束时间必须大于开始时间',this.props.stage);
 				}else{
 					_this.setState({endOvertime:res.data})
 				}

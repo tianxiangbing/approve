@@ -43,7 +43,7 @@ export default class Caigou extends Component{
 		console.log(this.refs)
 		let sumMoney = 0;
 		this.state.detail.forEach((item,index)=>{
-			let money = this.refs['caigouDetail'+index].getMoney();
+			let money = this.refs['caigouDetail'+item.key].getMoney();
 			sumMoney+=money;
 		});
 		this.setState({sumPrice:sumMoney});
@@ -82,7 +82,7 @@ export default class Caigou extends Component{
 		if(nextProps.detail){
 			let customJObj =JSON.parse(nextProps.detail.customJObj)||{};
 			console.log(customJObj)
-			this.setState({'info':nextProps.detail,expectPayDate:customJObj.expectPayDate ,detail:customJObj.detailJArr});
+			this.setState({'info':nextProps.detail,expectPayDate:customJObj.expectPayDate ,detail:customJObj.detailJArr,sumPrice:customJObj.amount});
 			//console.log(this.state.applyDetail)
 		}
 	}
@@ -106,7 +106,7 @@ export default class Caigou extends Component{
 				{
 					this.state.detail.map((item,index)=>{
 						let indx = index+1;
-						return <CaigouDetail detail={this.state.detail} ref={"caigouDetail"+index} index={indx} computeMoney={this.computeMoney.bind(this)} item={item} key={item.key} del={this.del.bind(this,index)}/>
+						return <CaigouDetail detail={this.state.detail} ref={"caigouDetail"+item.key} index={indx} computeMoney={this.computeMoney.bind(this)} item={item} key={item.key} k={item.key} del={this.del.bind(this,index)}/>
 					})
 				}
 				{

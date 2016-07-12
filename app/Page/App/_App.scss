@@ -51,6 +51,11 @@
 			&.focusorg{
 				color:$focusColor;
 				padding:0;
+				i{display: none;}
+			}
+			i{
+				float:right;
+				color:$focusColor;
 			}
 		}
 	}

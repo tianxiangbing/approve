@@ -254,6 +254,13 @@
 	left:0;
 	overflow: auto;
 	z-index: 4;
+	color:$fontColorBlack;
+	.cancel-search{
+		color:#ccc;
+		position:absolute;
+		right:pxToRem(35);
+		top:pxToRem(34);
+	}
 	.search{
 		background-color: #e0e0e0;
 		height:pxToRem(90);
@@ -339,5 +346,27 @@
 		width:100%;
 		display:block;
 		color: #9a9a9a;
+	}
+	.searchList{
+		position:fixed;
+		height: 100%;
+		margin-top:pxToRem(100);
+		background-color: #fff;
+		top:0;
+		left:0;
+		z-index: 2;
+		width: 100%;
+		overflow: auto;
+		.item{
+			border-bottom: 1px #b4b4b4 solid;
+			height: pxToRem(88);
+			line-height: pxToRem(88);
+			@extend .fontSize2;
+			padding-left:pxToRem(30);
+		}
+	}
+	.searchText{
+		border-bottom: 1px solid #ccc;
+		padding:pxToRem(15) pxToRem(25);
 	}
 }

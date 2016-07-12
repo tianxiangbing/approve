@@ -139,12 +139,18 @@
 	}
 	.user-box{
 		float:right;
-		height:pxToRem2(50);
+		/* height:pxToRem2(50); */
 		width:pxToRem2(230);
 		@include border(#BBBBBB,5px,1px,1);
 		margin-right: pxToRem2(15);
 		padding:pxToRem2(5);
 		position: relative;
+		.approveDesc{
+			color:#ccc;
+			border-top:1px solid #cecece;
+			margin:pxToRem2(5) pxToRem2(5) 0 pxToRem2(5);
+			padding:pxToRem2(5);
+		}
 		img,i,.img{
 			display:inline-block;
 			height:pxToRem2(40);
@@ -216,6 +222,7 @@
 	position:absolute;
 	top:pxToRem(100);
 	right:pxToRem(60);
+	z-index: 1;
 	i{
 		font-size: pxToRem(150);
 		color:#d3d3d3;

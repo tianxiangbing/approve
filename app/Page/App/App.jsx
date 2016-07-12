@@ -26,6 +26,12 @@ export default class App extends Component{
 		this.state={corpList:[],currCorp:{},expand:false,dialog:0,list:[]};
 	}
 	componentWillMount(){
+		//http://video.statics.cdn.jituancaiyun.com/FAQ/jtcy/apply.html
+		let isNoFirst = localStorage.getItem('isNoFirst');
+		if(!isNoFirst){
+			localStorage.setItem('isNoFirst',true);
+			Config.native('modal',{title:"审批新增模板啦！",msg:"新增报销、采购、通用审批模板，无纸化办公，效率大幅提升！",img:imgUrl,link:"http://video.statics.cdn.jituancaiyun.com/FAQ/jtcy/apply.html"});
+		}
 	}
 	getQuery(name, type, win) {
         var reg = new RegExp("(^|&|#)" + name + "=([^&]*)(&|$|#)", "i");
@@ -104,8 +110,12 @@ export default class App extends Component{
 		this.bindInfo();
 	}
 	bindInfo(){
+		let orgIds =[];
+		orgIds=this.state.corpList.map((item,index)=>{
+			return item.orgId;
+		});
 		let params = {approveStatus:0};
-		params.orgIds = 
+		params.orgIds = orgIds.join(',')
 		Config.ajax('querylist',{
 			body:JSON.stringify(params),
 			method:'post'

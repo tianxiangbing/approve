@@ -19,7 +19,8 @@ export default class ListItem extends Component{
 			location.href="/approve/app/detail.html?applyId="+this.props.applyId+"&pageType=fromme"
 		}else*/
 		{
-			location.href="#detail/"+this.props.applyType+"/"+Config.applyType[this.props.applyType]+"/"+this.props.applyId+"/fromme"
+			let pageType= this.props.pageType||'fromme';
+			location.href="#detail/"+this.props.applyType+"/"+Config.applyType[this.props.applyType]+"/"+this.props.applyId+"/"+pageType
 		}
 	}
 	render(){

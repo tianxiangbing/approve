@@ -24,7 +24,7 @@ export default class Expense extends Component{
 					})
 				}
 				<div className="topborder"/>
-				<div className="detail-row sum-price"><label>总价（元）：</label><span className="price">{(customJObj.amount||0).toFixed(2)}</span></div>
+				<div className="detail-row sum-price"><label>总价（元）：</label><span className="price">{Number(customJObj.amount||0).toFixed(2)}</span></div>
 				<div className="detail-row"><label>审批编号：</label><span>{this.props.detail.applyId}</span></div>
 			</div>
 		);

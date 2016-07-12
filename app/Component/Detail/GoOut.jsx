@@ -3,6 +3,9 @@ let {Component} =React;
 import Config from 'config';
 
 export default class GoOut extends Component{
+	constructor(props){
+		super(props);
+	}
 	showImage(index){
 		let imgArr = (this.props.detail.photos||[]).map((item)=>{
 				return item.photo_url;
@@ -12,13 +15,27 @@ export default class GoOut extends Component{
 			picsArr: imgArr
 		})
 	}
+	renderOutType(){
+		let outType = '';
+		Config.goOUtType.forEach((item)=>{
+			if(this.props.detail.outType == item.key){
+				outType=item.name;
+				return false;
+			}
+		})
+		console.log(this.props.detail.outType)
+		console.log(outType)
+		return outType;
+	}
 	render(){
 		return (
 			<div>
 				<div className="detail-row ">
 					<label>外出方式：</label>
 					<span>
-						{Config.goOUtType[this.props.detail.outType]}
+						{
+							this.renderOutType()
+						}
 					</span>
 				</div>
 				<div className="detail-row ">

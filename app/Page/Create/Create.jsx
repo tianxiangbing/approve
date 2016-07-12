@@ -97,8 +97,8 @@ class Create extends Component{
 			params.customStruct=JSON.stringify(values);
 			params.beginDate =values.beginDate || new Date();
 			params.endDate = values.endDate ||new Date();
-			params.beginOvertime =values.beginDate || new Date();
-			params.endOvertime = values.endDate ||new Date();
+			params.beginOvertime =values.beginOvertime || new Date();
+			params.endOvertime = values.endOvertime ||new Date();
 			params.outType = values.outType||0;
 			params.flowStr = JSON.stringify(this.state.authList);
 			params.travelCode=values.travelCode||0;
@@ -125,12 +125,16 @@ class Create extends Component{
 						location.href="#/detail/"+params.applyType+"/"+this.params.title+"/"+res.result+"/fromme"
 					},2000)
 				}
+				else{
+		        	alert("失败！状态码：" + data.status+" "+data.msg,this);
+		        }
 			});
 		}
 	}
 	//选择图片
 	selectPictrues(){
 		if(!this.state.showUpload){
+			alert('最多只能选择4张哦！',this);
 			return false;
 		}
 		let _this = this;
@@ -186,12 +190,16 @@ class Create extends Component{
 						});
 						_this.imgList.push(data.photo_url);
 					}
+					else{
+			        	alert("失败！状态码：" + data.status+" "+data.msg);
+			        }
 				});
 			}
 		})
 	}
 	//选择人员
 	addUser(){
+		let _this = this;
 		if(this.checkIsUpload()){
 			this.setState({dialog:{mask:true,show:true,msg:"图片正在上传，请稍后",type:"alert"}});
 			return;
@@ -199,8 +207,8 @@ class Create extends Component{
 		Config.native('selectPeopleIOS').then((res)=>{
 			let data = res.data.map((item)=>{
 				let ishave =false;
-				for(let i=0;i<this.state.authList.length;i++){
-					if(item.uid == this.state.authList[i].uid){
+				for(let i=0;i<_this.state.authList.length;i++){
+					if(item.uid == _this.state.authList[i].uid){
 						ishave=true;
 					}
 				}
@@ -208,8 +216,8 @@ class Create extends Component{
 					return item;
 				}
 			});
-			let authList = this.state.authList .concat(data);
-			this.setState({authList:authList});
+			let authList = _this.state.authList .concat(data.filter(x => {return x}));
+			_this.setState({authList:authList});
 		});
 	}
 	//选择人员（知会人）
@@ -230,7 +238,7 @@ class Create extends Component{
 					return item;
 				}
 			});
-			let informList = this.state.informList .concat(data);
+			let informList = this.state.informList .concat(data.filter(x => {return x}));
 			this.setState({informList:informList});
 		});
 	}

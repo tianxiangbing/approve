@@ -51,7 +51,7 @@ export default class ExtraMe extends Component{
 					{
 						this.state.list.map((item)=>{
 							return (
-								<ListItem approveName={item.approveName} applyType={item.applyType} applyId={item.applyId} avatar={this.renderAvatar(item)} title={item.applyResean} desc={item.uname+"的"+Config.applyType[item.applyType]} time={item.gmtCreate} status={item.approveStatus}/>
+								<ListItem pageType="extrame" approveName={item.approveName} applyType={item.applyType} applyId={item.applyId} avatar={this.renderAvatar(item)} title={item.applyResean} desc={item.uname+"的"+Config.applyType[item.applyType]} time={item.gmtCreate} status={item.approveStatus}/>
 								)
 						})
 					}

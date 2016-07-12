@@ -8,7 +8,7 @@ export default class Expense extends Component{
 	
 	constructor(props){
 		super(props);
-		this.state = {detail:[{key:+new Date()}],caigouList:[],sumPrice:0,expectPayDate:undefined};
+		this.state = {detail:[{key:+new Date()}],caigouList:[],sumPrice:"0.00",expectPayDate:undefined};
 	}
 	getValues(){
 		let returnValue ={detailJArr:[]};
@@ -68,7 +68,7 @@ export default class Expense extends Component{
 		if(nextProps.detail){
 			let customJObj =JSON.parse(nextProps.detail.customJObj)||{};
 			console.log(customJObj)
-			this.setState({detail:customJObj.detailJArr});
+			this.setState({detail:customJObj.detailJArr,sumPrice:customJObj.amount});
 			//console.log(this.state.applyDetail)
 		}
 	}

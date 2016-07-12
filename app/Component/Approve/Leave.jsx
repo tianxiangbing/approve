@@ -20,7 +20,10 @@ export default class Leave extends Component{
 			let customJObj =JSON.parse(nextProps.detail.customJObj)||{};
 			console.log(customJObj)
 			this.setState({'applyResean':nextProps.detail.applyResean,
-				type: nextProps.detail.leaveType || 0});
+				type: nextProps.detail.leaveType || 0,
+				beginDate:nextProps.detail.beginDate,
+				endDate:nextProps.detail.endDate
+			});
 			//console.log(this.state.applyDetail)
 		}
 	}
@@ -61,13 +64,13 @@ export default class Leave extends Component{
 		let _this = this;
 		Config.native('setTime').then((res)=>{
 			if(type ===1){
-				if( +new Date(res.data) <= +new Date(this.state.beginDate)){
+				if( +new Date(res.data.replace(/\-/g,'/')) <= +new Date((this.state.beginDate||'').replace(/\-/g,'/'))){
 					alert('结束时间必须大于开始时间',this.props.stage);
 				}else{
 					_this.setState({endDate:res.data})
 				}
 			}else{
-				if(+new Date(res.data) >= +new Date(this.state.endDate)){
+				if(+new Date(res.data.replace(/\-/g,'/')) >= +new Date((this.state.endDate||'').replace(/\-/g,'/'))){
 					alert('结束时间必须大于开始时间',this.props.stage);
 				}else{
 					_this.setState({beginDate:res.data})

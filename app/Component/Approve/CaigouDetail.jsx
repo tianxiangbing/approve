@@ -20,31 +20,32 @@ export  default  class CaigouDetail extends Component{
 		if(hasValue){
 			confirm("确定删除采购明细（"+this.props.index+"）?",this,()=>{
 				this.props.del(this.props.index);
+				this.props.computeMoney(this);
 			})
 		}else{
 			this.props.del(this.props.index);
+			this.props.computeMoney(this);
 		}
-		this.props.computeMoney(this);
 
 		//this.props.reRender();
 	}
 	componentWillMount(){
 		console.log(this.props.item)
-		this.setState({item:this.props.item});
+		this.setState({item:Object.assign(this.state.item,this.props.item)});
 	}
 	componentDidMount(){
 		//console.log("didMount")
 	}
 
 	//bind
-	componentWillReceiveProps( nextProps){
+	/*componentWillReceiveProps( nextProps){
 		
 		if(nextProps.item){
 			console.log(nextProps.item)
 			this.setState({'item':nextProps.item});
 			//console.log(this.state.applyDetail)
 		}
-	}
+	}*/
 	change(field,e){
 		let value= e.target.value;
 		if(field == "price"){
