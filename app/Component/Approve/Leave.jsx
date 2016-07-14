@@ -63,18 +63,22 @@ export default class Leave extends Component{
 	setTime(type){
 		let _this = this;
 		Config.native('setTime').then((res)=>{
-			if(type ===1){
-				if( +new Date(res.data.replace(/\-/g,'/')) <= +new Date((this.state.beginDate||'').replace(/\-/g,'/'))){
-					alert('结束时间必须大于开始时间',this.props.stage);
+			try{
+				if(type ===1){
+					if( +new Date(res.data.replace(/\-/g,'/')) <= +new Date(((this.state.beginDate)||'').replace(/\-/g,'/'))){
+						alert('结束时间必须大于开始时间',this.props.stage);
+					}else{
+						_this.setState({endDate:res.data})
+					}
 				}else{
-					_this.setState({endDate:res.data})
+					if(+new Date(res.data.replace(/\-/g,'/')) >= +new Date(((this.state.endDate)||'').replace(/\-/g,'/'))){
+						alert('结束时间必须大于开始时间',this.props.stage);
+					}else{
+						_this.setState({beginDate:res.data})
+					}
 				}
-			}else{
-				if(+new Date(res.data.replace(/\-/g,'/')) >= +new Date((this.state.endDate||'').replace(/\-/g,'/'))){
-					alert('结束时间必须大于开始时间',this.props.stage);
-				}else{
-					_this.setState({beginDate:res.data})
-				}
+				_this.props.renderProcess(this.state.beginDate,this.state.endDate);
+			}catch(e){
 			}
 		})
 	}

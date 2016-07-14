@@ -20,8 +20,32 @@ class Create extends Component{
 		super(props);
 		console.log(props)
 		this.imgList = [];
-		this.params =props.params
-		this.state={imgList:[],showUpload:true,authList:[],informList:[],showAddPic:true,dialog:0,isSet:0,detail:null};
+		this.params =props.params;
+		this.leaveDays =0;
+		this.isloading=false;
+		this.state={imgList:[],showUpload:true,authList:[],informList:[],showAddPic:true,dialog:0,isSet:1,detail:null};
+	}
+	renderProcess(){
+			Config.ajax('getFlowByType',{
+				method:'post',
+				body:JSON.stringify({applyType:this.props.params.type,leaveDays: this.leaveDays})
+			}).then((res)=>{
+				let data =res//{"status":200,"total":0,"result":{"isSet":1,"flowInfos":[{"uid":292177,"uname":"青城名字要很长很长才好青城名字要很长很长","mobile":null,"avatar":"http://n1.store.uban360.com:7188/sfs/avatar?uid=292177"}]},"msg":null}
+				if(data.status == 200){
+					let arr = (data.result.flowInfos||[]).map((item)=>{
+						return {name:item.uname,uid:item.uid}
+					})
+					if(data.result.isSet == 1){
+						this.setState({authList:arr,isSet:data.result.isSet});
+					}else if(this.state.authList==0){
+						this.setState({authList:arr,isSet:data.result.isSet});
+					}else{
+						this.setState({isSet:data.result.isSet});
+					}
+				}else{
+					alert('错误码：'+data.status,this);
+				}
+			});
 	}
 	componentWillMount(){
 		if(this.params.type == 4){
@@ -32,22 +56,16 @@ class Create extends Component{
 			body:JSON.stringify({applyType:this.props.params.type})
 		}).then((res)=>{
 			let data =res//{"status":200,"total":0,"result":{"isSet":0,"flowInfos":[{"uid":292177,"uname":"青城名字要很长很长才好青城名字要很长很长","mobile":null,"avatar":"http://n1.store.uban360.com:7188/sfs/avatar?uid=292177"}]},"msg":null}
-			let arr = (data.result.flowInfos||[]).map((item)=>{
-				return {name:item.uname,uid:item.uid}
-			})
-			this.setState({informList:arr})
+			if(data.status == 200){
+				let arr = (data.result.flowInfos||[]).map((item)=>{
+					return {name:item.uname,uid:item.uid}
+				})
+				this.setState({informList:arr})
+			}else{
+				alert('错误码：'+data.status,this);
+			}
 		});
-		Config.ajax('getFlowByType',{
-			method:'post',
-			body:JSON.stringify({applyType:this.props.params.type})
-		}).then((res)=>{
-			let data =res//{"status":200,"total":0,"result":{"isSet":1,"flowInfos":[{"uid":292177,"uname":"青城名字要很长很长才好青城名字要很长很长","mobile":null,"avatar":"http://n1.store.uban360.com:7188/sfs/avatar?uid=292177"}]},"msg":null}
-			let arr = (data.result.flowInfos||[]).map((item)=>{
-				return {name:item.uname,uid:item.uid}
-			})
-			this.setState({authList:arr,isSet:data.result.isSet})
-		});
-
+		this.renderProcess();
 		if(this.params.id){
 			let param={};
 			param.applyId = this.props.params.id;
@@ -115,6 +133,12 @@ class Create extends Component{
 			//事由
 			params.applyResean=values.applyResean;
 			params.leaveType= values.leaveType;
+			if(this.isloading){
+				alert('请勿重复提交',this);
+				return false;
+			}
+			this.isloading =true;
+			alert('正在提交中...',this);
 			Config.ajax('save',{
 				body:JSON.stringify(params),
 				method:'post'
@@ -122,10 +146,12 @@ class Create extends Component{
 				if(res.status==200){
 					alert('您的审批提交成功',this);
 					setTimeout(()=>{
+		        		this.isloading =false;
 						location.href="#/detail/"+params.applyType+"/"+this.params.title+"/"+res.result+"/fromme"
 					},2000)
 				}
 				else{
+		        	this.isloading =false;
 		        	alert("失败！状态码：" + data.status+" "+data.msg,this);
 		        }
 			});
@@ -143,7 +169,7 @@ class Create extends Component{
 				let data = res.data.map((item)=>{
 					return {data:"data:image/png;base64,"+item,uploaded:false};
 				});
-				data = _this.state.imgList.concat(data);
+				data = _this.state.imgList.concat(data).slice(0,4);
 				console.log(data)
 				_this.setState({"imgList":data});
 				if(data.length>=4){
@@ -266,34 +292,34 @@ class Create extends Component{
 		switch (parseInt(category)){
 			case 0:{
 				//请假
-				return <Leave ref="myForm" stage={this} detail={this.state.detail}/>
+				return <Leave renderProcess={this.reComputeDays.bind(this)} ref="myForm" stage={this} detail={this.state.detail}/>
 			}
 			case 1:{
 				//外出
-				return <GoOut ref="myForm" stage={this} detail={this.state.detail}/>
+				return <GoOut renderProcess={this.reComputeDays.bind(this)} ref="myForm" stage={this} detail={this.state.detail}/>
 			}
 			case 2:{
 				//出差
-				return <Travel ref="myForm" stage={this} detail={this.state.detail}/>
+				return <Travel renderProcess={this.reComputeDays.bind(this)} ref="myForm" stage={this} detail={this.state.detail}/>
 			}
 			case 3:{
 				//调休
-				return <Off ref="myForm" stage={this} detail={this.state.detail}/>
+				return <Off renderProcess={this.reComputeDays.bind(this)} ref="myForm" stage={this} detail={this.state.detail}/>
 			}
 			case 5:{
 				//采购
-				return <Caigou ref="myForm" stage={this} detail={this.state.detail}/>;
+				return <Caigou renderProcess={this.reComputeDays.bind(this)} ref="myForm" stage={this} detail={this.state.detail}/>;
 				break;
 			}
 			case 4:{
 				//报销
-				return <Expense ref="myForm" stage={this} detail={this.state.detail}/>;
+				return <Expense renderProcess={this.reComputeDays.bind(this)} ref="myForm" stage={this} detail={this.state.detail}/>;
 				break;
 			}
 			case 6:{
 				console.log('通用')
 				//通用
-				return <Generic ref="myForm" stage={this} detail={this.state.detail}/>;
+				return <Generic renderProcess={this.reComputeDays.bind(this)} ref="myForm" stage={this} detail={this.state.detail}/>;
 				break;
 			}
 		}
@@ -302,6 +328,40 @@ class Create extends Component{
 		console.log(this.state.dialog)
 		return <Dialog stage={this} {...this.state.dialog}/>
 	}
+
+    compateDays (start, end) {
+      var s = start.replace(/-/g, "/"), 
+          e = end.replace(/-/g, "/"), 
+          sd = new Date(s), 
+          ed = new Date(e);
+      var c = ed.getTime() - sd.getTime();
+      return c;
+    }
+
+    //动态计算天数
+    reComputeDays (start, end, start2, end2) {
+		var _ = this,
+			days = 0;
+		// 加班的开始结束时间判断
+		if (_.start2) {
+			_.compateDays(start2, end2);
+		}
+		var c = _.compateDays(start, end);
+		if (!c) {
+			_.leaveDays = 0;
+			return false;
+		} else {
+			days = c / (24 * 3600 * 1000);
+			if (days > 0 && days < 1) {
+				// 当计算的天数小于1时，天数直接等于0  
+				_.leaveDays = 0;
+			} else {
+				// 大于1  
+				_.leaveDays = Math.ceil(days);
+			}
+			_.renderProcess();
+		}
+    }
 	render(){
 		return (
 			<div>

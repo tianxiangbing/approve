@@ -68,6 +68,7 @@ export default class Travel extends Component{
 	setTime(type){
 		let _this = this;
 		Config.native('setTime').then((res)=>{
+			try{
 			if(type ===1){
 				if( +new Date(res.data.replace(/\-/g,'/')) <= +new Date((this.state.beginDate||'').replace(/\-/g,'/'))){
 					alert('结束时间必须大于开始时间',this.props.stage);
@@ -80,6 +81,9 @@ export default class Travel extends Component{
 				}else{
 					_this.setState({beginDate:res.data})
 				}
+			}
+			_this.props.renderProcess(this.state.beginDate,this.state.endDate);
+			}catch(e){
 			}
 		})
 	}

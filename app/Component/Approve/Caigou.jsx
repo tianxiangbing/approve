@@ -10,18 +10,18 @@ export default class Caigou extends Component{
 
 	constructor(props){
 		super(props);
-		this.state = {detail:[{key:+new Date()}],caigouList:[],sumPrice:0,expectPayDate:undefined,info:{}};
+		this.state = {detail:[{key:+new Date()}],caigouList:[],sumPrice:"0.00",expectPayDate:undefined,info:{}};
 	}
 	getValues(){
 		let arr=[];
 		this.state.detail.forEach((item,index)=>{
-			let values = this.refs['caigouDetail'+index].getValues();
+			let values = this.refs['caigouDetail'+item.key].getValues();
 			console.log(values)
 			arr.push(values);
 		});
 		return {
 			applyResean:this.refs.applyResean.value,
-			amount:this.state.sumPrice,
+			amount:(Number(this.state.sumPrice)||0).toFixed(2),
 			expectPayDate:this.state.expectPayDate,
 			detailJArr:arr
 		};
@@ -46,7 +46,7 @@ export default class Caigou extends Component{
 			let money = this.refs['caigouDetail'+item.key].getMoney();
 			sumMoney+=money;
 		});
-		this.setState({sumPrice:sumMoney});
+		this.setState({sumPrice:(Number(sumMoney)||0).toFixed(2)});
 	}
 	validate(){
 		let returnValue = true;
@@ -60,7 +60,7 @@ export default class Caigou extends Component{
 		}
 		for (var i = 0 ,l= this.state.detail.length - 1; i <= l; i++) {
 			let item  = this.state.detail[i];
-			let validate = this.refs['caigouDetail'+i].validate();
+			let validate = this.refs['caigouDetail'+item.key].validate();
 			if(validate.status == false){
 				returnValue=false;
 				alert(validate.text,this.props.stage)
@@ -94,6 +94,7 @@ export default class Caigou extends Component{
 		this.setState({info:info});
 	}
 	render(){
+		console.log(this.state.sumPrice)
 		return (
 			<div>
 				<div className="txt-reason">
@@ -117,7 +118,7 @@ export default class Caigou extends Component{
 						):undefined
 				}
 				
-				<div className="row sum-price">总价（元）：<span>{this.state.sumPrice.toFixed(2)}</span></div>
+				<div className="row sum-price">总价（元）：<span>{this.state.sumPrice}</span></div>
 			</div>
 			)
 	}

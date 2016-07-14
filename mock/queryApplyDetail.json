@@ -5,57 +5,41 @@
 		"uid": "10101001610432",
 		"uname": "田想兵",
 		"avatar": "http://10.0.10.31:8040/sfs/avatar?uid=10101001610432",
-		"applyId": "CC1467974535546",
+		"applyId": "TX1468411752301",
 		"deptName": "测试1",
-		"applyType": "2",
-		"beginDate": "2016-07-08 18:45:00",
-		"endDate": "2016-07-09 18:45:00",
-		"beginOverTime": "2016-07-08 18:45:00",
-		"endOverTime": "2016-07-09 18:45:00",
-		"travelAddr": "杭州市",
+		"applyType": "3",
+		"beginDate": "2016-07-19 20:10:00",
+		"endDate": "2016-07-20 20:10:00",
+		"beginOverTime": "2016-07-17 20:10:00",
+		"endOverTime": "2016-07-18 20:10:00",
+		"travelAddr": null,
 		"leaveType": 0,
 		"outType": 0,
-		"applyResean": "我要出差",
-		"approveStatus": 1,
-		"photos": [{
-			"id": 0,
-			"photo_url": "http://7xnmmr.com2.z0.glb.qiniucdn.com/90e2cbdebb52c8c9ea1cc1467aa507a22525ebf2"
-		}, {
-			"id": 1,
-			"photo_url": "http://7xnmmr.com2.z0.glb.qiniucdn.com/2882fe0387b5074e26e9cfe6a73b1d70a919ff18"
-		}],
+		"applyResean": "这么晚餐",
+		"approveStatus": 3,
+		"photos": null,
 		"approveDetailVo": [{
-			"id": "2634",
+			"id": "3602",
 			"uid": "10101001610432",
 			"uname": "田想兵",
 			"avatar": "http://10.0.10.31:8040/sfs/avatar?uid=10101001610432",
 			"approveStatus": "0",
-			"approveDate": "2016-07-08 18:42:15",
+			"approveDate": "2016-07-13 20:09:12",
 			"approveOrder": "0",
 			"approveDesc": null,
 			"userMobile": "18667040027"
 		}, {
-			"id": "2635",
-			"uid": "924064",
-			"uname": "密码",
-			"avatar": "http://10.0.10.31:8040/sfs/avatar?uid=924064",
-			"approveStatus": "1",
-			"approveDate": "2016-07-08 18:42:15",
+			"id": "3603",
+			"uid": "927801",
+			"uname": "测试敏",
+			"avatar": "http://10.0.10.31:8040/sfs/avatar?uid=927801",
+			"approveStatus": "3",
+			"approveDate": "2016-07-13 20:11:01",
 			"approveOrder": "1",
-			"approveDesc": null,
-			"userMobile": "13738056812"
-		}, {
-			"id": "2636",
-			"uid": "10101001610472",
-			"uname": "小号生活",
-			"avatar": "http://10.0.10.31:8040/sfs/avatar?uid=10101001610472",
-			"approveStatus": "5",
-			"approveDate": "0000-00-00 00:00:00",
-			"approveOrder": "2",
-			"approveDesc": null,
-			"userMobile": "13148376413"
+			"approveDesc": "yrytyry",
+			"userMobile": "13700000000"
 		}],
-		"customJObj": "{\"beginDate\":\"2016-07-08 18:45\",\"endDate\":\"2016-07-09 18:45\",\"applyResean\":\"我要出差\",\"travelCode\":0,\"travelAddr\":\"杭州市\"}"
+		"customJObj": "{\"beginDate\":\"2016-07-19 20:10\",\"endDate\":\"2016-07-20 20:10\",\"beginOvertime\":\"2016-07-17 20:10\",\"endOvertime\":\"2016-07-18 20:10\",\"applyResean\":\"这么晚餐\"}"
 	},
 	"msg": null
 }

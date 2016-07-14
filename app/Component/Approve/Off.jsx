@@ -21,8 +21,8 @@ export default class Off extends Component{
 				type: nextProps.detail.leaveType || 0,
 				beginDate:nextProps.detail.beginDate,
 				endDate:nextProps.detail.endDate,
-				beginOverTime:nextProps.detail.beginOverTime,
-				endOverTime:nextProps.detail.endOverTime
+				beginOvertime:nextProps.detail.beginOverTime,
+				endOvertime:nextProps.detail.endOverTime
 			});
 			//console.log(this.state.applyDetail)
 		}
@@ -72,6 +72,7 @@ export default class Off extends Component{
 	setTime(type){
 		let _this = this;
 		Config.native('setTime').then((res)=>{
+			try{
 			if(type ===1){
 				if( +new Date(res.data.replace(/\-/g,'/')) <= +new Date((this.state.beginDate||'').replace(/\-/g,'/'))){
 					alert('调休结束时间必须大于开始时间',this.props.stage);
@@ -96,6 +97,9 @@ export default class Off extends Component{
 				}else{
 					_this.setState({endOvertime:res.data})
 				}
+			}
+			_this.props.renderProcess(this.state.beginDate,this.state.endDate,this.state.beginOvertime,this.state.endOvertime);
+			}catch(e){
 			}
 		})
 	}

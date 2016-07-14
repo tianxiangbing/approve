@@ -60,9 +60,9 @@
 	}
 	.photos{
 		img{
-			width:pxToRem2(60);
-			height:pxToRem2(60);
-			margin-right:pxToRem2(8);
+			width:pxToRem2(58);
+			height:pxToRem2(58);
+			margin-right:pxToRem2(5);
 		}
 	}
 	.zhr{
@@ -104,6 +104,16 @@
 		margin-bottom: pxToRem2(20);
 		&:last-child{
 			margin-bottom: 0;
+			&:before{
+				content:"";
+				display: block;
+				width:pxToRem(30);
+				background-color: #fff;
+				position: absolute;
+				top:pxToRem2(18);
+				bottom: 0;
+				z-index: -1;
+			}
 		}
 	}
 	.state {
