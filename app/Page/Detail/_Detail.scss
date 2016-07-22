@@ -19,9 +19,9 @@
 			@extend .fontSize;
 		}
 		i{
-			border:1px solid #FA565A;
+			border:1px solid $focusColor;
 			@extend .fontSize2;
-			color:#FA565A;
+			color:$focusColor;
 		}
 		.userName{
 			margin-top:pxToRem2(10);
@@ -46,7 +46,7 @@
 		}
 		span{
 			&.price{
-				color:#FA565A;
+				color:$focusColor;
 			}
 		}
 	}
@@ -173,9 +173,9 @@
 			text-align: center;
 		}
 		i{
-			border:1px solid #FA565A;
+			border:1px solid $focusColor;
 			@extend .fontSize2;
-			color:#FA565A;
+			color:$focusColor;
 		}
 		.userName{
 			@extend .fontSize1;
@@ -198,8 +198,8 @@
 			position:absolute;
 			top:pxToRem(32);
 			right:pxToRem(14);
-			color:#FA565A;
-			border:1px solid #FA565A;
+			color:$focusColor;
+			border:1px solid $focusColor;
 			height: pxToRem(36);
 			line-height: pxToRem(36);
 			border-radius: pxToRem(36);
@@ -224,7 +224,7 @@
 		display: inline-block;
 		color:#222;
 		&.jj{
-			color:#FA565A;
+			color:$focusColor;
 		}
 	}
 }

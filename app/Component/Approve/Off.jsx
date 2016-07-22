@@ -9,20 +9,26 @@ export default class Off extends Component{
 		super(props);
 		this.state= {applyResean:'',type:0}
 	}
-
+	componentWillMount(){
+		if(localStorage.getItem('applyResean')){
+			this.setState({'applyResean':localStorage.getItem('applyResean')});
+			localStorage.removeItem('applyResean')
+		}
+	}
 	//bind
 	componentWillReceiveProps( nextProps){
 		/*console.log('prev',prevProps)
 		console.log('cur',this.props)*/
+		console.log(111)
 		if(nextProps.detail){
-			let customJObj =JSON.parse(nextProps.detail.customJObj)||{};
-			console.log(customJObj)
+			//let customJObj =JSON.parse(nextProps.detail.customJObj)||{};
+			//console.log(customJObj)
 			this.setState({'applyResean':nextProps.detail.applyResean,
 				type: nextProps.detail.leaveType || 0,
 				beginDate:nextProps.detail.beginDate,
 				endDate:nextProps.detail.endDate,
-				beginOvertime:nextProps.detail.beginOverTime,
-				endOvertime:nextProps.detail.endOverTime
+				beginOvertime:nextProps.detail.beginOverTime||nextProps.detail.beginOvertime,
+				endOvertime:nextProps.detail.endOverTime||nextProps.detail.endOvertime
 			});
 			//console.log(this.state.applyDetail)
 		}
@@ -103,13 +109,19 @@ export default class Off extends Component{
 			}
 		})
 	}
+	bindData(){
+		//this.props.bindData();
+		localStorage.setItem('applyResean',this.state.applyResean);
+		location.href=signRecord+'?orgId=' + localStorage.getItem('orgId') + '#/record';
+	}
 	render(){
+		console.log(this.props.detail)
 		return (
 			<div className="detail">
 				<div className="txt-reason">
 					<textarea ref="applyResean" value={this.state.applyResean} onChange={this.change.bind(this,'applyResean')} maxLength ="60" placeholder="请输入调休事由（必填）"/>
 				</div>
-				<h3>加班时间<a href={signRecord}>查看考勤记录</a></h3>
+				<h3>加班时间<a onClick={this.bindData.bind(this)}>查看考勤记录</a></h3>
 				<div className="formbox">
 					<div className="rowinput row" onClick={this.setTime.bind(this,2)}>开始时间<span className="expectPayDate">{!this.state.beginOvertime?<i>请选择（必填）</i>:this.state.beginOvertime}</span></div>
 					<div className="rowinput row" onClick={this.setTime.bind(this,3)}>结束时间<span className="expectPayDate">{!this.state.endOvertime?<i>请选择（必填）</i>:this.state.endOvertime}</span></div>

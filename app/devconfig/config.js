@@ -406,6 +406,52 @@ let Config = {
 		} else {
 			return value;
 		}
+	},
+	dadian: function(key, title) {
+		try {
+			var param = {
+				eventId: key,
+				param: title
+			};
+			this.native('pagestat', param)
+		} catch (e) {
+			console.log(e);
+		}
 	}
 }
+
+/*test
+function updateConnectionStatus(msg, connected) {
+	try {
+		if (!connected) {
+			Config.native('toast', {
+				"time": 3,
+				"msg": "断网喽,请联网后重试!"
+			});
+		}
+	} catch (e) {
+
+	}
+}
+
+window.addEventListener('load', function(e) {
+	if (navigator.onLine) {
+		updateConnectionStatus('Online', true);
+	} else {
+		updateConnectionStatus('Offline', false);
+	}
+}, false);
+
+window.addEventListener('online', function(e) {
+	logger.log("And we're back :)");
+	updateConnectionStatus('Online', true);
+	// Get updates from server.
+}, false);
+
+window.addEventListener('offline', function(e) {
+	logger.log("Connection is flaky.");
+	updateConnectionStatus('Offline', false);
+	// Use offine mode.
+}, false);*/
+
 export default Config;

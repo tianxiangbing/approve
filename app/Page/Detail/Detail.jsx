@@ -167,6 +167,7 @@ export default class Detail extends Component{
 		params.id = this.status.id;
 		if(approveStatus==-1){
 			console.log('重新申请');
+			Config.dadian('approval_specifications_reissue_click','审批详情页点击“重新发起”按钮');
 			location.href="#create/"+this.props.params.type+"/"+this.props.params.title+"/"+this.props.params.id
 			return false;
 		}
@@ -217,6 +218,7 @@ export default class Detail extends Component{
 			        	alert("操作失败！状态码：" + data.status,_self);
 			        }
 				});
+				Config.dadian('approval_specifications_recall_click','审批详情页点击“撤回”按钮');
 			})
 			return;
 		}

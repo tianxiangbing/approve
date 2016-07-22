@@ -11,8 +11,8 @@
 			text-align: center;
 			border-bottom: #b4b4b4 1px solid;
 			&.focus{
-				color:#fa565a;
-				border-bottom: 3px #fa565a solid;
+				color:$focusColor;
+				border-bottom: 3px $focusColor solid;
 			}
 		}
 	}

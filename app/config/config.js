@@ -100,6 +100,17 @@ let Config = {
 		} else {
 			return value;
 		}
+	},
+	dadian: function(key, title) {
+		try {
+			var param = {
+				eventId: key,
+				param: title
+			};
+			this.native('pagestat', param)
+		} catch (e) {
+			console.log(e);
+		}
 	}
 }
 export default Config;

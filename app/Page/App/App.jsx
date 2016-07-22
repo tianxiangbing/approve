@@ -211,7 +211,7 @@ export default class App extends Component{
 					}
 				</div>
 				<div className="menu">
-				<a href="#tome"><i className="iconfont icon-111"/>
+				<a href="#tome" onClick={Config.dadian('approval_waitforapproval_click','审批首页进入“待我审批”列表页面')}><i className="iconfont icon-111"/>
 				待我审批
 					{
 						(()=>{
@@ -226,17 +226,17 @@ export default class App extends Component{
 						})()
 					}
 				</a>
-				<a href="#fromme"><i className="iconfont icon-112 ifuck"/>我发起的</a>
+				<a href="#fromme" onClick={Config.dadian('approval_myapply_click','审批首页进入“我发起的”列表页面')}><i className="iconfont icon-112 ifuck"/>我发起的</a>
 				</div>
-				<a className="followme" href="#extrame">知会我的<i className="iconfont icon-xiayibu"/></a>
+				<a className="followme" href="#extrame" onClick={Config.dadian('approval_notify_click','审批首页进入“知会我的”列表页面')}>知会我的<i className="iconfont icon-xiayibu"/></a>
 				<div className="menu-list">
-					<a href="#create/0/请假"><i className="iconfont icon-110"/>请假</a>
-					<a href="#create/1/外出"><i className="iconfont icon-108"/>外出</a>
-					<a href="#create/2/出差"><i className="iconfont icon-109"/>出差</a>
-					<a href="#create/3/调休"><i className="iconfont icon-107"/>调休</a>
-					<a href="#create/4/报销"><i className="iconfont icon-iconfontshenpicaigou02"/>报销</a>
-					<a href="#create/5/采购"><i className="iconfont icon-iconfontshenpicaigou01"/>采购</a>
-					<a href="#create/6/通用"><i className="iconfont icon-shenpi03"/>通用</a>
+					<a href="#create/0/请假" onClick={Config.dadian('approval_qj_click','审批首页选择请假')}><i className="iconfont icon-110"/>请假</a>
+					<a href="#create/1/外出" onClick={Config.dadian('approval_cc_click','审批首页选择外出')}><i className="iconfont icon-108"/>外出</a>
+					<a href="#create/2/出差" onClick={Config.dadian('approval_tx_click','审批首页选择出差')}><i className="iconfont icon-109"/>出差</a>
+					<a href="#create/3/调休" onClick={Config.dadian('approval_wc_click','审批首页选择调休')}><i className="iconfont icon-107"/>调休</a>
+					<a href="#create/4/报销" onClick={Config.dadian('approval_bx_click','审批首页选择报销')}><i className="iconfont icon-iconfontshenpicaigou02"/>报销</a>
+					<a href="#create/5/采购" onClick={Config.dadian('approval_cg_click','审批首页选择采购')}><i className="iconfont icon-iconfontshenpicaigou01"/>采购</a>
+					<a href="#create/6/通用" onClick={Config.dadian('approval_ty_click','审批首页选择通用')}><i className="iconfont icon-shenpi03"/>通用</a>
 					<a><i className="iconfont"/>　</a>
 					<a><i className="iconfont"/>　</a>
 				</div>

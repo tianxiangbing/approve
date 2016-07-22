@@ -54,7 +54,7 @@
 		padding:pxToRem2(9) pxToRem2(14) pxToRem2(14) pxToRem2(14);
 		a{
 			float:right;
-			color:#FA565A;
+			color:$focusColor;
 		}
 	}
 	.formbox{
@@ -103,7 +103,7 @@
 }
 .add-row{
 	text-align:center;
-	color:#FA565A;
+	color:$focusColor;
 	i{
 		@extend .fontSize1;
 		margin-right: pxToRem2(11);
@@ -121,7 +121,7 @@
 	}
 }
 .btn-submit{
-	background-color:#FA565A;
+	background-color:$focusColor;
 	height:pxToRem2(46);
 	border-radius:pxToRem2(46);
 	line-height:pxToRem2(46);
@@ -195,9 +195,9 @@
 			@extend .fontSize;
 		}
 		i{
-			border:1px solid #FA565A;
+			border:1px solid $focusColor;
 			@extend .fontSize2;
-			color:#FA565A;
+			color:$focusColor;
 		}
 		.userName{
 			margin-top:pxToRem2(10);
@@ -230,8 +230,8 @@
 		color:#999;
 		&.focus{
 			color:#fff;
-			background-color:#FA565A;
-			border-color:#FA565A;
+			background-color:$focusColor;
+			border-color:$focusColor;
 		}
 		&:last-child{
 			margin-right: 0;
@@ -292,7 +292,7 @@
 		top:pxToRem(265);
 		@extend .fontSize2;
 		a{
-			color: #fa565a;
+			color: $focusColor;
 		}
 	}
 	.tab{
@@ -307,8 +307,8 @@
 			@extend .fontSize2;
 			color:#9a9a9a;
 			&.curr {
-			    border-bottom: 3px #fa565a solid;
-			    color: #fa565a;
+			    border-bottom: 3px $focusColor solid;
+			    color: $focusColor;
 			}
 		}
 	}

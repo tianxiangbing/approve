@@ -78,13 +78,13 @@ $fontFamily:'Microsoft Yahei', 'Hiragino Sans GB', Helvetica;
 .fontSize4{
 	@include font-dpr(20px);
 }
-$whiteColor:#fff;
-$borderColor:#cdcdcd;
-$borderColor2:#cecece;
-$focusColor:#fa565a;
-$fontColorGray:#9a9a9a;
-$fontColorBlack:#333333;
-$fontColorRed:#f85e57;
+$whiteColor:#fff !default;
+$borderColor:#cdcdcd !default;
+$borderColor2:#cecece !default;
+$focusColor:#fa565a !default;
+$fontColorGray:#9a9a9a !default;
+$fontColorBlack:#333333 !default;
+$fontColorRed:#f85e57 !default;
 ::-webkit-input-placeholder { color:#dcdcdc; }
 ::-moz-placeholder { color:#dcdcdc; } /* firefox 19+ */
 :-ms-input-placeholder { color:#dcdcdc; } /* ie */

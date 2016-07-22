@@ -16,14 +16,14 @@ var htmlPlugin = new HtmlWebpackPlugin({
     filename: '../index.html',
     template: "template.html"
 });
-var modulesDirectories = ["web_modules", "node_modules", "bower_components", "app/devconfig", "app/cyconfig"];
+var modulesDirectories = ["web_modules", "node_modules", "bower_components", "app/devconfig", "app/msconfig"];
 if (process.env.NODE_ENV == "test") {
-    modulesDirectories = ["web_modules", "node_modules", "bower_components", "app/config", "app/cyconfig"];
+    modulesDirectories = ["web_modules", "node_modules", "bower_components", "app/config", "app/msconfig"];
 }
 var config = {
     entry: {
         app: ["./app/app.jsx"],
-        vendor: ["react", "react-dom", 'whatwg-fetch', 'react-router']
+        vendor: ["react", "react-dom", 'react-router']
     },
     output: {
         path: path.resolve(__dirname, "caiyun/build"),
@@ -73,7 +73,7 @@ var config = {
         }),
         extractCSS,
         //ignoreFiles
-        new webpack.optimize.CommonsChunkPlugin("vendor", "base.js"), htmlPlugin
+        new webpack.optimize.CommonsChunkPlugin("vendor", TEST ? "base.js" : "[chunkhash:8].base.js"), htmlPlugin
     ]
 };
 if (process.env.NODE_ENV == "test" || process.env.NODE_ENV == "dev") {

@@ -23,7 +23,7 @@ class Create extends Component{
 		this.params =props.params;
 		this.leaveDays =0;
 		this.isloading=false;
-		this.state={imgList:[],showUpload:true,authList:[],informList:[],showAddPic:true,dialog:0,isSet:1,detail:null};
+		this.state={imgList:[],showUpload:true,authList:[],informList:[],showAddPic:true,dialog:0,isSet:0,detail:null};
 	}
 	renderProcess(){
 			Config.ajax('getFlowByType',{
@@ -89,7 +89,26 @@ class Create extends Component{
 				console.log(res.result)
 			});
 		}
+		console.log('hehe')
+		/*if(this.params.type ==3 && localStorage.getItem('detail')) {
+			//调休
+			setTimeout(()=>{
+				let detail = JSON.parse(localStorage.getItem('detail'));
+				this.setState({detail:detail,imgList:JSON.parse(detail.photoStr),authList:JSON.parse(detail.flowStr),informList:detail.zhrlist});
+				this.imgList = (JSON.parse(detail.photoStr)).map((item)=>{
+					return item.data;
+				});
+				//localStorage.removeItem('detail');
+			},100)
+		}*/
 	}
+	/*shouldComponentUpdate(nextProps,nextState){
+		if(this.state.dialog !=nextState.dialog){
+			return false;
+		}else{
+			return true;
+		}
+	}*/
 	componentDidMount(){
 	/*	this.props.router.setRouteLeaveHook(
 			this.props.route,
@@ -267,6 +286,7 @@ class Create extends Component{
 			let informList = this.state.informList .concat(data.filter(x => {return x}));
 			this.setState({informList:informList});
 		});
+		Config.dadian('approval_creatapproval_addnotify_click','创建审批页面点击知会人的添加按钮');
 	}
 	checkIsUpload(){
 		let isuploading=false;
@@ -287,6 +307,33 @@ class Create extends Component{
 		this.state.informList.splice(index,1);
 		this.setState({informList: this.state.informList});
 	}
+	bindData(){
+		/*let values= this.refs.myForm.getValues();
+		let params = {};
+		params.applyType= this.props.params.type;
+		params.customStruct=JSON.stringify(values);
+		params.beginDate =values.beginDate ;
+		params.endDate = values.endDate ;
+		params.beginOvertime =values.beginOvertime ;
+		params.endOvertime = values.endOvertime ;
+		params.outType = values.outType||0;
+		params.flowStr = JSON.stringify(this.state.authList);
+		params.travelCode=values.travelCode||0;
+		params.travelAddr = values.travelAddr||"";
+		let imgList = this.imgList.map((item,indx)=>{
+			return {id:indx,data:item,uploaded:true};
+		});
+		params.photoStr = JSON.stringify(imgList);
+		let zhrArr = this.state.informList.map((item)=>{
+					 	return item.uid
+					})
+		params.extraKnowerJarr =JSON.stringify( zhrArr);
+		params.zhrlist = this.state.informList;
+		//事由
+		params.applyResean=values.applyResean;
+		params.leaveType= values.leaveType;
+		localStorage.setItem('detail',JSON.stringify(params));*/
+	}
 	renderForm(){
 		let category = this.params.type;
 		switch (parseInt(category)){
@@ -304,7 +351,7 @@ class Create extends Component{
 			}
 			case 3:{
 				//调休
-				return <Off renderProcess={this.reComputeDays.bind(this)} ref="myForm" stage={this} detail={this.state.detail}/>
+				return <Off bindData={this.bindData.bind(this)} renderProcess={this.reComputeDays.bind(this)} ref="myForm" stage={this} detail={this.state.detail}/>
 			}
 			case 5:{
 				//采购

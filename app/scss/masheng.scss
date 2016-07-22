@@ -8,5 +8,12 @@ $borderText:#4e90cd;
 $fontColorRed:#4e90cd;
 @import '../Page/App/_App.scss';
 @import '../Page/Create/_Create.scss';
-@import '../Component/_Dialog.scss';
 @import '../Page/Detail/_Detail.scss';
+@import '../Component/_Dialog.scss';
+@import '../Page/List/List.scss';
+.type-list a.focus{
+	background-color: $focusColor;
+}
+.btn-submit{
+	background-color: $focusColor;
+}
